@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+            position: relative;
+	    justify-content: center;
+	    align-items: center;
+	    min-height: 100vh
+	
+	}
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        body::before {
+            top: -30%;
+            right: -30%;
+        }
+        body::after {
+            bottom: -50%;
+            left: -30%;
+        }
+
+.login-box {
+    background: linear-gradient(135deg, #ce9ffc, #f9c7d9); /* Ganti background */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Ganti background tombol */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background: linear-gradient(135deg, #5e0dca, #1d60e7); /* Hover efek */
+}
+    .hidden {
+      display: none;
+    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #4dd4a3;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s ease-in-out;
+            padding-top: 20px;
+            z-index: 1300;
+        }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 5px;
+            text-align: left;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .sidebar ul li:hover {
+            background: #f8d444;
+        }
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1400;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header span {
+            flex: 80%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+	    color: #4dd4a3;
+        }
+        .header img {
+            flex: 20%;
+            max-width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .content {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .card:nth-child(1) { background: #4dd4a3; }
+        .card:nth-child(2) { background: #4dd4a3; }
+        .card:nth-child(3) { background: #4dd4a3; }
+        .card:nth-child(4) { background: #4dd4a3; }
+	.card:nth-child(5) { background: #4dd4a3; }
+        .card:nth-child(6) { background: #4dd4a3; }
+        .card:nth-child(7) { background: #4dd4a3; }
+        .card:nth-child(8) { background: #4dd4a3; }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card a {
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="login-box" id="loginForm">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="checkLogin()">Masuk</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="content22" class="hidden">
+
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2 class=" text-2xl text-semibold ">Menu</h2>
+    <ul>
+      <li><a href="Sistem Saraf.html">▶️ Sistem Saraf</a></li>
+      <li><a href="Sistem Imun.html">▶️ Sistem Imun</a></li>
+      <li><a href="Sistem Pencernaan.html">▶️ Sistem Pencernaan</a></li>
+    </ul>
+    </div>
+    
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="header">
+        <span>Media Pembelajaran Interaktif</span>
+        <img src="logo.png" alt="Logo">
+    </div>
+    
+    <!-- Konten Utama -->
+    <div class="ml-0 w-full max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-2xl" style="margin-right: 10px;">
+        <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">Biologi SMA</h1>
+        
+        <!-- Sistem Saraf-->
+        <div id="Peluang" class="mb-8">
+            <h1 class="text-2xl font-bold mb-4 text-[#4dd4a3]"> Sistem Saraf</h1>
+	<ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#1. Pengertian Sistem Saraf" class="hover:text-white">1. Pengertian Sistem Saraf</a></li>
+  
+  <li class="mb-3"><a href="#2. Sel Saraf" class="hover:text-white">2. Sel Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#2.1 Pengertian Sel Saraf" class="hover:text-white">2.1 Pengertian Sel Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#2.2 Struktur Sel Saraf" class="hover:text-white">2.2 Struktur Sel Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#2.3 Macam-Macam Jaringan Saraf" class="hover:text-white">2.3 Macam-Macam Jaringan Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#2.4 Struktur Sel Jaringan Saraf" class="hover:text-white">2.4 Struktur Sel Jaringan Saraf</a></li>
+
+  <li class="mb-3"><a href="#3. Mekanisme Penghantaran Impuls" class="hover:text-white">3. Mekanisme Penghantaran Impuls</a></li>
+  <li class="mb-3 ml-6"><a href="#3.1 Mekanisme Penghantaran Lewat Sel Saraf" class="hover:text-white">3.1 Mekanisme Penghantaran Lewat Sel Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#3.2 Struktur Sinapsis Sel Saraf" class="hover:text-white">3.2 Struktur Sinapsis Sel Saraf</a></li>
+  <li class="mb-3 ml-6"><a href="#3.3 Mekanisme Penghantaran Lewat Sinapsis" class="hover:text-white">3.3 Mekanisme Penghantaran Lewat Sinapsis</a></li>
+  <li class="mb-3 ml-6"><a href="#3.4 Gerak yang Dilakukan Efektor" class="hover:text-white">3.4 Gerak yang Dilakukan Efektor</a></li>
+
+  <li class="mb-3"><a href="#4. Sistem Saraf Pusat" class="hover:text-white">4. Sistem Saraf Pusat</a></li>
+  <li class="mb-3 ml-6"><a href="#4.1 Susunan Sistem Saraf Pusat" class="hover:text-white">4.1 Susunan Sistem Saraf Pusat</a></li>
+  <li class="mb-3 ml-6"><a href="#4.2 Otak" class="hover:text-white">4.2 Otak</a></li>
+  <li class="mb-3 ml-6"><a href="#4.3 Bagian-Bagian Otak" class="hover:text-white">4.3 Bagian-Bagian Otak</a></li>
+  <li class="mb-3 ml-6"><a href="#4.4 Sumsum Tulang Belakang" class="hover:text-white">4.4 Sumsum Tulang Belakang</a></li>
+  <li class="mb-3 ml-6"><a href="#4.5 Struktur Irisan Melintang Medulla Spinalis" class="hover:text-white">4.5 Struktur Irisan Melintang Medulla Spinalis</a></li>
+
+  <li class="mb-3"><a href="#5. Sistem Saraf Tepi" class="hover:text-white">5. Sistem Saraf Tepi</a></li>
+  <li class="mb-3 ml-6"><a href="#5.1 Berdasarkan Arah Impuls" class="hover:text-white">5.1 Berdasarkan Arah Impuls</a></li>
+  <li class="mb-3 ml-6"><a href="#5.2 Berdasarkan Asalnya" class="hover:text-white">5.2 Berdasarkan Asalnya</a></li>
+  <li class="mb-3 ml-6"><a href="#5.3 Berdasarkan Fungsinya" class="hover:text-white">5.3 Berdasarkan Fungsinya</a></li>
+
+  <li class="mb-3"><a href="#6. Psikotropika" class="hover:text-white">6. Psikotropika</a></li>
+  <li class="mb-3"><a href="#7. Gangguan Sistem Saraf" class="hover:text-white">7. Gangguan Sistem Saraf</a></li>
+</ul>
+<br>
+
+        <div id="1. Pengertian Sistem Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">1. Pengertian Sistem Saraf</p>
+    <p class="mt-2 ml-4">Sistem saraf adalah sistem koordinasi dalam tubuh manusia dan hewan yang berfungsi menerima, mengolah, dan merespons rangsangan dari lingkungan maupun dari dalam tubuh. Sistem ini bekerja sangat cepat melalui impuls listrik yang dihantarkan oleh sel-sel saraf (neuron).</p>
+    <p class="mt-2 ml-4">Sistem saraf berperan penting dalam mengatur berbagai aktivitas tubuh, seperti bergerak, merasakan, berpikir, bahkan bernapas. Komponen utama dari sistem saraf adalah otak, sumsum tulang belakang, dan saraf-saraf perifer.</p>
+</div>
+
+<div id="Contoh1" class="mb-6">
+    <div class="p-4 bg-green-100 rounded-lg shadow-md mt-4">
+        <p class="font-semibold">Contoh Ilustrasi</p>
+        <p class="mt-2 ml-4">Ketika tangan kita secara tidak sengaja menyentuh benda panas, sistem saraf langsung bekerja. Reseptor pada kulit mendeteksi suhu panas, mengirimkan impuls ke otak melalui saraf sensorik, lalu otak mengolah informasi tersebut dan mengirimkan perintah melalui saraf motorik untuk menarik tangan dari sumber panas.</p>
+        <p class="mt-4 font-semibold">Penjelasan:</p>
+        <p class="ml-4">Ilustrasi ini menunjukkan bagaimana sistem saraf menerima rangsangan (panas), memprosesnya di otak, dan menghasilkan respon cepat berupa gerakan menarik tangan.</p>
+        <p class="ml-4">Respon ini terjadi sangat cepat karena sistem saraf memiliki jalur khusus yang disebut refleks.</p>
+    </div>
+</div>
+
+<div id="2. Sel Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2. Sel Saraf</p>
+</div><br>
+    <div id="2.1 Pengertian Sel Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.1 Pengertian Sel Saraf</p>
+    <p class="mt-2 ml-4">Sel saraf, atau neuron, adalah unit dasar dari sistem saraf yang berfungsi untuk menghantarkan impuls listrik ke seluruh tubuh. Neuron memiliki kemampuan khusus untuk menerima rangsangan, mengubahnya menjadi impuls, dan menghantarkannya ke bagian tubuh lain.</p>
+</div><br>    
+
+<div id="2.2 Struktur Sel Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.2 Struktur Sel Saraf</p>
+    <p class="mt-2 ml-4">
+        Struktur sel saraf (neuron) terdiri atas tiga bagian utama yang memiliki fungsi masing-masing dalam menghantarkan impuls saraf, yaitu:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Dendrit:</strong> cabang pendek dari badan sel yang berfungsi menerima rangsangan dari lingkungan atau dari neuron lain.</li>
+        <li><strong>Badan sel (soma):</strong> bagian utama neuron yang mengandung inti sel dan organel lainnya. Di sini terjadi proses metabolisme sel.</li>
+        <li><strong>Akson:</strong> serabut panjang yang menghantarkan impuls dari badan sel ke neuron lain atau ke organ efektor.</li>
+    </ul>
+
+    <img src="Struktur Sel Saraf.png" alt="Struktur Sel Saraf" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Struktur utama sel saraf yang terdiri dari dendrit, badan sel, dan akson</p>
+
+    <p class="mt-4 ml-4">
+        Selain tiga bagian utama tersebut, neuron juga memiliki bagian lain seperti:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Selubung mielin:</strong> lapisan pelindung akson yang mempercepat hantaran impuls.</li>
+	<li><strong>Sel Schwann:</strong> merupakan sel glial yang membungkus akson pada sistem saraf perifer. Sel Schwann membentuk selubung mielin yang membantu mempercepat penghantaran impuls saraf dan melindungi akson dari kerusakan dan memperbaiki akson jika terjadi cidra.</li>
+        <li><strong>Nodus Ranvier:</strong> celah antar selubung mielin yang membantu impuls “meloncat” agar lebih cepat sampai ke tujuan.</li>
+        <li><strong>Ujung akson:</strong> bagian akhir akson yang berhubungan dengan neuron lain melalui sinapsis.</li>
+        <li><strong>Sinapsis:</strong> merupakan tempat terjadinya komunikasi antar neuron. Di sini, impuls saraf dihantarkan melalui pelepasan neurotransmiter yang menghubungkan satu neuron dengan neuron lainnya atau dengan organ efektor seperti otot.</li>
+    </ul>
+</div>
+
+<p class="text-xl text-[#4dd4a3] font-semibold"> Penjelasan Struktur Sel Saraf</p><br>
+<div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/emkIjEfxjK4" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+
+<div id="2.3 Macam-Macam Jaringan Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.3 Macam-Macam Jaringan Saraf</p>
+    <p class="mt-2 ml-4">
+        Jaringan saraf berdasarkan fungsinya dibagi menjadi tiga:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Saraf sensorik (aferen):</strong> membawa rangsang dari reseptor/indra ke sistem saraf pusat.</li>
+        <li>
+            <strong>Interneuron:</strong> saraf penghubung yang berada di otak dan sumsum tulang belakang, terdiri dari:
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Saraf konektor:</strong> menghubungkan antar sel saraf sejenis.</li>
+                <li><strong>Saraf adjustor:</strong> menghubungkan saraf sensorik dengan motorik.</li>
+            </ul>
+        </li>
+        <li><strong>Saraf motorik (eferen):</strong> membawa rangsang dari sistem saraf pusat ke efektor (otot atau kelenjar).</li>
+    </ul>
+</div><br>
+
+<div id="2.4 Struktur Sel Jaringan Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.4 Struktur Sel Jaringan Saraf</p>
+<p class="mt-6 ml-4">
+        Perbandingan panjang dendrit dan akson pada berbagai jenis jaringan saraf:
+    </p>
+
+    <div class="overflow-x-auto mt-2">
+        <table class="w-full table-auto border border-gray-300 text-left">
+            <thead class="bg-[#4dd4a3] text-white">
+                <tr>
+                    <th class="px-4 py-2">Jaringan Saraf</th>
+                    <th class="px-4 py-2">Dendrit</th>
+                    <th class="px-4 py-2">Akson</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+                <tr class="border-t">
+                    <td class="px-4 py-2">Saraf sensorik</td>
+                    <td class="px-4 py-2">Panjang</td>
+                    <td class="px-4 py-2">Pendek</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="px-4 py-2">Interneuron</td>
+                    <td class="px-4 py-2">Pendek</td>
+                    <td class="px-4 py-2">Panjang atau pendek</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="px-4 py-2">Saraf motorik</td>
+                    <td class="px-4 py-2">Pendek</td>
+                    <td class="px-4 py-2">Panjang</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<img src="Macam-Macam Jaringan Saraf.jpg" alt="macam-macam Saraf" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Jenis-jenis utama saraf – sensorik, interneuron, dan motorik</p><br>
+
+    <p class="mt-2 ml-4">
+        Berdasarkan bentuknya, sel saraf (neuron) dibagi menjadi tiga tipe utama:
+    </p>
+
+    <div class="overflow-x-auto mt-4">
+        <table class="w-full table-auto border border-gray-300 text-left">
+            <thead class="bg-[#4dd4a3] text-white">
+                <tr>
+                    <th class="px-4 py-2">Jenis Neuron</th>
+                    <th class="px-4 py-2">Bentuk</th>
+                    <th class="px-4 py-2">Jumlah Dendrit</th>
+                    <th class="px-4 py-2">Letak Akson</th>
+                    <th class="px-4 py-2">Contoh Fungsi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+                <tr class="border-t">
+                    <td class="px-4 py-2">Multipolar</td>
+                    <td class="px-4 py-2">Satu akson, banyak dendrit</td>
+                    <td class="px-4 py-2">Banyak</td>
+                    <td class="px-4 py-2">Langsung dari badan sel</td>
+                    <td class="px-4 py-2">Saraf motorik, interneuron</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="px-4 py-2">Bipolar</td>
+                    <td class="px-4 py-2">Satu akson, satu dendrit</td>
+                    <td class="px-4 py-2">Satu</td>
+                    <td class="px-4 py-2">Berhadapan dengan dendrit</td>
+                    <td class="px-4 py-2">Saraf penglihatan dan penciuman</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="px-4 py-2">Unipolar</td>
+                    <td class="px-4 py-2">Satu cabang dari badan sel yang bercabang dua</td>
+                    <td class="px-4 py-2">Tidak jelas (gabung dengan akson)</td>
+                    <td class="px-4 py-2">Terbagi dari satu cabang</td>
+                    <td class="px-4 py-2">Saraf sensorik</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="mt-4 ml-4">
+        Masing-masing bentuk neuron memiliki fungsi yang sesuai dengan jalur penghantaran impuls dalam sistem saraf.
+    </p>
+	<img src="Macam-Macam Jaringan Saraf.png" alt="macam-macam Saraf" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Jenis-jenis sel saraf berdasarkan bentuknya – multipolar, bipolar, dan unipolar</p>
+</div><br>
+
+<p class="text-xl text-[#4dd4a3] font-semibold"> Penjelasan macam-macam sel saraf</p><br>
+<div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/aGsLLdnKgJw" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+<div id="3. Mekanisme Penghantaran Impuls">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">3. Mekanisme Penghantaran Impuls</p>
+    <p class="mt-2 ml-4">
+        Mekanisme penghantaran impuls saraf terjadi dalam dua tahap utama:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Penghantaran secara elektrik:</strong> impuls dihantarkan di sepanjang neuron dari dendrit, badan sel, hingga ujung akson dalam bentuk perubahan potensial listrik.</li>
+        <li><strong>Penghantaran secara kimiawi:</strong> terjadi di sinapsis (celah antar neuron), menggunakan neurotransmitter (zat kimia) untuk meneruskan sinyal ke neuron berikutnya atau sel efektor.</li>
+    </ul>
+</div><br>
+
+<div id="3.1 Mekanisme Penghantaran Lewat Sel Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">3.1 Mekanisme Penghantaran Lewat Sel Saraf</p>
+    <p class="mt-2 ml-4">
+        Penghantaran impuls lewat sel saraf terjadi karena adanya perbedaan muatan listrik di membran neuron, disebut potensial aksi.
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Stimulasi awal:</strong> rangsangan diterima dendrit, menyebabkan perubahan potensial listrik.</li>
+        <li><strong>Potensial aksi:</strong> lonjakan muatan listrik mengalir sepanjang akson menuju ujung akson.</li>
+        <li><strong>Impuls saraf:</strong> bergerak satu arah dari dendrit → badan sel → akson.</li>
+    </ul>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Action_potential.svg/1920px-Action_potential.svg.png" 
+         alt="Potensial Aksi" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+
+    <p class="text-sm text-center mt-2 text-gray-600">
+        Gambar: Perubahan potensial aksi sepanjang membran neuron
+    </p>
+</div>
+
+
+<p class="text-xl text-[#4dd4a3] font-semibold"> Penjelasan cara kerja sel Saraf</p><br>
+<div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/E_gPIg0a9lU" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+<div id="3.2 Struktur Sinapsis Sel Saraf">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">3.2 Struktur Sinapsis Sel Saraf</p>
+    <p class="mt-2 ml-4">
+        Sinapsis adalah celah antar neuron yang menjadi tempat berpindahnya impuls dalam bentuk kimia melalui neurotransmiter.
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Ujung akson:</strong> mengandung vesikel (gelembung sinapsis) berisi neurotransmiter.</li>
+        <li><strong>Mitokondria:</strong> menghasilkan energi untuk pelepasan neurotransmiter.</li>
+        <li><strong>Gelembung sinapsis:</strong> menyimpan dan melepaskan neurotransmiter ke celah sinapsis.</li>
+        <li><strong>Membran presinaps:</strong> bagian membran ujung akson sebelum celah sinapsis.</li>
+        <li><strong>Celah sinapsis:</strong> ruang antar neuron tempat lewatnya neurotransmiter.</li>
+        <li><strong>Membran pascasinaps:</strong> bagian membran dendrit penerima setelah celah sinapsis.</li>
+        <li><strong>Reseptor protein:</strong> menangkap neurotransmiter di membran pascasinaps.</li>
+        <li><strong>Saluran ion:</strong> terbuka saat neurotransmiter menempel, memungkinkan ion masuk dan menimbulkan impuls baru.</li>
+    </ul>
+
+    <img src="struktur sinapsis.png" 
+         alt="Struktur Sinapsis" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+
+    <p class="text-sm text-center mt-2 text-gray-600">
+        Gambar: Struktur sinapsis dengan bagian-bagian penting seperti gelembung sinapsis, mitokondria, dan reseptor protein
+    </p>
+</div><br>
+
+<div id="3.3 Mekanisme Penghantaran Lewat Sinapsis">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">3.3 Mekanisme Penghantaran Lewat Sinapsis</p>
+    <p class="mt-2 ml-4">
+        Impuls saraf tidak langsung melompat ke neuron berikutnya, tetapi harus melewati sinapsis melalui proses kimia. Berikut mekanismenya:
+    </p>
+    <ol class="list-decimal ml-8 mt-2">
+        <li>Impuls mencapai ujung akson neuron pertama.</li>
+        <li>Mitokondria menyediakan energi untuk menggerakkan vesikel (gelembung sinapsis).</li>
+        <li>Gelembung sinapsis melepaskan neurotransmiter ke celah sinapsis.</li>
+        <li>Neurotransmiter bergerak melintasi celah sinapsis menuju membran pascasinaps.</li>
+        <li>Neurotransmiter menempel pada reseptor protein di membran dendrit neuron penerima.</li>
+        <li>Menempelnya neurotransmiter membuka saluran ion, memicu impuls baru pada neuron berikutnya.</li>
+    </ol>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/SynapseSchematic.svg/1920px-SynapseSchematic.svg.png" 
+         alt="Mekanisme Penghantaran Sinapsis" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+ 
+    <p class="text-sm text-center mt-2 text-gray-600">
+        Gambar: Mekanisme penghantaran impuls melalui sinapsis dengan bantuan neurotransmiter
+    </p>
+</div>
+
+
+
+<p class="text-xl text-[#4dd4a3] font-semibold"> Penjelasan Sisitem Saraf</p><br>
+<div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/hYzkwHfvwbo" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+
+
+</div>
+
+    <script>
+    function togglePembahasan(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none" || x.style.display === "") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+
+<script>
+    function togglePembahasan(id) {
+        var pembahasan = document.getElementById(id);
+        pembahasan.classList.toggle("hidden");
+    }
+</script>
+
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-250px";
+            }
+        }
+    </script>
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "user2", password: "qwerty" }
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
