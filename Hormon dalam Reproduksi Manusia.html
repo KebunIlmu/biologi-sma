@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+            position: relative;
+	    justify-content: center;
+	    align-items: center;
+	    min-height: 100vh
+	
+	}
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        body::before {
+            top: -30%;
+            right: -30%;
+        }
+        body::after {
+            bottom: -50%;
+            left: -30%;
+        }
+
+.login-box {
+    background: linear-gradient(135deg, #ce9ffc, #f9c7d9); /* Ganti background */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Ganti background tombol */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background: linear-gradient(135deg, #5e0dca, #1d60e7); /* Hover efek */
+}
+    .hidden {
+      display: none;
+    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #4dd4a3;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s ease-in-out;
+            padding-top: 20px;
+            z-index: 1300;
+        }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 5px;
+            text-align: left;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .sidebar ul li:hover {
+            background: #f8d444;
+        }
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1400;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header span {
+            flex: 80%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+	    color: #4dd4a3;
+        }
+        .header img {
+            flex: 20%;
+            max-width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .content {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        
+        }
+    </style>
+</head>
+<body>
+<div class="login-box" id="loginForm">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="checkLogin()">Masuk</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="content22" class="hidden">
+
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2 class=" text-2xl text-semibold ">Menu</h2>
+    <ul>
+      <li><a href="Sistem Saraf.html">▶️ Sistem Saraf</a></li>
+      <li><a href="Hormon dalam Reproduksi Manusia.html">▶️ Hormon dalam Reproduksi Manusia</a></li>
+      <li><a href="Sistem Pencernaan.html">▶️ Sistem Pencernaan</a></li>
+    </ul>
+    </div>
+    
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="header">
+        <span>Media Pembelajaran Interaktif</span>
+        <img src="logo.png" alt="Logo">
+    </div>
+    
+    <!-- Konten Utama -->
+    <div class="ml-0 w-full max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-2xl" style="margin-right: 10px;">
+        <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">Biologi SMA</h1>
+        
+        <!-- Hormon dalam Reproduksi Manusia-->
+        <div id="Peluang" class="mb-8">
+            <h1 class="text-2xl font-bold mb-4 text-[#4dd4a3]"> Hormon dalam Reproduksi Manusia</h1>
+	<ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#A. Sistem Reproduksi" class="hover:text-white">A. Sistem Reproduksi</a></li>
+  <li class="mb-3 ml-6"><a href="#1.1 Sistem Reproduksi Pria" class="hover:text-white">1.1 Sistem Reproduksi Pria</a></li>
+  <li class="mb-3 ml-6"><a href="#1.2 Sistem Reproduksi Wanita" class="hover:text-white">1.2 Sistem Reproduksi Wanita</a></li>
+  
+  <li class="mb-3"><a href="#B. Mekanisme Pembentuka Gamet" class="hover:text-white">B. Mekanisme Pembentuka Gamet</a></li>
+  <li class="mb-3 ml-6"><a href="#2.1 Spermatogenesis" class="hover:text-white">2.1 Spermatogenesis</a></li>
+  <li class="mb-3 ml-6"><a href="#2.2 Oogenesis" class="hover:text-white">2.2 Oogenesis</a></li>
+  </ul>
+<br>
+
+        <div id="A. Sistem Reproduksi">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">A. Sistem Reproduksi</p>
+    <div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/0QpjmNAsjow" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+
+<div id="1.1 Sistem Reproduksi Pria">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">1.1 Sistem Reproduksi Pria</p>
+    <p class="mt-2 ml-4">
+        Sistem reproduksi pria terdiri dari beberapa organ yang berfungsi untuk memproduksi, menyimpan, dan mengeluarkan sperma. Organ-organ tersebut dapat dibagi menjadi tiga kelompok utama:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Organ Reproduksi Eksternal:</strong> 
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Penis:</strong> organ yang digunakan untuk kopulasi dan sebagai saluran keluarnya urine serta sperma.</li>
+                <li><strong>Skrotum:</strong> kantung kulit yang melindungi dan mengatur suhu testis agar optimal untuk produksi sperma.</li>
+            </ul>
+        </li>
+        <li><strong>Organ Reproduksi Internal:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Testis:</strong> menghasilkan sperma dan hormon testosteron.</li>
+                <li><strong>Epididimis:</strong> tempat penyimpanan dan pematangan sperma sementara.</li>
+                <li><strong>Vas deferens:</strong> saluran yang mengangkut sperma dari epididimis menuju uretra.</li>
+                <li><strong>Uretra:</strong> saluran akhir untuk mengeluarkan sperma atau urine.</li>
+            </ul>
+        </li>
+        <li><strong>Kelenjar Aksesori:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Vesikula seminalis:</strong> menghasilkan cairan yang kaya fruktosa untuk energi sperma.</li>
+                <li><strong>Kelenjar prostat:</strong> menghasilkan cairan yang membantu melindungi dan menutrisi sperma.</li>
+                <li><strong>Kelenjar Cowper (bulbourethral):</strong> menghasilkan cairan pelumas sebelum ejakulasi.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p class="mt-4 ml-4">
+        Fungsi utama sistem reproduksi pria adalah menghasilkan sperma yang sehat dan menyalurkannya ke dalam tubuh wanita melalui proses ejakulasi.
+    </p>
+
+    <img src="sistem-reproduksi-pria.png" alt="Sistem Reproduksi Pria" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Struktur sistem reproduksi pria</p>
+</div><br>
+
+<p class="text-2xl text-[#4dd4a3] font-semibold">Latihan 1.1</p>
+    
+<div class="p-6 bg-yellow-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mt-6">Soal 1</h2>
+  <p><strong>Pilih organ reproduksi pria yang sesuai dengan fungsi yang diberikan!</strong></p><br>
+
+
+  <!-- Soal 1 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">1. Menghasilkan dan menyimpan sperma serta hormon testosteron.</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawaban1">
+        <option value="">Pilih Organ</option>
+        <option value="a">Penis</option>
+        <option value="b">Skrotum</option>
+        <option value="c">Testis</option>
+        <option value="d">Vas deferens</option>
+        <option value="e">Uretra</option>
+        <option value="f">Kelenjar prostat</option>
+        <option value="g">Kelenjar bulbouretra</option>
+        <option value="h">Epididimis</option>
+        <option value="i">Vesikula seminalis</option>
+      </select>
+      <button onclick="cekSatu('jawaban1', 'c', 'hasil1')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasil1" class="font-semibold"></span>
+    </div>
+  </div>
+
+<!-- Soal 2 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">2. Tempat penyimpanan sementara sperma dan tempat pematangan sperma.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban2">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban2', 'h', 'hasil2')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil2" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 3 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">3. Menghubungkan epididimis dengan uretra dan mengangkut sperma saat ejakulasi.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban3">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban3', 'd', 'hasil3')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil3" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 4 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">4. Saluran akhir yang dilalui sperma dan urin untuk keluar dari tubuh.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban4">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban4', 'e', 'hasil4')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil4" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 5 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">5. Menghasilkan cairan basa yang melindungi dan memperpanjang usia sperma di dalam vagina.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban5">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban5', 'f', 'hasil5')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil5" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 6 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">6. Menghasilkan cairan kaya fruktosa untuk memberi energi pada sperma.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban6">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban6', 'i', 'hasil6')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil6" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 7 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">7. Menghasilkan lendir pelumas serta cairan basa yang membantu menetralisir asam di uretra.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban7">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban7', 'g', 'hasil7')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil7" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 8 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">8. Mengatur suhu testis agar tetap ideal untuk produksi sperma.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban8b">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban8b', 'b', 'hasil8b')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil8b" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 9 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">9. Alat kopulasi untuk menyalurkan sperma ke dalam vagina saat hubungan seksual.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban9b">
+      <option value="">Pilih Organ</option>
+      <option value="a">Penis</option>
+      <option value="b">Skrotum</option>
+      <option value="c">Testis</option>
+      <option value="d">Vas deferens</option>
+      <option value="e">Uretra</option>
+      <option value="f">Kelenjar prostat</option>
+      <option value="g">Kelenjar bulbouretra</option>
+      <option value="h">Epididimis</option>
+      <option value="i">Vesikula seminalis</option>
+    </select>
+    <button onclick="cekSatu('jawaban9b', 'a', 'hasil9b')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasil9b" class="font-semibold"></span>
+  </div>
+</div>
+</div><br>
+
+
+<div id="1.2 Sistem Reproduksi Wanita">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">1.2 Sistem Reproduksi Wanita</p>
+    <p class="mt-2 ml-4">
+        Sistem reproduksi wanita berfungsi untuk memproduksi sel telur (ovum), menyediakan tempat untuk pembuahan, serta mendukung perkembangan janin selama kehamilan. Organ-organ reproduksi wanita terbagi menjadi dua bagian utama:
+    </p>
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Organ Reproduksi Eksternal:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Vulva:</strong> keseluruhan bagian luar organ reproduksi wanita, termasuk labia dan klitoris.</li>
+                <li><strong>Lubang vagina:</strong> tempat keluarnya darah menstruasi, saluran kelahiran, dan tempat masuknya penis saat hubungan seksual.</li>
+            </ul>
+        </li>
+        <li><strong>Organ Reproduksi Internal:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li><strong>Vagina:</strong> saluran elastis yang menghubungkan organ luar dengan rahim.</li>
+                <li><strong>Serviks (leher rahim):</strong> bagian bawah rahim yang menghubungkan rahim dan vagina.</li>
+                <li><strong>Rahim (uterus):</strong> tempat berkembangnya embrio dan janin selama kehamilan.</li>
+                <li><strong>Oviduk (tuba falopi):</strong> saluran tempat terjadinya pembuahan antara sel telur dan sperma.</li>
+                <li><strong>Ovarium:</strong> menghasilkan sel telur dan hormon estrogen serta progesteron.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p class="mt-4 ml-4">
+        Fungsi utama sistem reproduksi wanita adalah memproduksi ovum, menyediakan tempat untuk fertilisasi dan perkembangan janin, serta melahirkan bayi.
+    </p>
+
+    <img src="sistem-reproduksi-wanita.png" alt="Sistem Reproduksi Wanita" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Struktur sistem reproduksi wanita</p>
+</div>
+
+<p class="text-2xl text-[#4dd4a3] font-semibold">Latihan 1.2</p>
+    
+<div class="p-6 bg-yellow-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mt-6">Soal 1</h2>
+  <p><strong>Pilih organ reproduksi wanita yang sesuai dengan fungsi yang diberikan!</strong></p><br>
+    
+<!-- Soal 1 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">1. Tempat produksi ovum dan hormon estrogen serta progesteron.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban1w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban1w', 'a', 'hasil1w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil1w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 2 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">2. Saluran tempat terjadinya pembuahan antara sel telur dan sperma.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban2w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban2w', 'b', 'hasil2w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil2w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 3 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">3. Tempat tumbuh dan berkembangnya janin selama kehamilan.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban3w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban3w', 'c', 'hasil3w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil3w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 4 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">4. Lapisan dalam rahim yang menebal dan luruh saat menstruasi.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban4w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban4w', 'd', 'hasil4w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil4w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 5 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">5. Bagian sempit di bawah rahim yang menghubungkan ke vagina dan melindungi janin.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban5w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban5w', 'e', 'hasil5w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil5w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 6 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">6. Saluran yang menjadi tempat keluarnya darah menstruasi dan jalan lahir bayi.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban6w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban6w', 'f', 'hasil6w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil6w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 7 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">7. Bagian luar alat reproduksi wanita yang melindungi bukaan vagina dan saluran kemih.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban7w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban7w', 'g', 'hasil7w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil7w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 8 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">8. Organ kecil sensitif yang berperan dalam rangsangan seksual wanita.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban8w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban8w', 'h', 'hasil8w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil8w" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal 9 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">9. Bagian yang terdiri dari dua lipatan yang melindungi bagian dalam alat kelamin wanita.</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawaban9w">
+      <option value="">Pilih Organ</option>
+      <option value="a">Ovarium</option>
+      <option value="b">Tuba falopi</option>
+      <option value="c">Uterus</option>
+      <option value="d">Endometrium</option>
+      <option value="e">Serviks</option>
+      <option value="f">Vagina</option>
+      <option value="g">Vulva</option>
+      <option value="h">Klitoris</option>
+      <option value="i">Labia</option>
+    </select>
+    <button onclick="cekSatu('jawaban9w', 'i', 'hasil9w')" class="bg-[#e877c4] text-white px-3 py-1 rounded hover:bg-[#d564b0]">Cek</button>
+    <span id="hasil9w" class="font-semibold"></span>
+  </div>
+</div>
+</div><br>
+
+<div id="B. Mekanisme Pembentuka Gamet">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">B. Mekanisme Pembentuka Gamet</p>
+    <p class="mt-2 ml-4">
+        Mekanisme pembentukan gamet adalah proses biologis di mana sel kelamin (gamet) terbentuk melalui pembelahan sel khusus yang disebut meiosis. Proses ini berbeda antara pria dan wanita, tetapi keduanya sangat penting dalam reproduksi seksual karena menghasilkan sel haploid (n) yang membawa setengah dari jumlah kromosom.
+    </p>
+</div><br>
+
+<div id="2.1 Spermatogenesis">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.1 Spermatogenesis</p>
+    <p class="mt-2 ml-4">
+        Spermatogenesis adalah proses pembentukan sel sperma (spermatozoa) yang terjadi di dalam tubulus seminiferus pada testis. Proses ini dimulai sejak masa pubertas dan berlangsung secara terus-menerus sepanjang hidup pria.
+    </p>
+    
+    <p class="mt-4 ml-4">
+        Tahapan spermatogenesis terdiri dari tiga fase utama, yaitu:
+    </p>
+    
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Fase Multiplikasi</strong> <em>(Penggandaan)</em>:
+            <ul class="list-disc ml-8 mt-2">
+                <li>Spermatogonium (sel induk sperma) membelah secara mitosis untuk menghasilkan banyak sel spermatogonium baru.</li>
+            </ul>
+        </li>
+        <li><strong>Fase Pertumbuhan:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li>Spermatogonium tumbuh dan berkembang menjadi spermatosit primer yang lebih besar ukurannya.</li>
+            </ul>
+        </li>
+        <li><strong>Fase Maturasi</strong> <em>(Pematangan)</em>:
+            <ul class="list-disc ml-8 mt-2">
+                <li>Spermatosit primer membelah secara meiosis I menjadi dua spermatosit sekunder.</li>
+                <li>Spermatosit sekunder membelah lagi secara meiosis II menjadi empat spermatid.</li>
+                <li>Spermatid mengalami proses diferensiasi menjadi spermatozoa (sel sperma matang) melalui proses yang disebut spermiogenesis.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p class="mt-4 ml-4">
+        Selama proses ini, hormon-hormon seperti testosteron dan FSH (Follicle Stimulating Hormone) berperan penting dalam merangsang dan mengatur spermatogenesis.
+    </p>
+
+    <img src="spermatogenesis.png" alt="Tahapan Spermatogenesis" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Tahapan dalam proses spermatogenesis</p>
+</div><br>
+
+
+<div id="2.2 Oogenesis">
+    <p class="text-xl font-semibold mb-4 text-[#4dd4a3]">2.2 Oogenesis</p>
+    <p class="mt-2 ml-4">
+        Oogenesis adalah proses pembentukan sel telur (ovum) yang terjadi di dalam ovarium (indung telur) wanita. Tidak seperti spermatogenesis yang berlangsung terus-menerus, oogenesis sudah dimulai sejak masih dalam kandungan dan akan berhenti sementara sebelum dilanjutkan kembali saat pubertas.
+    </p>
+
+    <p class="mt-4 ml-4">
+        Proses oogenesis melibatkan beberapa tahap penting, yaitu:
+    </p>
+
+    <ul class="list-disc ml-8 mt-2">
+        <li><strong>Fase Multiplikasi</strong> <em>(Penggandaan)</em>:
+            <ul class="list-disc ml-8 mt-2">
+                <li>Oogonium (sel induk telur) membelah secara mitosis untuk menghasilkan banyak oogonium.</li>
+            </ul>
+        </li>
+        <li><strong>Fase Pertumbuhan:</strong>
+            <ul class="list-disc ml-8 mt-2">
+                <li>Oogonium tumbuh menjadi oosit primer yang akan memasuki meiosis I tetapi berhenti pada tahap profase I hingga masa pubertas.</li>
+            </ul>
+        </li>
+        <li><strong>Fase Maturasi</strong> <em>(Pematangan)</em>:
+            <ul class="list-disc ml-8 mt-2">
+                <li>Setiap bulan, satu oosit primer melanjutkan meiosis I menghasilkan oosit sekunder dan badan kutub pertama.</li>
+                <li>Oosit sekunder akan melanjutkan meiosis II hanya jika terjadi fertilisasi (pembuahan), menghasilkan ovum dan badan kutub kedua.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p class="mt-4 ml-4">
+        Tidak seperti spermatogenesis yang menghasilkan empat sel sperma dari satu spermatogonium, oogenesis hanya menghasilkan satu ovum fungsional dan tiga badan kutub yang akan terdegenerasi.
+    </p>
+
+    <img src="oogenesis.png" alt="Tahapan Oogenesis" class="mt-4 rounded-md shadow-md w-full max-w-xl mx-auto" />
+    <p class="text-sm text-center mt-2 text-gray-600">Gambar: Tahapan dalam proses oogenesis</p>
+</div><br>
+
+
+<!-- Soal Hormon Reproduksi -->
+<div class="p-6 bg-yellow-100 rounded-lg shadow-md">
+<h2 class="text-2xl font-bold text-[#4dd4a3] mt-6">Soal 1</h2>
+<p><strong>Pilih jawaban yang paling tepat terkait hormon dalam sistem reproduksi manusia!</strong></p><br>
+
+<!-- Soal H1 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">1. Hormon yang berperan dalam merangsang pematangan folikel di ovarium adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH1">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Progesteron</option>
+      <option value="b">Testosteron</option>
+      <option value="c">FSH (Follicle Stimulating Hormone)</option>
+      <option value="d">LH (Luteinizing Hormone)</option>
+    </select>
+    <button onclick="cekSatu('jawabanH1', 'c', 'hasilH1')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH1" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H2 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">2. Hormon yang memicu terjadinya ovulasi pada wanita adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH2">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">FSH</option>
+      <option value="b">Estrogen</option>
+      <option value="c">Progesteron</option>
+      <option value="d">LH (Luteinizing Hormone)</option>
+    </select>
+    <button onclick="cekSatu('jawabanH2', 'd', 'hasilH2')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH2" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H3 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">3. Hormon utama yang mengatur perkembangan ciri-ciri kelamin sekunder pada pria adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH3">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Estrogen</option>
+      <option value="b">Progesteron</option>
+      <option value="c">Testosteron</option>
+      <option value="d">FSH</option>
+    </select>
+    <button onclick="cekSatu('jawabanH3', 'c', 'hasilH3')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH3" class="font-semibold"></span>
+  </div>
+</div>
+<!-- Soal H4 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">4. Hormon yang berperan penting dalam menjaga kehamilan adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH4">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Estrogen</option>
+      <option value="b">Progesteron</option>
+      <option value="c">FSH</option>
+      <option value="d">LH</option>
+    </select>
+    <button onclick="cekSatu('jawabanH4', 'b', 'hasilH4')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH4" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H5 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">5. Hormon yang diproduksi oleh plasenta selama kehamilan adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH5">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">HCG (Human Chorionic Gonadotropin)</option>
+      <option value="b">Testosteron</option>
+      <option value="c">FSH</option>
+      <option value="d">LH</option>
+    </select>
+    <button onclick="cekSatu('jawabanH5', 'a', 'hasilH5')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH5" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H6 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">6. Hormon estrogen berfungsi utama dalam...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH6">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Menjaga tekanan darah</option>
+      <option value="b">Pembentukan sperma</option>
+      <option value="c">Pembentukan ciri kelamin sekunder wanita</option>
+      <option value="d">Memicu kontraksi rahim</option>
+    </select>
+    <button onclick="cekSatu('jawabanH6', 'c', 'hasilH6')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH6" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H7 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">7. Hormon yang menyebabkan kontraksi otot rahim saat persalinan adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH7">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Estrogen</option>
+      <option value="b">Progesteron</option>
+      <option value="c">Prolaktin</option>
+      <option value="d">Oksitosin</option>
+    </select>
+    <button onclick="cekSatu('jawabanH7', 'd', 'hasilH7')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH7" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H8 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">8. Hormon yang merangsang produksi ASI setelah melahirkan adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH8">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Oksitosin</option>
+      <option value="b">FSH</option>
+      <option value="c">Progesteron</option>
+      <option value="d">Prolaktin</option>
+    </select>
+    <button onclick="cekSatu('jawabanH8', 'd', 'hasilH8')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH8" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H9 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">9. Hormon FSH dan LH dihasilkan oleh kelenjar...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH9">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Hipotalamus</option>
+      <option value="b">Hipofisis (pituitari)</option>
+      <option value="c">Tiroid</option>
+      <option value="d">Adrenal</option>
+    </select>
+    <button onclick="cekSatu('jawabanH9', 'b', 'hasilH9')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH9" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal H10 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">10. Hormon yang mengatur pelepasan FSH dan LH dari kelenjar hipofisis adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanH10">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Prolaktin</option>
+      <option value="b">Estrogen</option>
+      <option value="c">GnRH (Gonadotropin-releasing hormone)</option>
+      <option value="d">Progesteron</option>
+    </select>
+    <button onclick="cekSatu('jawabanH10', 'c', 'hasilH10')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilH10" class="font-semibold"></span>
+  </div>
+</div>
+</div><br>
+
+
+<div class="p-6 bg-yellow-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mt-6">Soal 2</h2>
+  <p><strong>Pilih jawaban yang paling tepat terkait Spermatogenesis dan Oogenesis!</strong></p><br>
+<!-- Soal SO1 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">1. Oogenesis terjadi di bagian tubuh wanita yang disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanSO1">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Rahim</option>
+      <option value="b">Ovarium</option>
+      <option value="c">Tuba fallopi</option>
+      <option value="d">Serviks</option>
+    </select>
+    <button onclick="cekSatu('jawabanSO1', 'b', 'hasilSO1')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilSO1" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal SO2 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">2. Spermatogenesis menghasilkan berapa sel sperma dari satu sel induk?</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanSO2">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">1 sel sperma</option>
+      <option value="b">2 sel sperma</option>
+      <option value="c">3 sel sperma</option>
+      <option value="d">4 sel sperma</option>
+    </select>
+    <button onclick="cekSatu('jawabanSO2', 'd', 'hasilSO2')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilSO2" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal SO3 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">3. Pada oogenesis, hanya satu sel yang berkembang menjadi ovum. Sel lainnya disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanSO3">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Sel folikel</option>
+      <option value="b">Sel granulosa</option>
+      <option value="c">Badan kutub (polar bodies)</option>
+      <option value="d">Sel sertoli</option>
+    </select>
+    <button onclick="cekSatu('jawabanSO3', 'c', 'hasilSO3')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilSO3" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal SO4 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">4. Proses pembelahan sel dalam spermatogenesis dimulai dari sel induk yang disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanSO4">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Spermatosit primer</option>
+      <option value="b">Spermatogonium</option>
+      <option value="c">Spermatid</option>
+      <option value="d">Sel Leydig</option>
+    </select>
+    <button onclick="cekSatu('jawabanSO4', 'b', 'hasilSO4')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilSO4" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal SO5 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">5. Tahap akhir dari spermatogenesis adalah terbentuknya...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanSO5">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Spermatosit sekunder</option>
+      <option value="b">Spermatogonium</option>
+      <option value="c">Sperma (spermatozoa)</option>
+      <option value="d">Spermatid</option>
+    </select>
+    <button onclick="cekSatu('jawabanSO5', 'c', 'hasilSO5')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilSO5" class="font-semibold"></span>
+  </div>
+</div>
+</div><br>
+
+
+<p class="text-2xl text-[#4dd4a3] font-semibold">Latihan 2</p>
+
+<div class="p-6 bg-yellow-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mt-6">Soal 1</h2>
+  <p><strong>Pilih jawaban yang paling tepat terkait proses pembentukan gamet!</strong></p><br>
+
+  <!-- Soal G1 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">1. Proses pembentukan sel sperma pada pria disebut...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG1">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Oogenesis</option>
+        <option value="b">Spermatogenesis</option>
+        <option value="c">Fertilisasi</option>
+        <option value="d">Ovulasi</option>
+      </select>
+      <button onclick="cekSatu('jawabanG1', 'b', 'hasilG1')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG1" class="font-semibold"></span>
+    </div>
+  </div>
+
+  <!-- Soal G2 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">2. Proses pembentukan sel telur pada wanita disebut...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG2">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Oogenesis</option>
+        <option value="b">Spermatogenesis</option>
+        <option value="c">Menstruasi</option>
+        <option value="d">Implantasi</option>
+      </select>
+      <button onclick="cekSatu('jawabanG2', 'a', 'hasilG2')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG2" class="font-semibold"></span>
+    </div>
+  </div>
+
+  <!-- Soal G3 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">3. Sel yang mengalami pembelahan mitosis pada awal spermatogenesis disebut...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG3">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Spermatid</option>
+        <option value="b">Spermatosit primer</option>
+        <option value="c">Spermatogonium</option>
+        <option value="d">Sperma</option>
+      </select>
+      <button onclick="cekSatu('jawabanG3', 'c', 'hasilG3')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG3" class="font-semibold"></span>
+    </div>
+  </div>
+
+  <!-- Soal G4 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">4. Pada oogenesis, satu sel oogonium akan menghasilkan...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG4">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">4 ovum fungsional</option>
+        <option value="b">1 ovum dan 3 badan kutub</option>
+        <option value="c">2 ovum dan 2 badan kutub</option>
+        <option value="d">4 badan kutub</option>
+      </select>
+      <button onclick="cekSatu('jawabanG4', 'b', 'hasilG4')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG4" class="font-semibold"></span>
+    </div>
+  </div>
+
+  <!-- Soal G5 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">5. Hormon yang berperan penting dalam merangsang proses spermatogenesis adalah...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG5">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Estrogen</option>
+        <option value="b">Progesteron</option>
+        <option value="c">Testosteron</option>
+        <option value="d">HCG</option>
+      </select>
+      <button onclick="cekSatu('jawabanG5', 'c', 'hasilG5')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG5" class="font-semibold"></span>
+    </div>
+  </div>
+ <div class="mb-6">
+    <p class="mb-1 font-medium">6. Tempat terjadinya proses spermatogenesis di dalam testis adalah...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG6">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Tubulus seminiferus</option>
+        <option value="b">Epididimis</option>
+        <option value="c">Vas deferens</option>
+        <option value="d">Skrotum</option>
+      </select>
+      <button onclick="cekSatu('jawabanG6', 'a', 'hasilG6')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG6" class="font-semibold"></span>
+    </div>
+  </div>
+<!-- Soal G7 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">7. Selanjutnya, spermatosit primer akan membelah secara...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG7">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Mitosis</option>
+        <option value="b">Meiosis I</option>
+        <option value="c">Meiosis II</option>
+        <option value="d">Fusi</option>
+      </select>
+      <button onclick="cekSatu('jawabanG7', 'b', 'hasilG7')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG7" class="font-semibold"></span>
+    </div>
+  </div>
+<!-- Soal G8 -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">8. Badan kutub yang dihasilkan selama oogenesis akan...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG8">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Menjadi ovum fungsional</option>
+        <option value="b">Membelah menjadi dua ovum</option>
+        <option value="c">Mengalami degenerasi</option>
+        <option value="d">Menjadi sperma</option>
+      </select>
+      <button onclick="cekSatu('jawabanG8', 'c', 'hasilG8')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG8" class="font-semibold"></span>
+    </div>
+  </div>
+  <!-- Soal G9 (diganti) -->
+  <div class="mb-6">
+    <p class="mb-1 font-medium">9. Dalam proses oogenesis, jumlah ovum fungsional yang dihasilkan dari satu oogonium adalah...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG9">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Satu</option>
+        <option value="b">Dua</option>
+        <option value="c">Tiga</option>
+        <option value="d">Empat</option>
+      </select>
+      <button onclick="cekSatu('jawabanG9', 'a', 'hasilG9')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG9" class="font-semibold"></span>
+    </div>
+  </div>
+
+<div class="mb-6">
+    <p class="mb-1 font-medium">10. Oosit sekunder akan melanjutkan pembelahan meiosis II jika terjadi...</p>
+    <div class="flex items-center gap-4">
+      <select class="border rounded px-2 py-1" id="jawabanG10">
+        <option value="">Pilih Jawaban</option>
+        <option value="a">Ovulasi</option>
+        <option value="b">Fertilisasi</option>
+        <option value="c">Implantasi</option>
+        <option value="d">Menstruasi</option>
+      </select>
+      <button onclick="cekSatu('jawabanG10', 'b', 'hasilG10')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+      <span id="hasilG10" class="font-semibold"></span>
+    </div>
+  </div>
+<!-- Soal G11 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">11. Sel induk sperma disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG11">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Oogonium</option>
+      <option value="b">Spermatosit</option>
+      <option value="c">Spermatogonium</option>
+      <option value="d">Spermatid</option>
+    </select>
+    <button onclick="cekSatu('jawabanG11', 'c', 'hasilG11')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG11" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G12 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">12. Proses pembentukan ovum pada wanita disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG12">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Spermatogenesis</option>
+      <option value="b">Oogenesis</option>
+      <option value="c">Fertilisasi</option>
+      <option value="d">Ovulasi</option>
+    </select>
+    <button onclick="cekSatu('jawabanG12', 'b', 'hasilG12')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG12" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G13 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">13. Jumlah sel fungsional hasil dari satu kali proses spermatogenesis adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG13">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Satu</option>
+      <option value="b">Dua</option>
+      <option value="c">Tiga</option>
+      <option value="d">Empat</option>
+    </select>
+    <button onclick="cekSatu('jawabanG13', 'd', 'hasilG13')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG13" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G14 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">14. Spermatogenesis terjadi di dalam bagian testis yang disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG14">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Epididimis</option>
+      <option value="b">Tubulus seminiferus</option>
+      <option value="c">Vas deferens</option>
+      <option value="d">Skrotum</option>
+    </select>
+    <button onclick="cekSatu('jawabanG14', 'b', 'hasilG14')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG14" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G15 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">15. Fase pembelahan meiosis I dalam oogenesis akan berhenti sementara pada tahap...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG15">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Metafase I</option>
+      <option value="b">Profase I</option>
+      <option value="c">Anafase I</option>
+      <option value="d">Telofase I</option>
+    </select>
+    <button onclick="cekSatu('jawabanG15', 'b', 'hasilG15')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG15" class="font-semibold"></span>
+  </div>
+</div>
+<!-- Soal G16 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">16. Sel anak hasil meiosis II pada oogenesis terdiri dari...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG16">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">1 ovum dan 3 badan kutub</option>
+      <option value="b">2 ovum dan 2 badan kutub</option>
+      <option value="c">4 ovum</option>
+      <option value="d">2 ovum dan 1 badan kutub</option>
+    </select>
+    <button onclick="cekSatu('jawabanG16', 'a', 'hasilG16')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG16" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G17 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">17. Peristiwa crossing over yang menghasilkan variasi genetik terjadi pada fase...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG17">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Profase I</option>
+      <option value="b">Metafase I</option>
+      <option value="c">Anafase II</option>
+      <option value="d">Telofase I</option>
+    </select>
+    <button onclick="cekSatu('jawabanG17', 'a', 'hasilG17')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG17" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G18 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">18. Setelah meiosis I, spermatosit sekunder akan berkembang menjadi...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG18">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Spermatogonium</option>
+      <option value="b">Spermatosit primer</option>
+      <option value="c">Spermatid</option>
+      <option value="d">Spermatozoa</option>
+    </select>
+    <button onclick="cekSatu('jawabanG18', 'c', 'hasilG18')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG18" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G19 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">19. Fungsi badan kutub yang dihasilkan dalam oogenesis adalah...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG19">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Menjadi ovum</option>
+      <option value="b">Memberi nutrisi pada zigot</option>
+      <option value="c">Menghilangkan kelebihan kromosom</option>
+      <option value="d">Berfungsi dalam fertilisasi</option>
+    </select>
+    <button onclick="cekSatu('jawabanG19', 'c', 'hasilG19')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG19" class="font-semibold"></span>
+  </div>
+</div>
+
+<!-- Soal G20 -->
+<div class="mb-6">
+  <p class="mb-1 font-medium">20. Spermatid akan mengalami proses pematangan menjadi sel sperma yang disebut...</p>
+  <div class="flex items-center gap-4">
+    <select class="border rounded px-2 py-1" id="jawabanG20">
+      <option value="">Pilih Jawaban</option>
+      <option value="a">Spermiogenesis</option>
+      <option value="b">Spermatogenesis</option>
+      <option value="c">Oogenesis</option>
+      <option value="d">Fertilisasi</option>
+    </select>
+    <button onclick="cekSatu('jawabanG20', 'a', 'hasilG20')" class="bg-[#4dd4a3] text-white px-3 py-1 rounded hover:bg-[#38c197]">Cek</button>
+    <span id="hasilG20" class="font-semibold"></span>
+  </div>
+</div>
+
+</div>
+
+
+
+<p class="text-xl text-[#4dd4a3] font-semibold"> Penjelasan Sisitem Saraf</p><br>
+<div class="w-full rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-64 md:h-96" src="https://www.youtube.com/embed/hYzkwHfvwbo" frameborder="0" allowfullscreen></iframe><br>
+</div><br>
+
+
+</div>
+
+    <script>
+    function togglePembahasan(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none" || x.style.display === "") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+
+<script>
+    function togglePembahasan(id) {
+        var pembahasan = document.getElementById(id);
+        pembahasan.classList.toggle("hidden");
+    }
+</script>
+
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-250px";
+            }
+        }
+    </script>
+
+<script>
+  function cekSatu(selectId, kunci, hasilId) {
+    const userJawaban = document.getElementById(selectId).value;
+    const hasilEl = document.getElementById(hasilId);
+
+    if (userJawaban === "") {
+      hasilEl.innerHTML = "Pilih dulu!";
+      hasilEl.className = "font-semibold text-yellow-600";
+    } else if (userJawaban === kunci) {
+      hasilEl.innerHTML = "✅ Benar";
+      hasilEl.className = "font-semibold text-green-600";
+    } else {
+      hasilEl.innerHTML = "❌ Salah";
+      hasilEl.className = "font-semibold text-red-600";
+    }
+  }
+</script>
+
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "user2", password: "qwerty" }
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
