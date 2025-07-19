@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+       body::before,
+body::after {
+    /* Ganti ukurannya jadi persentase agar aman di mobile */
+    width: 100vw;
+    height: 100vw;
+    background: white;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.2;
+}
+        body::before {
+            top: -30%;
+            right: -30%;
+        }
+        body::after {
+            bottom: -50%;
+            left: -30%;
+        }
+	html, body {
+    overflow-x: hidden;
+}
+
+
+.login-box {
+    background: linear-gradient(135deg, #ce9ffc, #f9c7d9); /* Ganti background */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Ganti background tombol */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background: linear-gradient(135deg, #5e0dca, #1d60e7); /* Hover efek */
+}
+    .hidden {
+      display: none;
+    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #4dd4a3;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s ease-in-out;
+            padding-top: 20px;
+            z-index: 1300;
+        }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 5px;
+            text-align: left;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .sidebar ul li:hover {
+            background: #f8d444;
+        }
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1400;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header span {
+            flex: 80%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+	    color: #4dd4a3;
+        }
+        .header img {
+            flex: 20%;
+            max-width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .content {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .card:nth-child(1) { background: #4dd4a3; }
+        .card:nth-child(2) { background: #4dd4a3; }
+        .card:nth-child(3) { background: #4dd4a3; }
+        .card:nth-child(4) { background: #4dd4a3; }
+	.card:nth-child(5) { background: #4dd4a3; }
+        .card:nth-child(6) { background: #4dd4a3; }
+        .card:nth-child(7) { background: #4dd4a3; }
+        .card:nth-child(8) { background: #4dd4a3; }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card a {
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+/* Tambahan untuk responsif mobile */
+@media screen and (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .sidebar {
+    width: 80%;
+    left: -80%;
+  }
+
+  .toggle-btn {
+    font-size: 20px;
+    padding: 8px 12px;
+  }
+
+  .header span {
+    font-size: 20px;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+<div class="login-box" id="loginForm">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="checkLogin()">Masuk</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="content22" class="hidden">
+
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2 class=" text-2xl text-semibold ">Menu</h2>
+        <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#1.-What-delicious-bakso" class="hover:text-white">1. What delicious bakso!</a></li>
+  <li class="mb-3"><a href="#2.-I-want-an-ice-cream-cone" class="hover:text-white">2. I want an ice cream cone</a></li>
+  <li class="mb-3"><a href="#3.-How-much-is-it" class="hover:text-white">3. How much is it?</a></li>
+  <li class="mb-3"><a href="#4.-I-have-a-stomachache" class="hover:text-white">4. I have a stomachache</a></li>
+  <li class="mb-3"><a href="#5.-What-a-nice-skirt" class="hover:text-white">5. What a nice skirt!</a></li>
+</ul>
+
+
+    </div>
+    
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="header">
+        <span>Media Pembelajaran Interaktif</span>
+        <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo">
+    </div>
+    
+    <!-- Konten Utama -->
+<div class="w-full max-w-7xl mx-auto bg-white px-4 sm:px-8 py-8 rounded-lg shadow-2xl">
+  <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">Biologi SMA</h1>
+
+  <!-- Biologi SMA -->
+<div id="IPA SMP/MTs" class="mb-8">
+  <h2 class="text-2xl font-bold mb-4 text-[#4dd4a3]">Enzim dan Metabolisme</h2>
+
+  <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+    <li class="mb-3"><a href="#1.-Konsep-Metabolisme" class="hover:text-white">1. Konsep Metabolisme</a></li>
+    <li class="mb-3"><a href="#2.-Konsep-Enzim" class="hover:text-white">2. Konsep Enzim</a></li>
+    <li class="mb-3"><a href="#3.-Komponen-Enzim" class="hover:text-white">3. Komponen Enzim</a></li>
+    <li class="mb-3"><a href="#4.-Struktur-Enzim" class="hover:text-white">4. Struktur Enzim</a></li>
+    <li class="mb-3"><a href="#5.-Sifat-Sifat-Enzim" class="hover:text-white">5. Sifat‑Sifat Enzim</a></li>
+    <li class="mb-3"><a href="#6.-Teori-Cara-Kerja-Enzim" class="hover:text-white">6. Teori Cara Kerja Enzim</a></li>
+    <li class="mb-3"><a href="#7.-Faktor-Pengaruhi-Enzim" class="hover:text-white">7. Faktor yang Mempengaruhi Enzim</a></li>
+    <li class="mb-3"><a href="#8.-Contoh-Soal" class="hover:text-white">8. Contoh Soal & Pembahasan</a></li>
+  </ul>
+</div>
+<!-- Video Pembelajaran Enzim -->
+<div class="mb-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎥 Video Pembelajaran: Enzim</h2>
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe class="w-full h-64 md:h-96 rounded-lg shadow-md" src="https://www.youtube.com/embed/UJltOSp7eZ8" title="Video Pembelajaran Enzim" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- Section 1 -->
+<div id="1.-Konsep-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">1. Konsep Enzim</h2>
+
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-4">
+
+<!-- Gambar Enzim -->
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/TBNZzJbd/Screenshot-2025-07-19-112205.png" alt="Ilustrasi Cara Kerja Enzim dan Substrat" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+</div>
+    <!-- Pengertian Enzim -->
+    <p><strong>Enzim</strong> adalah biomolekul berupa protein yang berfungsi sebagai katalisator, yaitu mempercepat reaksi kimia tanpa ikut bereaksi secara permanen. Enzim sangat penting dalam proses metabolisme karena membantu mempercepat reaksi-reaksi kimia di dalam sel hidup.</p>
+  </div>
+</div>
+
+<!-- Section 2 -->
+<div id="2.-Komponen-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">2. Komponen Enzim</h2>
+
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-4">
+
+    <!-- Gambar Komponen Enzim -->
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/TMmSK3xC/Screenshot-2025-07-19-112240.png" alt="Struktur dan Komponen Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/s98X785F/Screenshot-2025-07-19-112303.png" alt="Struktur dan Komponen Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+
+    <!-- Penjelasan Komponen Enzim -->
+    <p>Berdasarkan komponennya, enzim dibedakan menjadi dua jenis:</p>
+
+    <ul class="list-disc list-inside">
+      <li><strong>Enzim Sederhana</strong>: Enzim yang hanya tersusun dari bagian protein saja, yaitu apoenzim. Enzim ini tidak membutuhkan komponen tambahan untuk bekerja.</li>
+      <li><strong>Enzim Kompleks <em>(Holoenzim)</em></strong>: Enzim yang terdiri atas bagian protein (apoenzim) dan bagian non-protein (kofaktor). Jika kedua bagian ini bergabung, membentuk <strong>holoenzim</strong>, maka enzim dapat berfungsi secara aktif.</li>
+<ul class="list-disc list-inside">
+      <li><strong>Apoenzim</strong>: Bagian protein dari enzim yang menentukan spesifisitas kerja terhadap substrat. Apoenzim bersifat tidak aktif jika berdiri sendiri.</li>
+      <li><strong>Kofaktor</strong>: Komponen non-protein yang membantu kerja enzim. Kofaktor dapat berupa ion anorganik atau molekul organik.</li>
+      <li><strong>Koenzim</strong>: Jenis kofaktor yang berupa molekul organik kompleks, biasanya berasal dari vitamin. Contohnya: NAD⁺ (dari vitamin B3), FAD (dari vitamin B2), dan Koenzim A (dari vitamin B5).</li>
+    </ul>
+
+    </ul>
+  </div>
+</div>
+
+<!-- Section 3 -->
+<div id="3.-Struktur-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">3. Struktur Enzim</h2>
+
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-4">
+
+    <!-- Gambar Struktur Enzim -->
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/xq7Grcd1/Screenshot-2025-07-19-112326.png" alt="Struktur Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+
+    <!-- Penjelasan Struktur Enzim -->
+    <p>Enzim memiliki struktur kompleks yang memungkinkan mereka bekerja secara sangat spesifik. Berikut adalah bagian-bagian utama dari struktur enzim:</p>
+
+    <ul class="list-disc list-inside">
+      <li><strong>Rantai Polipeptida</strong>: Komponen utama enzim yang terdiri dari urutan asam amino membentuk protein.</li>
+      <li><strong>Situs Aktif (Active Site)</strong>: Bagian pada enzim tempat substrat berikatan. Memiliki bentuk khusus sesuai substrat (teori gembok dan kunci).</li>
+      <li><strong>Situs Alosterik</strong>: Lokasi lain pada enzim tempat molekul pengatur dapat menempel dan memengaruhi aktivitas enzim.</li>
+    </ul>
+
+    <p>Selain struktur internalnya, enzim juga berinteraksi dengan komponen lain dalam reaksi biokimia, seperti:</p>
+
+    <ul class="list-disc list-inside">
+      <li><strong>Substrat</strong>: Molekul yang dikenali dan diproses oleh enzim. Substrat akan menempel pada situs aktif.</li>
+      <li><strong>Produk</strong>: Hasil akhir dari reaksi enzimatik setelah substrat dikatalisis oleh enzim.</li>
+    </ul>
+
+    <!-- Inhibitor -->
+    <p>Aktivitas enzim dapat dipengaruhi oleh inhibitor, yaitu zat yang menghambat kerja enzim:</p>
+
+    <ul class="list-disc list-inside">
+      <li><strong>Inhibitor Kompetitif</strong>: Molekul yang mirip dengan substrat dan bersaing menempati situs aktif. Dapat dikalahkan dengan menambah konsentrasi substrat.</li>
+      <li><strong>Inhibitor Nonkompetitif</strong>: Molekul yang berikatan pada situs alosterik (bukan situs aktif), menyebabkan perubahan bentuk enzim sehingga tidak bisa mengenali substrat.</li>
+    </ul>
+
+    <p>Jika struktur enzim berubah karena faktor seperti suhu atau pH ekstrem, maka enzim dapat mengalami <strong>denaturasi</strong> dan kehilangan fungsinya.</p>
+  </div>
+</div>
+
+<!-- Section 4 -->
+<div id="4.-Sifat-Sifat-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">4. Sifat-Sifat Enzim</h2>
+
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-4">
+
+    <!-- Gambar Sifat Enzim -->
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/60k7KJ1q/Screenshot-2025-07-19-112507.png" alt="Sifat-Sifat Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/rGWg23YQ/Screenshot-2025-07-19-112525.png" alt="Sifat-Sifat Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+
+      </div>
+</div>
+
+<!-- Section 5 -->
+<div id="5.-Mekanisme-Kerja-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">5. Mekanisme Kerja Enzim</h2>
+
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-4">
+
+    <!-- Gambar Mekanisme Kerja Enzim -->
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/wZjBkWJx/Screenshot-2025-07-19-112545.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+
+    <!-- Penjelasan Mekanisme Kerja Enzim -->
+    <p>Mekanisme kerja enzim melibatkan interaksi antara enzim dan substrat untuk membentuk produk. Proses ini dapat dijelaskan melalui beberapa tahapan utama:</p>
+
+    <ol class="list-decimal list-inside space-y-1">
+      <li><strong>Pengikatan Substrat</strong>: Substrat masuk dan menempel pada <strong>situs aktif</strong> enzim, membentuk kompleks enzim-substrat.</li>
+      <li><strong>Reaksi Kimia</strong>: Enzim menurunkan energi aktivasi, memungkinkan reaksi kimia berlangsung lebih cepat.</li>
+      <li><strong>Pembentukan Produk</strong>: Substrat diubah menjadi produk.</li>
+      <li><strong>Pelepasan Produk</strong>: Produk dilepaskan dari enzim, dan enzim kembali ke bentuk semula untuk digunakan kembali.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Section 6 -->
+<div id="6.-Teori-Cara-Kerja-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">6. Teori Cara Kerja Enzim</h2>
+  <!-- Teori Kerja Enzim -->
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/fGrG2WxP/Screenshot-2025-07-19-112617.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/4nJWVHW4/Screenshot-2025-07-19-112702.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/cSv07XbS/Screenshot-2025-07-19-112741.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+</div>
+
+<!-- Section 7 -->
+<div id="7.-Faktor-Pengaruhi-Enzim" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">7. Faktor yang Mempengaruhi Enzim</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 space-y-3">
+    <div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/B2gy7B8N/Screenshot-2025-07-19-112813.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/FkvnHnms/Screenshot-2025-07-19-112831.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/7NRqQx1t/Screenshot-2025-07-19-112854.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+<div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/7N6rMH7X/Screenshot-2025-07-19-112922.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div><div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/DHZT3yY6/Screenshot-2025-07-19-112944.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div><div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/5gvDfvrW/Screenshot-2025-07-19-113016.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div><div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/PsWBdjwr/Screenshot-2025-07-19-113038.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+</div><div class="flex flex-col items-center">
+      <img src="https://i.ibb.co.com/TxYsw28j/Screenshot-2025-07-19-113050.png" alt="Mekanisme Kerja Enzim" class="w-full md:w-2/3 rounded-lg shadow-md border border-gray-300">
+    </div>
+
+  </div>
+
+<!-- Section 8 -->
+<div id="8.-Contoh-Soal" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">8. Contoh Soal &amp; Pembahasan</h2>
+  <div class="bg-[#eef2ff] p-4 rounded-lg shadow-md border border-blue-200 space-y-3">
+    <p><strong>Contoh:</strong> Grafik menunjukkan peningkatan laju reaksi hingga puncak pada suhu 40 °C, kemudian turun drastis di atas 60 °C. Mengapa?</p>
+    <p><strong>Pembahasan:</strong> Suhu tinggi menyebabkan denaturasi enzim, sehingga kehilangan forma situs aktif.</p>
+  </div>
+</div>
+
+
+</div>
+
+<!-- Script untuk Toggle -->
+<script>
+  function toggleJawaban() {
+    document.getElementById("jawaban").classList.toggle("hidden");
+  }
+
+  function toggleVideo(id) {
+    document.getElementById(id).classList.toggle("hidden");
+  }
+</script>
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-250px";
+            }
+        }
+    </script>
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "Diza MTSN 1 Brebes 7", password: "semangatbelajar45" },
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
