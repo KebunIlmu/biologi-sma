@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+       body::before,
+body::after {
+    /* Ganti ukurannya jadi persentase agar aman di mobile */
+    width: 100vw;
+    height: 100vw;
+    background: white;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.2;
+}
+        body::before {
+            top: -30%;
+            right: -30%;
+        }
+        body::after {
+            bottom: -50%;
+            left: -30%;
+        }
+	html, body {
+    overflow-x: hidden;
+}
+
+
+.login-box {
+    background: linear-gradient(135deg, #ce9ffc, #f9c7d9); /* Ganti background */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Ganti background tombol */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background: linear-gradient(135deg, #5e0dca, #1d60e7); /* Hover efek */
+}
+    .hidden {
+      display: none;
+    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #4dd4a3;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s ease-in-out;
+            padding-top: 20px;
+            z-index: 1300;
+        }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 5px;
+            text-align: left;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .sidebar ul li:hover {
+            background: #f8d444;
+        }
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1400;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header span {
+            flex: 80%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+	    color: #4dd4a3;
+        }
+        .header img {
+            flex: 20%;
+            max-width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .content {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .card:nth-child(1) { background: #4dd4a3; }
+        .card:nth-child(2) { background: #4dd4a3; }
+        .card:nth-child(3) { background: #4dd4a3; }
+        .card:nth-child(4) { background: #4dd4a3; }
+	.card:nth-child(5) { background: #4dd4a3; }
+        .card:nth-child(6) { background: #4dd4a3; }
+        .card:nth-child(7) { background: #4dd4a3; }
+        .card:nth-child(8) { background: #4dd4a3; }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card a {
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+/* Tambahan untuk responsif mobile */
+@media screen and (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .sidebar {
+    width: 80%;
+    left: -80%;
+  }
+
+  .toggle-btn {
+    font-size: 20px;
+    padding: 8px 12px;
+  }
+
+  .header span {
+    font-size: 20px;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+<div class="login-box" id="loginForm">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="checkLogin()">Masuk</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="content22" class="hidden">
+
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2 class=" text-2xl text-semibold ">Menu</h2>
+        <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#1.-What-delicious-bakso" class="hover:text-white">1. What delicious bakso!</a></li>
+  <li class="mb-3"><a href="#2.-I-want-an-ice-cream-cone" class="hover:text-white">2. I want an ice cream cone</a></li>
+  <li class="mb-3"><a href="#3.-How-much-is-it" class="hover:text-white">3. How much is it?</a></li>
+  <li class="mb-3"><a href="#4.-I-have-a-stomachache" class="hover:text-white">4. I have a stomachache</a></li>
+  <li class="mb-3"><a href="#5.-What-a-nice-skirt" class="hover:text-white">5. What a nice skirt!</a></li>
+</ul>
+
+
+    </div>
+    
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="header">
+        <span>Media Pembelajaran Interaktif</span>
+        <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo">
+    </div>
+    
+    <!-- Konten Utama -->
+<div class="w-full max-w-7xl mx-auto bg-white px-4 sm:px-8 py-8 rounded-lg shadow-2xl">
+  <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">Biologi SMA</h1>
+
+  <!-- Biologi SMA -->
+  <div id="IPA SMA" class="mb-8">
+    <h2 class="text-2xl font-bold mb-4 text-[#4dd4a3]">Pertumbuhan & Perkembangan Tumbuhan</h2>
+
+    <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+      <li class="mb-3"><a href="#1.-Konsep-Pertumbuhan" class="hover:text-white">1. Konsep Pertumbuhan & Perkembangan</a></li>
+      <li class="mb-3"><a href="#2.-Fase-Pertumbuhan" class="hover:text-white">2. Fase Pertumbuhan Tumbuhan</a></li>
+      <li class="mb-3"><a href="#3.-Jaringan-dan-Meristem" class="hover:text-white">3. Jaringan & Meristem</a></li>
+      <li class="mb-3"><a href="#4.-Perbedaan-Pertumbuhan" class="hover:text-white">4. Pertumbuhan Primer & Sekunder</a></li>
+      <li class="mb-3"><a href="#5.-Hormon-Pengatur" class="hover:text-white">5. Hormon Tumbuhan</a></li>
+      <li class="mb-3"><a href="#6.-Faktor-Pengaruhi" class="hover:text-white">6. Faktor Internal & Eksternal</a></li>
+      <li class="mb-3"><a href="#7.-Contoh-Soal" class="hover:text-white">7. Contoh Soal & Pembahasan</a></li>
+    </ul>
+  </div>
+
+  <!-- Video Pembelajaran -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎥 Video Pembelajaran</h2>
+    <div class="aspect-w-16 aspect-h-9">
+      <iframe class="w-full h-64 md:h-96 rounded-lg shadow-md" src="https://www.youtube.com/embed/qflTCWocfbQ" title="Pertumbuhan & Perkembangan Tumbuhan | GIA Academy" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div id="1.-Konsep-Pertumbuhan" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">1. Konsep Pertumbuhan & Perkembangan</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <p><strong>Pertumbuhan</strong> adalah perubahan kuantitatif yang irreversibel akibat pembelahan dan pembesaran sel.</p>
+      <p><strong>Perkembangan</strong> adalah perubahan kualitatif berupa pendewasaan struktur dan fungsi sel.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div id="2.-Fase-Pertumbuhan" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">2. Fase Pertumbuhan Tumbuhan</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <ol class="list-decimal list-inside space-y-2">
+        <li>Germination: imbibisi air, radikula tumbuh.</li>
+        <li>Seedling development: pembentukan koleoptil, hipokotil, daun lembaga.</li>
+        <li>Vegetative growth: pembentukan daun, batang, akar.</li>
+        <li>Reproductive growth: pembentukan bunga, buah dan biji.</li>
+        <li>Ripening & harvesting: pematangan buah/biji.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div id="3.-Jaringan-dan-Meristem" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">3. Jaringan & Meristem</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <ul class="list-disc list-inside">
+        <li><strong>Meristem Apikal</strong>: ujung akar dan batang → pertumbuhan primer.</li>
+        <li><strong>Meristem Lateral</strong>: kambium → pertumbuhan sekunder.</li>
+        <li><strong>Meristem Interkalar</strong>: pada batang rumput.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div id="4.-Perbedaan-Pertumbuhan" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">4. Pertumbuhan Primer & Sekunder</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <p><strong>Primer</strong>: memperpanjang akar dan batang (tinggi).</p>
+      <p><strong>Sekunder</strong>: memperlebar batang dan akar (diameter).</p>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div id="5.-Hormon-Pengatur" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">5. Hormon Tumbuhan</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <ul class="list-disc list-inside">
+        <li><strong>Auksin</strong>: pemanjangan sel.</li>
+        <li><strong>Sitokinin</strong>: pembelahan sel.</li>
+        <li><strong>Giberelin</strong>: pemanjangan batang, perkecambahan.</li>
+        <li><strong>Etilen</strong>: pematangan buah.</li>
+        <li><strong>ABA (asam absisat)</strong>: dormansi biji, stres.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div id="6.-Faktor-Pengaruhi" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">6. Faktor Internal & Eksternal</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <ul class="list-disc list-inside">
+        <li><strong>Internal</strong>: genetik, hormon.</li>
+        <li><strong>Eksternal</strong>: cahaya, air, suhu, pH, nutrisi, oksigen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 7 -->
+  <div id="7.-Contoh-Soal" class="text-gray-800 mt-6 space-y-4">
+    <h2 class="text-2xl font-bold text-[#4dd4a3]">7. Contoh Soal & Pembahasan</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <p><strong>Soal:</strong> Apa peran hormon Auksin dalam pertumbuhan tumbuhan?</p>
+      <p><strong>Jawaban:</strong> Auksin berfungsi mempercepat pemanjangan sel dan mendukung dominansi apikal (pertumbuhan ke atas).</p>
+    </div>
+  </div>
+</div><br><br>
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-2xl" id="quizApp">
+  <h2 class="text-3xl font-extrabold text-center text-green-600 mb-8 tracking-tight">🌱 Latihan Soal Interaktif: Pertumbuhan & Perkembangan Tumbuhan</h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizContainer" class="space-y-6">
+    <!-- Soal akan di-render di sini -->
+  </div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex justify-between items-center mt-8">
+    <button id="prevBtn" onclick="prevQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="space-x-2">
+      <button id="checkBtn" onclick="checkAnswer()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 transition-all">Cek</button>
+      <button id="nextBtn" onclick="nextQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="explanation" class="mt-6 hidden bg-blue-100 text-blue-900 border border-blue-300 p-4 rounded-lg shadow-inner"></div>
+</div>
+<div class="text-center mb-8">
+  <h1 class="text-3xl md:text-4xl font-extrabold text-[#14b8a6]">📚 Pertumbuhan dan Perkembangan Hewan & Manusia</h1>
+  <p class="text-gray-600 mt-2 text-lg">Biologi SMA - Fase Embrionik dan Pasca Embrionik</p>
+</div>
+<!-- Video Pembelajaran -->
+<div class="mb-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎥 Video Pembelajaran</h2>
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe class="w-full h-64 md:h-96 rounded-lg shadow-md" src="https://www.youtube.com/embed/888HyVkGw4U" title="BIOLOGI IPA - Pertumbuhan dan Perkembangan Hewan & Manusia" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- Section 1 -->
+<div id="1.-Fase-Embrionik" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">1. Fase Embrionik</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <p>Fase ini dimulai dari zigot yang terbentuk setelah fertilisasi dan mengalami serangkaian tahapan:</p>
+    <ol class="list-decimal list-inside space-y-2">
+      <li><strong>Pembelahan (Cleavage)</strong>: zigot membelah mitosis menjadi beberapa sel.</li>
+      <li><strong>Morula</strong>: kumpulan sel berbentuk bola padat.</li>
+      <li><strong>Blastula</strong>: terbentuk rongga di dalam morula.</li>
+      <li><strong>Organogenesis</strong>: mulai terbentuk organ-organ dasar.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Section 2 -->
+<div id="2.-Fase-Pasca-Embrionik" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">2. Fase Pasca Embrionik</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <p>Setelah lahir (atau menetas), hewan dan manusia menjalani fase perkembangan lanjut seperti:</p>
+    <ul class="list-disc list-inside">
+      <li>Peningkatan ukuran tubuh (pertumbuhan somatik).</li>
+      <li>Differensiasi sistem organ yang lebih kompleks.</li>
+      <li>Pematangan sistem reproduksi.</li>
+      <li>Bentuk dewasa dan kemampuan reproduktif.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 3 -->
+<div id="3.-Perbedaan-Fase" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">3. Perbedaan Inti Antara Fase</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <ul class="list-disc list-inside">
+      <li><strong>Embrionik</strong>: fokus pada pembentukan struktur dasar dan organ (organogenesis).</li>
+      <li><strong>Pasca embrionik</strong>: fokus pada pertumbuhan tubuh dan pematangan organ reproduksi.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 4 -->
+<div id="4.-Contoh-Hewan-Manusia" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">4. Contoh Spesifik</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <ul class="list-disc list-inside">
+      <li><strong>Manusia</strong>: zigot → embrio → fetus → bayi → anak-anak → remaja → dewasa.</li>
+      <li><strong>Katak</strong>: zigot → berudu → katak muda → katak dewasa.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 5 -->
+<div id="5.-Faktor-Pengatur" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">5. Faktor Pengatur Utama</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <ul class="list-disc list-inside">
+      <li><strong>Internal</strong>: genetik, hormon (seperti hormon pertumbuhan, tiroid, steroid).</li>
+      <li><strong>Eksternal</strong>: nutrisi, suhu, cahaya, lingkungan sosial (pada spesies sosial).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 6 -->
+<div id="6.-Relevansi" class="text-gray-800 mt-6 space-y-4">
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">6. Relevansi Materi</h2>
+  <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <p>Memahami fase-fase ini krusial untuk:</p>
+    <ul class="list-disc list-inside">
+      <li>Bidang kedokteran & kesehatan reproduksi.</li>
+      <li>Peternakan & bioteknologi hewan.</li>
+      <li>Pelestarian spesies dan pemuliaan selektif.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    question: "Apa yang dimaksud dengan pertumbuhan pada tumbuhan?",
+    choices: [
+      "Perubahan fungsi sel",
+      "Perubahan ukuran dan jumlah sel yang bersifat irreversibel",
+      "Perkembangan jaringan kompleks",
+      "Proses pembelahan meiosis"
+    ],
+    correct: 1,
+    explanation: "Pertumbuhan adalah perubahan ukuran dan jumlah sel yang bersifat irreversibel."
+  },
+  {
+    question: "Hormon yang berperan dalam pemanjangan sel adalah ...",
+    choices: [
+      "Etilen",
+      "Sitokinin",
+      "Auksin",
+      "Asam absisat"
+    ],
+    correct: 2,
+    explanation: "Auksin berfungsi dalam pemanjangan sel dan dominansi apikal."
+  },
+  {
+    question: "Pertumbuhan sekunder pada tumbuhan terjadi karena aktivitas ...",
+    choices: [
+      "Meristem apikal",
+      "Kambium",
+      "Meristem interkalar",
+      "Jaringan epidermis"
+    ],
+    correct: 1,
+    explanation: "Kambium (meristem lateral) bertanggung jawab atas pertumbuhan sekunder."
+  },
+  {
+    question: "Mengapa pertumbuhan bersifat irreversibel pada tumbuhan?",
+    choices: [
+      "Karena dipengaruhi oleh hormon dan faktor lingkungan",
+      "Karena tidak dapat kembali ke ukuran sebelumnya",
+      "Karena sel tumbuhan mengalami pembelahan sel secara terus menerus",
+      "Karena hanya terjadi pada jaringan dewasa"
+    ],
+    correct: 1,
+    explanation: "Pertumbuhan bersifat irreversibel karena ukuran dan volume sel yang bertambah tidak bisa kembali ke kondisi semula."
+  },
+  {
+    question: "Seorang siswa melakukan eksperimen pada kecambah. Ia menempatkan satu kelompok di tempat terang dan satu kelompok di tempat gelap. Kecambah di tempat gelap tumbuh lebih tinggi. Fenomena ini disebut ...",
+    choices: [
+      "Fototropisme",
+      "Skotomorfogenesis",
+      "Etioasi",
+      "Fotoperiodisme"
+    ],
+    correct: 2,
+    explanation: "Etioasi adalah pertumbuhan yang cepat pada tumbuhan karena kurang cahaya, biasanya batang memanjang dengan daun kecil pucat."
+  },
+  {
+    question: "Apa peran utama hormon sitokinin dalam pertumbuhan tanaman?",
+    choices: [
+      "Mempercepat pemanjangan sel",
+      "Meningkatkan pembelahan sel dan menunda penuaan",
+      "Merespons stres lingkungan",
+      "Mengatur dormansi biji"
+    ],
+    correct: 1,
+    explanation: "Sitokinin meningkatkan pembelahan sel dan berperan dalam menunda proses penuaan daun."
+  },
+  {
+    question: "Jika akar tanaman disinari dari satu sisi, maka arah pertumbuhannya akan ...",
+    choices: [
+      "Menuju cahaya karena fototropisme positif",
+      "Menjauhi cahaya karena fototropisme negatif",
+      "Menuju air karena hidrotropisme",
+      "Tetap lurus karena gravitropisme"
+    ],
+    correct: 1,
+    explanation: "Akar menunjukkan fototropisme negatif sehingga tumbuh menjauhi cahaya."
+  },
+
+  {
+    "question": "Pertumbuhan adalah proses kenaikan volume dan substansi kimia sel yang tidak dapat kembali ke asal atau irreversible karena adanya pertambahan materi. Ciri dasar pertumbuhan tersebut adalah...",
+    "choices": [
+      "Dibentuknya bunga",
+      "Sel bertambah banyak dan besar",
+      "Terbentuknya polen",
+      "Bunga berubah menjadi buah"
+    ],
+    "correct": 1,
+    "explanation": "Ciri dasar pertumbuhan adalah sel bertambah banyak dan besar (jawaban A) :contentReference[oaicite:1]{index=1}."
+  },
+  {
+    "question": "Perkembangan adalah proses menuju tercapainya kedewasaan dan spesialisasi sel. Pilihan yang benar untuk definisi ini adalah...",
+    "choices": [
+      "Perubahan volume yang irreversible",
+      "Proses menuju tercapainya kedewasaan",
+      "Pertambahan dan perubahan materi",
+      "Terspesialisasinya sel menuju bentuk dan fungsi tertentu"
+    ],
+    "correct": 1,
+    "explanation": "Perkembangan adalah proses menuju kedewasaan, bukan hanya perubahan materi ."
+  },
+  {
+  question: `
+    <div class="mb-4">
+      <p class="mb-2">Perhatikan tabel hormon–fungsi berikut:</p>
+      <table class="w-full border border-gray-300 text-sm rounded-lg overflow-hidden my-4">
+        <thead class="bg-green-200 text-green-800">
+          <tr>
+            <th class="p-2 border border-gray-300">No</th>
+            <th class="p-2 border border-gray-300">Hormon</th>
+            <th class="p-2 border border-gray-300">Kode</th>
+            <th class="p-2 border border-gray-300">Fungsi</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white text-gray-700">
+          <tr>
+            <td class="p-2 border border-gray-300">1</td>
+            <td class="p-2 border border-gray-300">Kalin</td>
+            <td class="p-2 border border-gray-300">T</td>
+            <td class="p-2 border border-gray-300">Mempercepat pemasakan buah</td>
+          </tr>
+          <tr>
+            <td class="p-2 border border-gray-300">2</td>
+            <td class="p-2 border border-gray-300">Asam absisat</td>
+            <td class="p-2 border border-gray-300">R</td>
+            <td class="p-2 border border-gray-300">Menunda pengguguran daun</td>
+          </tr>
+          <tr>
+            <td class="p-2 border border-gray-300">3</td>
+            <td class="p-2 border border-gray-300">Giberelin</td>
+            <td class="p-2 border border-gray-300">Q</td>
+            <td class="p-2 border border-gray-300">Menghambat pembentukan biji</td>
+          </tr>
+          <tr>
+            <td class="p-2 border border-gray-300">4</td>
+            <td class="p-2 border border-gray-300">Etilen</td>
+            <td class="p-2 border border-gray-300">P</td>
+            <td class="p-2 border border-gray-300">Mempercepat pembuahan</td>
+          </tr>
+          <tr>
+            <td class="p-2 border border-gray-300">5</td>
+            <td class="p-2 border border-gray-300">Sitokinin</td>
+            <td class="p-2 border border-gray-300">S</td>
+            <td class="p-2 border border-gray-300">Mengatur pembentukan bunga</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="mt-2">Pasangan yang benar adalah...</p>
+    </div>
+  `,
+  choices: [
+    "1 dan T",
+    "2 dan R",
+    "3 dan Q",
+    "4 dan P",
+    "5 dan S"
+  ],
+  correct: 1,
+  explanation: "Pasangan yang benar adalah 2 dan R. Asam absisat berfungsi menunda pengguguran daun."
+},
+  {
+    "question": "Apa faktor eksternal yang *tidak* mempengaruhi pertumbuhan tanaman?",
+    "choices": [
+      "Suhu",
+      "Oksigen",
+      "Cahaya",
+      "Kelembaban",
+      "Gen dan hormon"
+    ],
+    "correct": 4,
+    "explanation": "Gen dan hormon adalah faktor internal, bukan eksternal :"
+  },
+  {
+    "question": "Penyebab etiolasi pada kecambah yang tumbuh lebih tinggi di tempat gelap adalah karena...",
+    "choices": [
+      "Perkembangan epikotil lebih pendek dibanding hipokotil",
+      "Pertumbuhan epikotil lebih panjang dibanding hipokotil",
+      "Hipokotil tumbuh lebih cepat daripada epikotil",
+      "Epikotil dan hipokotil tumbuh sama",
+      "Kotiledon tidak pecah saat berkecambah"
+    ],
+    "correct": 1,
+    "explanation": "Etiolasi terjadi karena pertumbuhan epikotil lebih panjang daripada hipokotil pada kondisi gelap :"
+  },
+{
+    "question": "Hormon yang berperan dalam pemanjangan sel adalah ...",
+    "choices": ["Etilen", "Sitokinin", "Auksin", "Asam absisat"],
+    "correct": 2,
+    "explanation": "Auksin berfungsi dalam pemanjangan sel dan dominansi apikal."
+  },
+  {
+    "question": "Hormon yang dapat mengatasi sifat kerdil secara genetik adalah ...",
+    "choices": ["Auksin", "Giberelin", "Sitokinin", "Etilen"],
+    "correct": 1,
+    "explanation": "Giberelin merangsang pertumbuhan tinggi tanaman dan mengatasi kekerdilan."
+  },
+  {
+    "question": "Hormon yang memacu pembelahan sel adalah ...",
+    "choices": ["Sitokinin", "Giberelin", "Auksin", "Asam absisat"],
+    "correct": 0,
+    "explanation": "Sitokinin merangsang pembelahan sel, terutama di jaringan meristematik."
+  },
+  {
+    "question": "Contoh pertumbuhan primer pada tumbuhan adalah ...",
+    "choices": ["Pertambahan lebar batang", "Pembentukan bunga", "Pemanjangan akar", "Pematangan buah"],
+    "correct": 2,
+    "explanation": "Pertumbuhan primer terjadi karena aktivitas meristem apikal, contohnya pemanjangan akar."
+  },
+  {
+    "question": "Hormon yang menyebabkan pengguguran daun dan dormansi biji adalah ...",
+    "choices": ["Auksin", "Giberelin", "Asam absisat", "Sitokinin"],
+    "correct": 2,
+    "explanation": "Asam absisat berperan dalam pengguguran daun dan menghambat pertumbuhan (dormansi)."
+  },
+  {
+    "question": "Proses etiolasi terjadi karena ...",
+    "choices": ["Suhu tinggi", "Cahaya redup", "Kelembapan tinggi", "Tidak ada cahaya"],
+    "correct": 3,
+    "explanation": "Etiolasi adalah pertumbuhan abnormal akibat tidak adanya cahaya."
+  },
+  {
+    "question": "Fungsi utama etilen dalam tumbuhan adalah ...",
+    "choices": ["Menghambat dormansi", "Mempercepat pematangan buah", "Merangsang pertumbuhan akar", "Meningkatkan fotosintesis"],
+    "correct": 1,
+    "explanation": "Etilen berperan penting dalam pematangan buah dan perontokan daun."
+  },
+  {
+    "question": "Pertumbuhan sekunder disebabkan oleh aktivitas ...",
+    "choices": ["Meristem apikal", "Meristem lateral", "Meristem interkalar", "Meristem primer"],
+    "correct": 1,
+    "explanation": "Meristem lateral seperti kambium bertanggung jawab atas pertumbuhan sekunder (penambahan diameter)."
+  },
+  {
+    "question": "Fase perkembangan embrio tumbuhan terjadi setelah ...",
+    "choices": ["Penyerbukan", "Pembuahan", "Pembungaan", "Fotosintesis"],
+    "correct": 1,
+    "explanation": "Perkembangan embrio dimulai setelah pembuahan terjadi."
+  },
+  {
+    "question": "Kambium menghasilkan xilem ke arah ... dan floem ke arah ...",
+    "choices": ["Luar - dalam", "Dalam - luar", "Atas - bawah", "Akar - daun"],
+    "correct": 1,
+    "explanation": "Kambium menghasilkan xilem ke arah dalam dan floem ke arah luar."
+  },
+{
+    "question": "Jika tanaman A tumbuh lebih tinggi dibandingkan tanaman B, padahal ditanam di tempat dan waktu yang sama, kemungkinan tanaman A memiliki kadar hormon ... lebih tinggi.",
+    "choices": ["Giberelin", "Etilen", "Asam absisat", "Sitokinin"],
+    "correct": 0,
+    "explanation": "Giberelin merangsang pertumbuhan memanjang, sehingga tanaman A tumbuh lebih tinggi."
+  },
+  {
+    "question": "Petani ingin mempercepat pematangan buah tomat di musim dingin. Hormon sintetis yang paling efektif digunakan adalah ...",
+    "choices": ["Sitokinin", "Etilen", "Giberelin", "Auksin"],
+    "correct": 1,
+    "explanation": "Etilen mempercepat pematangan buah, cocok untuk digunakan di musim dingin."
+  },
+  {
+    "question": "Sebuah tanaman tidak merespon cahaya dan tumbuh lurus ke atas di tempat gelap. Ini menunjukkan bahwa ...",
+    "choices": ["Tanaman kekurangan nutrisi", "Tanaman mengalami dormansi", "Tanaman mengalami etiolasi", "Tanaman terkena patogen"],
+    "correct": 2,
+    "explanation": "Etiolasi terjadi saat tanaman tumbuh tanpa cahaya, menghasilkan batang panjang dan pucat."
+  },
+  {
+    "question": "Jika aktivitas kambium terganggu, maka dampaknya terhadap tumbuhan adalah ...",
+    "choices": [
+      "Tidak terbentuk jaringan xilem dan floem sekunder",
+      "Tanaman akan mati seketika",
+      "Tanaman tidak bisa berbunga",
+      "Fotosintesis berhenti total"
+    ],
+    "correct": 0,
+    "explanation": "Kambium menghasilkan jaringan sekunder. Gangguan padanya akan menghambat pembentukan xilem dan floem sekunder."
+  },
+  {
+    "question": "Seorang peneliti menyuntikkan hormon auksin secara tidak merata pada batang. Bagian batang yang diberi auksin tumbuh melengkung. Hal ini membuktikan bahwa ...",
+    "choices": [
+      "Auksin mempercepat pertumbuhan akar",
+      "Auksin menghambat dominansi apikal",
+      "Pertumbuhan terjadi karena distribusi auksin yang tidak merata",
+      "Hormon bekerja optimal di malam hari"
+    ],
+    "correct": 2,
+    "explanation": "Auksin yang tidak merata menyebabkan pertumbuhan sel yang tidak simetris, sehingga batang melengkung."
+  },
+  {
+    "question": "Mengapa tanaman yang tumbuh di tempat teduh seringkali lebih tinggi dan lemah dibandingkan yang tumbuh di tempat terang?",
+    "choices": [
+      "Karena lebih banyak air di tempat teduh",
+      "Karena sinar matahari menghambat auksin",
+      "Karena konsentrasi auksin lebih tinggi di tempat teduh",
+      "Karena fotosintesis lebih efisien tanpa cahaya"
+    ],
+    "correct": 2,
+    "explanation": "Di tempat gelap atau teduh, konsentrasi auksin meningkat, memicu pemanjangan batang."
+  },
+  {
+    "question": "Tanaman yang tumbuh di lingkungan dengan suhu terlalu rendah menunjukkan lambatnya pertumbuhan. Faktor eksternal yang mempengaruhi pertumbuhan ini adalah ...",
+    "choices": ["Nutrisi", "Suhu", "Hormon", "Kelembapan"],
+    "correct": 1,
+    "explanation": "Suhu memengaruhi aktivitas enzim dan metabolisme. Suhu rendah memperlambat pertumbuhan."
+  },
+  {
+    "question": "Jika Anda menanam dua biji yang sama, satu diberi hormon giberelin dan satu tidak, prediksi yang paling logis adalah ...",
+    "choices": [
+      "Keduanya tumbuh sama",
+      "Tanaman dengan giberelin lebih lambat tumbuh",
+      "Tanaman dengan giberelin tumbuh lebih tinggi",
+      "Tanaman tanpa giberelin akan mati"
+    ],
+    "correct": 2,
+    "explanation": "Giberelin merangsang pertumbuhan tinggi tanaman dengan memperpanjang sel."
+  },
+  {
+    "question": "Dalam percobaan, tanaman diberi asam absisat dan menunjukkan tanda-tanda dormansi. Ini menunjukkan bahwa hormon ini ...",
+    "choices": [
+      "Merangsang pembungaan",
+      "Mempercepat pematangan buah",
+      "Menghambat pertumbuhan dan menjaga kelangsungan hidup saat stres",
+      "Meningkatkan respirasi sel"
+    ],
+    "correct": 2,
+    "explanation": "Asam absisat memicu dormansi dan membantu tanaman bertahan saat kondisi tidak mendukung."
+  },
+  {
+    "question": "Jika akar suatu tanaman tumbuh ke bawah walaupun pot dibalik, maka fenomena ini disebut ...",
+    "choices": ["Fototropisme", "Gravitropisme", "Higrotropisme", "Kemotropisme"],
+    "correct": 1,
+    "explanation": "Gravitropisme adalah respons tanaman terhadap gravitasi, di mana akar tumbuh ke arah gaya gravitasi."
+  },
+{
+    "question": "Seorang peneliti menyuntikkan auksin pada satu sisi batang tanaman. Setelah beberapa hari, batang membengkok ke arah berlawanan dari suntikan. Apa simpulan yang tepat dari percobaan ini?",
+    "choices": [
+      "Auksin mempercepat fotosintesis",
+      "Distribusi auksin menyebabkan pertumbuhan tidak merata",
+      "Auksin tidak berfungsi pada batang",
+      "Batang tidak responsif terhadap hormon"
+    ],
+    "correct": 1,
+    "explanation": "Auksin mendorong pemanjangan sel; konsentrasi tidak merata memicu pembengkokan batang."
+  },
+  {
+    "question": "Pada eksperimen, satu tanaman diberi etilen dan satunya tidak. Hasilnya, tanaman dengan etilen memiliki buah matang lebih cepat. Kesimpulan yang dapat diambil adalah ...",
+    "choices": [
+      "Etilen menghambat pertumbuhan buah",
+      "Etilen mempercepat pematangan buah",
+      "Etilen menyebabkan dormansi",
+      "Etilen meningkatkan pembelahan sel"
+    ],
+    "correct": 1,
+    "explanation": "Etilen adalah hormon yang mempercepat pematangan buah."
+  },
+  {
+    "question": "Tanaman X yang kekurangan sitokinin menunjukkan daun cepat menua. Ini menunjukkan bahwa fungsi utama sitokinin adalah ...",
+    "choices": [
+      "Menghambat respirasi sel",
+      "Menunda penuaan daun (senescence)",
+      "Memacu dominansi apikal",
+      "Mengurangi transpirasi"
+    ],
+    "correct": 1,
+    "explanation": "Sitokinin menunda penuaan daun dengan mempertahankan aktivitas metabolik."
+  },
+  {
+    "question": "Jika aktivitas kambium terganggu, maka yang paling mungkin terjadi pada tanaman adalah ...",
+    "choices": [
+      "Pertumbuhan primer berhenti",
+      "Diameter batang tidak bertambah",
+      "Pertumbuhan akar terganggu",
+      "Penyerapan air meningkat"
+    ],
+    "correct": 1,
+    "explanation": "Kambium bertanggung jawab atas pertumbuhan sekunder; terganggunya menyebabkan batang tidak membesar."
+  },
+  {
+    "question": "Perhatikan grafik berikut yang menunjukkan tinggi tanaman selama 30 hari. Jika grafik menunjukkan perlambatan pertumbuhan setelah hari ke-20, kemungkinan penyebabnya adalah ...",
+    "choices": [
+      "Kadar hormon giberelin meningkat",
+      "Tanaman memasuki fase diferensiasi",
+      "Fotosintesis meningkat tajam",
+      "Kadar auksin meningkat"
+    ],
+    "correct": 1,
+    "explanation": "Setelah pertumbuhan pesat, tanaman masuk fase perkembangan (diferensiasi), laju pertumbuhan menurun."
+  },
+  {
+    "question": "Tanaman diberi perlakuan hormon A dan menunjukkan pertumbuhan akar yang cepat. Hormon A kemungkinan besar adalah ...",
+    "choices": [
+      "Etilen",
+      "Asam absisat",
+      "Sitokinin",
+      "Auksin"
+    ],
+    "correct": 3,
+    "explanation": "Auksin dalam kadar tertentu merangsang pertumbuhan akar."
+  },
+  {
+    "question": "Salah satu metode untuk memperbanyak tanaman secara cepat adalah kultur jaringan. Prinsip hormon yang digunakan adalah kombinasi antara ...",
+    "choices": [
+      "Auksin dan giberelin",
+      "Auksin dan etilen",
+      "Sitokinin dan etilen",
+      "Auksin dan sitokinin"
+    ],
+    "correct": 3,
+    "explanation": "Auksin merangsang akar, sitokinin merangsang tunas. Kombinasinya penting untuk regenerasi tanaman."
+  },
+  {
+    "question": "Seorang siswa menanam biji kacang hijau di gelap dan terang. Hasilnya, tanaman di gelap lebih tinggi tapi pucat. Penjelasan ilmiah yang tepat adalah ...",
+    "choices": [
+      "Cahaya mempercepat pertumbuhan",
+      "Etiolasi terjadi di kegelapan karena auksin terdistribusi merata",
+      "Fotosintesis lebih efisien di gelap",
+      "Giberelin bekerja hanya dalam gelap"
+    ],
+    "correct": 1,
+    "explanation": "Etiolasi di tempat gelap terjadi karena auksin menyebabkan pemanjangan sel tanpa diferensiasi klorofil."
+  },
+  {
+    "question": "Pertumbuhan sekunder yang menghasilkan pembentukan lingkaran tahun pada batang pohon terutama disebabkan oleh ...",
+    "choices": [
+      "Vakuola",
+      "Kambium",
+      "Xilem primer",
+      "Floem sekunder"
+    ],
+    "correct": 1,
+    "explanation": "Kambium menghasilkan xilem dan floem sekunder secara musiman, membentuk lingkaran tahun."
+  },
+  {
+    "question": "Tanaman A dan B tumbuh di lingkungan sama. Tanaman A tumbuh normal, sedangkan B tampak kerdil. Ketika diberi giberelin, tanaman B menjadi tinggi. Kesimpulan yang benar adalah ...",
+    "choices": [
+      "Tanaman B kekurangan nutrisi",
+      "Tanaman B kekurangan hormon giberelin",
+      "Tanaman A menghambat B",
+      "Tanaman B mengalami defisiensi auksin"
+    ],
+    "correct": 1,
+    "explanation": "Giberelin memacu pertumbuhan tinggi. Respons positif menunjukkan tanaman B kekurangan giberelin alami."
+  }
+];
+
+let currentQuestion = 0;
+let selectedAnswer = null;
+
+function renderQuestion() {
+  const q = quizData[currentQuestion];
+  const container = document.getElementById('quizContainer');
+  const explanation = document.getElementById('explanation');
+  explanation.classList.add('hidden');
+  explanation.textContent = '';
+
+  container.innerHTML = `
+    <div class="bg-green-50 p-6 rounded-xl shadow-lg">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">📝 Soal ${currentQuestion + 1}</h3>
+      <p class="text-gray-800 text-lg leading-relaxed mb-6">${q.question}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        ${q.choices.map((choice, index) => `
+          <div onclick="selectAnswer(${index})" class="choice-card border rounded-xl p-4 transition cursor-pointer hover:bg-green-100 shadow-md ${selectedAnswer === index ? 'bg-green-200 border-green-400' : 'bg-white'}" data-index="${index}">
+            <span class="text-gray-700 text-base">${choice}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('prevBtn').disabled = currentQuestion === 0;
+  document.getElementById('nextBtn').disabled = currentQuestion === quizData.length - 1;
+}
+
+function selectAnswer(index) {
+  selectedAnswer = index;
+  const cards = document.querySelectorAll('.choice-card');
+  cards.forEach(card => {
+    card.classList.remove('bg-green-200', 'border-green-400');
+    card.classList.add('bg-white');
+  });
+  const selectedCard = document.querySelector(`.choice-card[data-index='${index}']`);
+  selectedCard.classList.add('bg-green-200', 'border-green-400');
+  selectedCard.classList.remove('bg-white');
+}
+
+function checkAnswer() {
+  const explanation = document.getElementById('explanation');
+  if (selectedAnswer === null) {
+    alert('Pilih salah satu jawaban terlebih dahulu.');
+    return;
+  }
+  if (selectedAnswer === quizData[currentQuestion].correct) {
+    explanation.classList.remove('hidden');
+    explanation.innerHTML = '<strong>✅ Jawaban benar!</strong> ' + quizData[currentQuestion].explanation;
+  } else {
+    explanation.classList.remove('hidden');
+    explanation.innerHTML = '<strong>❌ Jawaban salah.</strong> ' + quizData[currentQuestion].explanation;
+  }
+}
+
+function nextQuestion() {
+  if (currentQuestion < quizData.length - 1) {
+    currentQuestion++;
+    selectedAnswer = null;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    selectedAnswer = null;
+    renderQuestion();
+  }
+}
+
+// Inisialisasi
+renderQuestion();
+</script>
+
+
+<!-- Script untuk Toggle -->
+<script>
+  function toggleJawaban() {
+    document.getElementById("jawaban").classList.toggle("hidden");
+  }
+
+  function toggleVideo(id) {
+    document.getElementById(id).classList.toggle("hidden");
+  }
+</script>
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-250px";
+            }
+        }
+    </script>
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "Diza MTSN 1 Brebes 7", password: "semangatbelajar45" },
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
