@@ -408,7 +408,8 @@ body::after {
 
   <!-- Pembahasan -->
   <div id="explanation" class="mt-6 hidden bg-blue-100 text-blue-900 border border-blue-300 p-4 rounded-lg shadow-inner"></div>
-</div>
+</div><br><br>
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-lg">
 <div class="text-center mb-8">
   <h1 class="text-3xl md:text-4xl font-extrabold text-[#14b8a6]">📚 Pertumbuhan dan Perkembangan Hewan & Manusia</h1>
   <p class="text-gray-600 mt-2 text-lg">Biologi SMA - Fase Embrionik dan Pasca Embrionik</p>
@@ -493,8 +494,266 @@ body::after {
       <li>Pelestarian spesies dan pemuliaan selektif.</li>
     </ul>
   </div>
+</div></div>
+<br><br>
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-lg" id="quizAnimalHuman">
+  <h2 class="text-3xl font-extrabold text-center text-blue-600 mb-8 tracking-tight">🧬 Latihan Soal Interaktif: Pertumbuhan & Perkembangan Hewan & Manusia</h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizAnimalContainer" class="space-y-6">
+    <!-- Soal akan di-render di sini -->
+  </div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex justify-between items-center mt-8">
+    <button id="prevAnimalBtn" onclick="prevAnimalQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="space-x-2">
+      <button id="checkAnimalBtn" onclick="checkAnimalAnswer()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all">Cek</button>
+      <button id="nextAnimalBtn" onclick="nextAnimalQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="animalExplanation" class="mt-6 hidden bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg shadow-inner"></div>
 </div>
 
+<script>
+  const animalQuestions = [
+    {
+      question: "Apa perbedaan utama antara pertumbuhan dan perkembangan pada manusia?",
+      choices: [
+        "Pertumbuhan bersifat kualitatif, perkembangan kuantitatif",
+        "Pertumbuhan hanya terjadi saat bayi, perkembangan sepanjang hidup",
+        "Pertumbuhan adalah perubahan ukuran, perkembangan adalah perubahan fungsi dan struktur",
+        "Pertumbuhan adalah proses reproduksi, perkembangan adalah penuaan"
+      ],
+      correctAnswer: 2,
+      explanation: "Pertumbuhan adalah peningkatan ukuran (kuantitatif), sedangkan perkembangan adalah proses menuju kematangan fungsi tubuh (kualitatif)."
+    },
+    {
+      question: "Tahapan perkembangan manusia yang ditandai dengan kematangan alat reproduksi disebut?",
+      choices: ["Balita", "Anak-anak", "Remaja", "Lansia"],
+      correctAnswer: 2,
+      explanation: "Masa remaja ditandai dengan pubertas, yaitu kematangan alat reproduksi."
+    },
+    {
+      question: "Faktor internal yang memengaruhi pertumbuhan manusia adalah...",
+      choices: ["Cahaya matahari", "Ketersediaan makanan", "Genetik dan hormon", "Suhu lingkungan"],
+      correctAnswer: 2,
+      explanation: "Genetik (DNA) dan hormon seperti hormon pertumbuhan adalah faktor internal yang mengontrol pertumbuhan dan perkembangan."
+    },
+    {
+      question: "Manakah yang merupakan hormon pertumbuhan utama pada manusia?",
+      choices: ["Adrenalin", "Insulin", "Estrogen", "Growth Hormone (GH)"],
+      correctAnswer: 3,
+      explanation: "Growth Hormone (GH) disekresikan oleh kelenjar pituitari dan merangsang pertumbuhan tulang dan jaringan tubuh."
+    },
+    {
+      question: "Apa yang terjadi jika tubuh kekurangan hormon pertumbuhan saat masa kanak-kanak?",
+      choices: ["Obesitas", "Gigantisme", "Kretinisme", "Kekerdilan (dwarfisme)"],
+      correctAnswer: 3,
+      explanation: "Kekurangan hormon pertumbuhan saat masa pertumbuhan dapat menyebabkan kekerdilan atau dwarfisme."
+    },
+    {
+      question: "Tahapan pertumbuhan hewan yang mengalami metamorfosis lengkap adalah...",
+      choices: ["Telur → Nimfa → Dewasa", "Telur → Larva → Pupa → Dewasa", "Telur → Pupa → Nimfa", "Telur → Larva → Dewasa"],
+      correctAnswer: 1,
+      explanation: "Metamorfosis lengkap meliputi: telur, larva, pupa, dan dewasa. Contohnya kupu-kupu dan nyamuk."
+    },
+    {
+      question: "Apa peran hormon tiroksin pada metamorfosis katak?",
+      choices: ["Menurunkan metabolisme", "Menghentikan pertumbuhan", "Mengatur perkembangan dari berudu ke katak dewasa", "Meningkatkan pembelahan sel"],
+      correctAnswer: 2,
+      explanation: "Tiroksin membantu transisi bentuk tubuh pada katak, seperti pembentukan kaki dan penyusutan ekor berudu."
+    },
+    {
+      question: "Manusia mencapai puncak pertumbuhan tinggi badan pada usia sekitar...",
+      choices: ["5 tahun", "10 tahun", "18-21 tahun", "30 tahun"],
+      correctAnswer: 2,
+      explanation: "Pertumbuhan tulang panjang mencapai puncaknya di usia 18-21 tahun, setelah itu epifisis menutup."
+    },
+    {
+      question: "Fase kehidupan manusia yang ditandai dengan penurunan fungsi tubuh disebut...",
+      choices: ["Anak-anak", "Dewasa awal", "Lansia", "Remaja"],
+      correctAnswer: 2,
+      explanation: "Fase lansia mengalami degenerasi atau penurunan fungsi fisiologis secara alami."
+    },
+    {
+      question: "Contoh pertumbuhan reversibel pada manusia adalah...",
+      choices: ["Tinggi badan bertambah", "Otot membesar saat olahraga dan mengecil saat berhenti", "Berat badan bertambah karena lemak", "Rambut tumbuh"],
+      correctAnswer: 1,
+      explanation: "Pertumbuhan otot yang bisa kembali seperti semula adalah contoh pertumbuhan reversibel, bukan permanen seperti tinggi badan."
+    },
+ {
+    question: "Seorang anak mengalami gangguan hormon pertumbuhan dan menunjukkan gejala keterlambatan perkembangan fisik. Jika tidak segera ditangani, apa dampak jangka panjang yang paling mungkin terjadi?",
+    choices: [
+      "Anak akan menjadi obesitas",
+      "Anak tidak dapat melakukan aktivitas berat",
+      "Pertumbuhan tinggi badan terhambat secara permanen",
+      "Anak tidak mengalami pubertas"
+    ],
+    correctAnswer: 2,
+    explanation: "Gangguan hormon pertumbuhan dapat menyebabkan dwarfisme (kekerdilan), yaitu keterlambatan atau terhambatnya pertumbuhan tinggi badan secara permanen jika tidak ditangani sedini mungkin."
+  },
+  {
+    question: "Mengapa pubertas terjadi pada usia tertentu dan tidak sejak lahir?",
+    choices: [
+      "Karena hormon pubertas baru diproduksi saat lahir",
+      "Karena sistem endokrin belum aktif sejak lahir",
+      "Karena perkembangan otak belum sempurna saat lahir",
+      "Karena hormon-hormon pengatur pubertas baru aktif setelah usia tertentu"
+    ],
+    correctAnswer: 3,
+    explanation: "Pubertas terjadi saat hormon seperti LH dan FSH mulai aktif diproduksi dalam jumlah besar, biasanya setelah usia tertentu (sekitar 10–14 tahun), yang dipicu oleh sinyal dari hipotalamus dan kelenjar pituitari."
+  },
+  {
+    question: "Seorang peneliti membandingkan dua kelompok remaja: satu kelompok mengalami malnutrisi, satu kelompok memiliki nutrisi cukup. Setelah 5 tahun, kelompok mana yang menunjukkan perkembangan fisik dan kognitif lebih baik, dan mengapa?",
+    choices: [
+      "Kelompok malnutrisi, karena metabolisme mereka lebih rendah",
+      "Kelompok nutrisi cukup, karena nutrisi penting bagi pertumbuhan dan perkembangan",
+      "Keduanya sama, karena ditentukan oleh genetik",
+      "Kelompok malnutrisi, karena adaptasi terhadap lingkungan"
+    ],
+    correctAnswer: 1,
+    explanation: "Nutrisi memengaruhi proses pertumbuhan dan perkembangan secara langsung. Kekurangan zat gizi seperti protein, vitamin, dan mineral menyebabkan gangguan fisik dan kognitif."
+  },
+  {
+    question: "Jika seseorang mengalami kelebihan hormon tiroid sejak masa anak-anak, apa kemungkinan dampaknya terhadap pertumbuhan dan perkembangan?",
+    choices: [
+      "Pertumbuhan tinggi badan akan meningkat secara abnormal",
+      "Perkembangan mental akan terhambat",
+      "Pertumbuhan tulang menjadi lambat",
+      "Tidak ada dampak yang signifikan"
+    ],
+    correctAnswer: 0,
+    explanation: "Hormon tiroid yang berlebihan (hipertiroidisme) dapat mempercepat metabolisme dan menyebabkan pertumbuhan yang berlebihan (gigantisme) jika terjadi di masa kanak-kanak."
+  },
+  {
+    question: "Mengapa faktor lingkungan seperti stres dapat memengaruhi perkembangan anak secara signifikan meskipun nutrisinya cukup?",
+    choices: [
+      "Stres membuat anak tidak menyerap makanan dengan baik",
+      "Stres menghambat produksi hormon pertumbuhan",
+      "Stres memicu obesitas sejak dini",
+      "Stres mengaktifkan sistem imun secara berlebihan"
+    ],
+    correctAnswer: 1,
+    explanation: "Stres kronis dapat mengganggu fungsi hipotalamus dan kelenjar pituitari sehingga produksi hormon pertumbuhan terganggu, menyebabkan keterlambatan perkembangan."
+  },
+{
+    question: "Ani, seorang remaja putri berusia 13 tahun, merasa cemas karena teman-teman sebayanya sudah mengalami perubahan fisik seperti tumbuhnya payudara dan menstruasi pertama, sedangkan ia belum mengalaminya. Padahal Ani memiliki pola makan yang cukup dan aktif berolahraga. Berdasarkan kondisi tersebut, kemungkinan penyebab keterlambatan pubertas Ani adalah ...",
+    choices: [
+      "Kekurangan nutrisi penting",
+      "Produksi hormon estrogen terganggu",
+      "Genetik yang buruk",
+      "Aktivitas fisik berlebih menyebabkan kegemukan"
+    ],
+    correctAnswer: 1,
+    explanation: "Keterlambatan pubertas meskipun pola makan cukup dapat terjadi karena gangguan sistem hormonal, seperti produksi estrogen yang tidak mencukupi, meskipun aktivitas fisik juga berpengaruh namun bukan faktor utama dalam kasus ini."
+  },
+  {
+    question: "Bayu adalah seorang anak berusia 10 tahun yang mengalami patah tulang. Saat dilakukan pemeriksaan X-ray, dokter melihat adanya celah pertumbuhan (growth plate) pada tulangnya. Apa arti dari temuan ini?",
+    choices: [
+      "Tulang Bayu sudah berhenti tumbuh",
+      "Bayu mengalami kelainan tulang",
+      "Pertumbuhan tulang Bayu masih berlangsung",
+      "Patah tulang menyebabkan tulang berhenti tumbuh"
+    ],
+    correctAnswer: 2,
+    explanation: "Celah pertumbuhan (growth plate) menunjukkan bahwa tulang anak masih dalam masa pertumbuhan. Setelah dewasa, celah ini akan menutup dan pertumbuhan tulang berhenti."
+  },
+  {
+    question: "Seorang bayi lahir dengan berat badan sangat rendah akibat kekurangan oksigen selama masa kehamilan. Ketika usianya 4 tahun, ia menunjukkan perkembangan kognitif yang lebih lambat dari teman sebayanya. Berdasarkan kondisi tersebut, penyebab keterlambatan tersebut paling mungkin adalah ...",
+    choices: [
+      "Kekurangan makanan saat bayi",
+      "Tidak diberi ASI",
+      "Gangguan perkembangan sistem saraf sejak dalam kandungan",
+      "Kurangnya perhatian dari orang tua"
+    ],
+    correctAnswer: 2,
+    explanation: "Kekurangan oksigen saat kehamilan dapat menyebabkan kerusakan atau gangguan pada sistem saraf pusat yang berdampak jangka panjang pada perkembangan kognitif anak."
+  },
+  {
+    question: "Rina dan Roni adalah kembar identik yang dibesarkan di lingkungan berbeda. Rina dibesarkan di lingkungan yang aktif dan penuh stimulasi, sedangkan Roni di lingkungan yang kurang interaksi sosial. Ketika dewasa, Rina cenderung lebih percaya diri dan komunikatif. Apa kesimpulan yang paling tepat?",
+    choices: [
+      "Faktor genetik tidak berperan dalam kepribadian",
+      "Faktor lingkungan memengaruhi perkembangan psikologis",
+      "Kembar identik selalu memiliki sifat yang sama",
+      "Perbedaan lingkungan tidak memengaruhi perkembangan"
+    ],
+    correctAnswer: 1,
+    explanation: "Meskipun genetik sama, lingkungan tempat tumbuh sangat memengaruhi perkembangan kepribadian, kognitif, dan sosial seseorang."
+  },
+  {
+    question: "Pak Doni memelihara dua anak kambing yang lahir di hari yang sama. Kambing A diberi makan seimbang dan dibiarkan bermain di padang rumput, sementara Kambing B lebih sering dikandangkan dan diberi makan seadanya. Setelah 6 bulan, kambing A terlihat lebih besar dan aktif. Apa yang dapat disimpulkan dari perbedaan ini?",
+    choices: [
+      "Kambing A memiliki gen lebih baik",
+      "Lingkungan dan nutrisi berpengaruh besar terhadap pertumbuhan",
+      "Kambing B sedang sakit",
+      "Pertumbuhan hanya dipengaruhi oleh makanan saja"
+    ],
+    correctAnswer: 1,
+    explanation: "Nutrisi dan aktivitas fisik adalah dua faktor eksternal yang sangat memengaruhi pertumbuhan makhluk hidup, di samping faktor genetik."
+  }
+  ];
+
+  let currentAnimalIndex = 0;
+
+  function renderAnimalQuestion() {
+    const container = document.getElementById("quizAnimalContainer");
+    const q = animalQuestions[currentAnimalIndex];
+    container.innerHTML = `
+      <div class="p-6 border rounded-xl shadow-xl bg-blue-50">
+        <h3 class="text-xl font-bold mb-4 text-blue-700">Soal ${currentAnimalIndex + 1} dari ${animalQuestions.length}</h3>
+        <p class="text-gray-800 mb-6 text-lg">${q.question}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${q.choices.map((choice, index) => `
+            <label class="cursor-pointer">
+              <input type="radio" name="animalQuestion" value="${index}" class="hidden peer">
+              <div class="p-4 border rounded-lg peer-checked:ring-2 peer-checked:ring-blue-400 bg-white hover:bg-blue-100 transition-all">
+                ${choice}
+              </div>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    // Reset pembahasan
+    document.getElementById("animalExplanation").classList.add("hidden");
+    document.getElementById("animalExplanation").innerHTML = "";
+
+    // Handle tombol navigasi
+    document.getElementById("prevAnimalBtn").disabled = currentAnimalIndex === 0;
+    document.getElementById("nextAnimalBtn").disabled = currentAnimalIndex === animalQuestions.length - 1;
+  }
+
+  function checkAnimalAnswer() {
+    const selected = document.querySelector('input[name="animalQuestion"]:checked');
+    if (!selected) return alert("Pilih jawaban terlebih dahulu.");
+    const isCorrect = parseInt(selected.value) === animalQuestions[currentAnimalIndex].correctAnswer;
+
+    const explainBox = document.getElementById("animalExplanation");
+    explainBox.innerHTML = `<strong>${isCorrect ? '✅ Benar!' : '❌ Salah.'}</strong> ${animalQuestions[currentAnimalIndex].explanation}`;
+    explainBox.classList.remove("hidden");
+  }
+
+  function nextAnimalQuestion() {
+    if (currentAnimalIndex < animalQuestions.length - 1) {
+      currentAnimalIndex++;
+      renderAnimalQuestion();
+    }
+  }
+
+  function prevAnimalQuestion() {
+    if (currentAnimalIndex > 0) {
+      currentAnimalIndex--;
+      renderAnimalQuestion();
+    }
+  }
+
+  // Render pertama kali
+  renderAnimalQuestion();
+</script>
 <script>
 const quizData = [
   {
