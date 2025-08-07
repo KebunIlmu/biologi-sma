@@ -486,6 +486,436 @@ body::after {
     <p><strong>Pembahasan:</strong> Suhu tinggi menyebabkan denaturasi enzim, sehingga kehilangan forma situs aktif.</p>
   </div>
 </div>
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-lg" id="quizEnzyme">
+  <h2 class="text-3xl font-extrabold text-center text-green-600 mb-8 tracking-tight">🧬 Latihan Soal Interaktif: Enzim dan Metabolisme</h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizEnzymeContainer" class="space-y-6">
+    <!-- Soal akan di-render di sini -->
+  </div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex justify-between items-center mt-8">
+    <button id="prevEnzymeBtn" onclick="prevEnzymeQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="space-x-2">
+      <button id="checkEnzymeBtn" onclick="checkEnzymeAnswer()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 transition-all">Cek</button>
+      <button id="nextEnzymeBtn" onclick="nextEnzymeQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="enzymeExplanation" class="mt-6 hidden bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg shadow-inner"></div>
+</div>
+
+<script>
+  const enzymeQuestions = [
+    {
+      question: "Apa fungsi utama enzim dalam proses metabolisme?",
+      choices: [
+        "Menghambat laju reaksi kimia",
+        "Mempercepat reaksi kimia tanpa ikut bereaksi",
+        "Menurunkan energi produk reaksi",
+        "Menghasilkan energi dalam bentuk ATP"
+      ],
+      correctAnswer: 1,
+      explanation: "Enzim adalah biokatalisator yang mempercepat reaksi kimia dengan menurunkan energi aktivasi tanpa ikut bereaksi."
+    },
+    {
+      question: "Enzim bekerja secara spesifik terhadap substratnya. Hal ini disebabkan oleh:",
+      choices: [
+        "Suhu lingkungan",
+        "Bentuk permukaan enzim",
+        "Konsentrasi produk",
+        "pH enzim yang netral"
+      ],
+      correctAnswer: 1,
+      explanation: "Spesifisitas enzim dipengaruhi oleh bentuk sisi aktif enzim yang hanya cocok dengan substrat tertentu (teori gembok dan kunci)."
+    },
+    {
+      question: "Pernyataan yang benar mengenai sifat enzim adalah:",
+      choices: [
+        "Enzim hanya bekerja pada suhu sangat tinggi",
+        "Enzim bersifat tidak spesifik",
+        "Enzim tidak berubah setelah reaksi berlangsung",
+        "Enzim meningkatkan energi aktivasi reaksi"
+      ],
+      correctAnswer: 2,
+      explanation: "Setelah reaksi, enzim tidak mengalami perubahan struktur dan dapat digunakan kembali."
+    },
+    {
+      question: "Proses anabolisme yang terjadi dalam tumbuhan adalah:",
+      choices: [
+        "Fermentasi alkohol",
+        "Fotosintesis",
+        "Respirasi sel",
+        "Glikolisis"
+      ],
+      correctAnswer: 1,
+      explanation: "Fotosintesis adalah proses anabolisme yang menyusun senyawa kompleks (glukosa) dari senyawa sederhana (CO₂ dan H₂O)."
+    },
+    {
+      question: "Salah satu contoh katabolisme dalam tubuh manusia adalah:",
+      choices: [
+        "Penyusunan protein menjadi asam amino",
+        "Penyusunan glukosa menjadi glikogen",
+        "Pemecahan glukosa menjadi energi (ATP)",
+        "Fotosintesis dalam sel otot"
+      ],
+      correctAnswer: 2,
+      explanation: "Katabolisme adalah proses penguraian molekul kompleks seperti glukosa menjadi energi melalui respirasi sel."
+    },
+    {
+      question: "Apa yang akan terjadi jika suhu tubuh terlalu tinggi terhadap aktivitas enzim?",
+      choices: [
+        "Aktivitas enzim meningkat terus-menerus",
+        "Enzim menjadi lebih stabil",
+        "Struktur enzim rusak (denaturasi)",
+        "Tidak berpengaruh terhadap kerja enzim"
+      ],
+      correctAnswer: 2,
+      explanation: "Suhu terlalu tinggi menyebabkan denaturasi, yaitu kerusakan struktur enzim sehingga tidak dapat bekerja optimal."
+    },
+    {
+      question: "Energi aktivasi dalam reaksi biokimia adalah:",
+      choices: [
+        "Jumlah energi yang dihasilkan oleh reaksi",
+        "Energi minimum yang diperlukan untuk memulai reaksi",
+        "Energi total dalam tubuh",
+        "Energi dari enzim"
+      ],
+      correctAnswer: 1,
+      explanation: "Energi aktivasi adalah energi minimum yang diperlukan agar reaksi kimia bisa berlangsung. Enzim menurunkannya."
+    },
+    {
+      question: "Enzim katalase berfungsi untuk:",
+      choices: [
+        "Mengubah amilum menjadi maltosa",
+        "Memecah protein menjadi asam amino",
+        "Mengubah lemak menjadi asam lemak",
+        "Menguraikan H₂O₂ menjadi air dan oksigen"
+      ],
+      correctAnswer: 3,
+      explanation: "Katalase menguraikan hidrogen peroksida (H₂O₂), senyawa toksik, menjadi H₂O dan O₂."
+    },
+    {
+      question: "Faktor yang paling mempengaruhi aktivitas enzim selain suhu adalah:",
+      choices: [
+        "Kelembaban",
+        "pH",
+        "Tekanan udara",
+        "Warna substrat"
+      ],
+      correctAnswer: 1,
+      explanation: "Setiap enzim memiliki pH optimum tertentu. Perubahan pH yang ekstrem dapat merusak sisi aktif enzim."
+    },
+    {
+      question: "Manakah contoh reaksi metabolisme yang menghasilkan energi?",
+      choices: [
+        "Fotosintesis",
+        "Fermentasi glukosa",
+        "Sintesis protein",
+        "Sintesis lemak"
+      ],
+      correctAnswer: 1,
+      explanation: "Fermentasi glukosa adalah proses katabolik yang memecah glukosa dan menghasilkan energi dalam bentuk ATP."
+    },
+{
+  question: "Seorang ilmuwan ingin meningkatkan kecepatan reaksi kimia di dalam sel tanpa merusak struktur sel. Apa pendekatan terbaik yang bisa dilakukan?",
+  choices: [
+    "Menaikkan suhu sel",
+    "Menambahkan enzim spesifik",
+    "Mengubah pH secara ekstrem",
+    "Menambah air ke dalam sel"
+  ],
+  correctAnswer: 1,
+  explanation: "Menambahkan enzim spesifik adalah cara terbaik untuk mempercepat reaksi tanpa merusak struktur sel karena enzim bekerja spesifik dan efisien."
+},
+{
+  question: "Mengapa perubahan pH ekstrem bisa menghambat kerja enzim dalam tubuh manusia?",
+  choices: [
+    "Menghilangkan energi aktivasi",
+    "Mengubah bentuk substrat",
+    "Mengganggu struktur sisi aktif enzim",
+    "Mempercepat kerja enzim berlebih"
+  ],
+  correctAnswer: 2,
+  explanation: "pH ekstrem bisa merusak sisi aktif enzim, sehingga substrat tidak lagi cocok untuk berikatan dan reaksi terganggu."
+},
+{
+  question: "Jika enzim tidak lagi bekerja optimal pada suhu tubuh normal, apa kemungkinan yang terjadi?",
+  choices: [
+    "Suhu tubuh terlalu stabil",
+    "Enzim mengalami mutasi atau denaturasi",
+    "Substrat terlalu banyak",
+    "Sel menghasilkan lebih banyak energi"
+  ],
+  correctAnswer: 1,
+  explanation: "Jika enzim tidak aktif pada suhu tubuh normal, kemungkinan terjadi denaturasi atau mutasi yang mengubah struktur enzim."
+},
+{
+  question: "Mengapa enzim bisa digunakan kembali setelah satu reaksi selesai?",
+  choices: [
+    "Karena enzim tidak mengalami perubahan selama reaksi",
+    "Karena enzim larut dalam substrat",
+    "Karena enzim terserap oleh produk",
+    "Karena enzim berubah menjadi energi"
+  ],
+  correctAnswer: 0,
+  explanation: "Enzim tidak ikut bereaksi dan tidak berubah, sehingga bisa digunakan kembali untuk reaksi berikutnya."
+},
+{
+  question: "Jika tubuh kekurangan enzim lipase, apa dampak utama terhadap proses pencernaan?",
+  choices: [
+    "Pencernaan karbohidrat terhenti",
+    "Pencernaan protein terhambat",
+    "Pemecahan lemak terganggu",
+    "Penyerapan vitamin B12 terganggu"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim lipase bertanggung jawab memecah lemak, sehingga kekurangannya akan menghambat pencernaan lemak."
+},
+{
+  question: "Dalam penelitian, seseorang memiliki mutasi genetik yang menyebabkan enzim respirasi tidak aktif. Dampaknya terhadap sel adalah:",
+  choices: [
+    "Sel akan menghasilkan lebih banyak glukosa",
+    "Sel akan tetap normal",
+    "Sel tidak dapat menghasilkan energi (ATP) dengan optimal",
+    "Sel menghasilkan lebih banyak protein"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim respirasi berperan dalam pembentukan ATP. Jika tidak aktif, sel kekurangan energi dan fungsi terganggu."
+},
+{
+  question: "Manakah strategi yang paling efektif untuk meningkatkan sintesis protein dalam sel tumbuhan?",
+  choices: [
+    "Memberi hormon pertumbuhan",
+    "Meningkatkan intensitas cahaya",
+    "Memperbanyak enzim sintetase",
+    "Menurunkan kadar CO₂"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim sintetase membantu menyusun molekul kompleks seperti protein dari asam amino. Jumlahnya memengaruhi kecepatan sintesis."
+},
+{
+  question: "Bagaimana hubungan antara enzim, substrat, dan produk dalam suatu reaksi enzimatik?",
+  choices: [
+    "Substrat mengubah enzim menjadi produk",
+    "Enzim berikatan dengan substrat dan mengubahnya menjadi produk",
+    "Enzim menghancurkan substrat dan menghasilkan enzim baru",
+    "Produk mengubah enzim menjadi substrat"
+  ],
+  correctAnswer: 1,
+  explanation: "Enzim berfungsi mengubah substrat menjadi produk tanpa ikut berubah, melalui sisi aktifnya yang spesifik."
+},
+{
+  question: "Bagaimana tubuh beradaptasi jika produksi enzim pencernaan menurun akibat usia?",
+  choices: [
+    "Meningkatkan produksi empedu",
+    "Mengandalkan mikroorganisme usus untuk mencerna",
+    "Meningkatkan aktivitas peristaltik",
+    "Memproduksi enzim dari hati"
+  ],
+  correctAnswer: 1,
+  explanation: "Tubuh akan semakin mengandalkan mikroorganisme usus untuk membantu pencernaan jika enzim menurun."
+},
+{
+  question: "Mengapa enzim sangat penting dalam metabolisme dibandingkan dengan reaksi kimia biasa?",
+  choices: [
+    "Karena enzim menghasilkan energi lebih banyak",
+    "Karena enzim bekerja tanpa oksigen",
+    "Karena enzim bekerja cepat, spesifik, dan efisien di suhu tubuh normal",
+    "Karena enzim hanya aktif di pH netral"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim sangat penting karena mampu mempercepat reaksi secara spesifik di kondisi normal tubuh tanpa menghasilkan produk sampingan berbahaya."
+},
+{
+  question: "Seorang pasien tidak mampu mencerna makanan berlemak dan ditemukan bahwa empedunya tersumbat. Apa dampak utama terhadap kerja enzim lipase?",
+  choices: [
+    "Lipase bekerja lebih cepat karena tekanan meningkat",
+    "Lipase tidak dapat bekerja karena tidak ada empedu untuk mengemulsi lemak",
+    "Lipase tetap bekerja karena diproduksi pankreas",
+    "Lipase berubah menjadi enzim karbohidrat"
+  ],
+  correctAnswer: 1,
+  explanation: "Empedu berperan dalam mengemulsi lemak agar bisa dicerna oleh lipase. Tanpa emulsi, kerja lipase jadi tidak efektif."
+},
+{
+  question: "Mengapa seseorang yang mengalami demam tinggi (>40°C) cenderung mengalami gangguan pencernaan?",
+  choices: [
+    "Karena suhu tinggi mempercepat semua reaksi pencernaan",
+    "Karena enzim mengalami denaturasi sehingga tidak aktif",
+    "Karena tubuh menyerap terlalu banyak air",
+    "Karena tubuh memproduksi enzim lebih banyak"
+  ],
+  correctAnswer: 1,
+  explanation: "Suhu tinggi dapat merusak struktur enzim (denaturasi), membuatnya kehilangan fungsinya."
+},
+{
+  question: "Dalam sebuah eksperimen, enzim amilase menunjukkan aktivitas maksimal pada pH 7. Apa yang terjadi jika pH diturunkan menjadi 3?",
+  choices: [
+    "Aktivitas enzim meningkat drastis",
+    "Enzim akan berubah menjadi enzim lain",
+    "Aktivitas enzim menurun karena kondisi asam merusak struktur enzim",
+    "Enzim mengubah substrat menjadi racun"
+  ],
+  correctAnswer: 2,
+  explanation: "Perubahan pH drastis akan menyebabkan struktur enzim terganggu, sehingga sisi aktif tidak dapat mengenali substrat."
+},
+{
+  question: "Mengapa proses respirasi sel terjadi secara bertahap dan melibatkan banyak enzim?",
+  choices: [
+    "Agar energi bisa langsung dilepaskan sekaligus",
+    "Karena substrat sangat kompleks",
+    "Agar pembentukan energi (ATP) berlangsung efisien dan tidak merusak sel",
+    "Untuk membuat sel menjadi panas"
+  ],
+  correctAnswer: 2,
+  explanation: "Proses bertahap memungkinkan pelepasan energi secara efisien, menghindari lonjakan energi berbahaya bagi sel."
+},
+{
+  question: "Seseorang menjalani diet ekstrem rendah karbohidrat. Apa dampak jangka panjang terhadap metabolisme sel?",
+  choices: [
+    "Sel akan terus menghasilkan ATP dari karbohidrat",
+    "Tubuh akan menggunakan protein dan lemak sebagai sumber energi, memperlambat metabolisme",
+    "Sel berhenti melakukan metabolisme",
+    "Enzim berhenti diproduksi"
+  ],
+  correctAnswer: 1,
+  explanation: "Saat glukosa terbatas, tubuh mengalihkan sumber energi dari lemak dan protein. Hal ini bisa memengaruhi keseimbangan metabolisme."
+},
+{
+  question: "Mengapa produksi enzim dalam tubuh sangat terkontrol dan tidak berlebihan?",
+  choices: [
+    "Karena enzim tidak penting",
+    "Karena produksi enzim mahal",
+    "Agar tidak terjadi reaksi kimia yang tidak diinginkan dalam sel",
+    "Agar substrat habis dengan cepat"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim bekerja sangat cepat dan spesifik, sehingga jika berlebih, dapat menimbulkan reaksi berlebihan atau tidak terkendali dalam sel."
+},
+{
+  question: "Pada kasus intoleransi laktosa, tubuh kekurangan enzim laktase. Apa akibat paling logis dari kondisi ini?",
+  choices: [
+    "Laktosa tetap dapat dicerna oleh asam lambung",
+    "Laktosa tidak tercerna dan menyebabkan gangguan pencernaan",
+    "Laktosa menjadi protein",
+    "Laktosa berubah menjadi vitamin"
+  ],
+  correctAnswer: 1,
+  explanation: "Tanpa laktase, laktosa tidak dapat dipecah menjadi glukosa dan galaktosa, sehingga menumpuk dan menyebabkan gangguan pencernaan."
+},
+{
+  question: "Mengapa sel menggunakan ATP sebagai bentuk energi dibandingkan molekul lain?",
+  choices: [
+    "Karena ATP memiliki warna terang",
+    "ATP mudah dibentuk dan mudah digunakan secara langsung dalam reaksi seluler",
+    "ATP mengandung lemak tinggi",
+    "ATP bersifat radioaktif"
+  ],
+  correctAnswer: 1,
+  explanation: "ATP mudah digunakan dan langsung dapat memberikan energi untuk berbagai reaksi metabolisme sel."
+},
+{
+  question: "Dalam reaksi kimia tubuh, enzim lebih disukai daripada katalis kimia karena:",
+  choices: [
+    "Enzim bekerja lambat namun kuat",
+    "Katalis kimia bersifat racun",
+    "Enzim bekerja spesifik pada substrat tertentu dan efisien dalam kondisi biologis",
+    "Katalis kimia sulit ditemukan"
+  ],
+  correctAnswer: 2,
+  explanation: "Enzim bersifat spesifik, efisien, dan tidak merusak jaringan tubuh, berbeda dengan katalis kimia yang tidak selektif."
+},
+{
+  question: "Apa yang membedakan reaksi metabolisme pada sel hidup dibandingkan reaksi kimia biasa di luar tubuh?",
+  choices: [
+    "Reaksi metabolisme tidak butuh energi",
+    "Metabolisme sangat lambat dan tidak terkontrol",
+    "Reaksi metabolisme sangat terkontrol, spesifik, dan membutuhkan enzim",
+    "Reaksi kimia dalam tubuh hanya terjadi di otak"
+  ],
+  correctAnswer: 2,
+  explanation: "Metabolisme dalam tubuh bersifat teratur dan melibatkan enzim untuk memastikan reaksi berlangsung efisien dan sesuai kebutuhan."
+}
+
+  ];
+
+  let currentEnzymeIndex = 0;
+  let selectedEnzymeChoice = null;
+
+  function renderEnzymeQuestion() {
+    const container = document.getElementById("quizEnzymeContainer");
+    const q = enzymeQuestions[currentEnzymeIndex];
+    selectedEnzymeChoice = null;
+
+    container.innerHTML = `
+      <h3 class="text-xl font-semibold text-gray-800">${currentEnzymeIndex + 1}. ${q.question}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="enzymeCardChoices">
+        ${q.choices.map((choice, i) => `
+          <div onclick="selectEnzymeCard(${i})" id="enzymeCard${i}" class="cursor-pointer border-2 border-gray-300 rounded-xl p-4 text-gray-700 hover:border-green-500 transition-all">
+            ${choice}
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    document.getElementById("enzymeExplanation").classList.add("hidden");
+    document.getElementById("enzymeExplanation").textContent = "";
+    document.getElementById("checkEnzymeBtn").disabled = false;
+    document.getElementById("prevEnzymeBtn").disabled = currentEnzymeIndex === 0;
+    document.getElementById("nextEnzymeBtn").disabled = currentEnzymeIndex === enzymeQuestions.length - 1;
+  }
+
+  function selectEnzymeCard(index) {
+    selectedEnzymeChoice = index;
+    const cards = document.querySelectorAll("#enzymeCardChoices > div");
+    cards.forEach((card, i) => {
+      card.classList.remove("border-green-600", "bg-green-50");
+      if (i === index) {
+        card.classList.add("border-green-600", "bg-green-50");
+      }
+    });
+  }
+
+  function checkEnzymeAnswer() {
+    if (selectedEnzymeChoice === null) {
+      alert("Silakan pilih jawaban terlebih dahulu.");
+      return;
+    }
+
+    const correct = enzymeQuestions[currentEnzymeIndex].correctAnswer;
+    const explanation = enzymeQuestions[currentEnzymeIndex].explanation;
+    const resultDiv = document.getElementById("enzymeExplanation");
+
+    if (selectedEnzymeChoice === correct) {
+      resultDiv.innerHTML = `<strong class="text-green-700">✅ Jawaban benar!</strong><br>${explanation}`;
+    } else {
+      resultDiv.innerHTML = `<strong class="text-red-700">❌ Jawaban salah.</strong><br>${explanation}`;
+    }
+
+    resultDiv.classList.remove("hidden");
+    document.getElementById("checkEnzymeBtn").disabled = true;
+  }
+
+  function nextEnzymeQuestion() {
+    if (currentEnzymeIndex < enzymeQuestions.length - 1) {
+      currentEnzymeIndex++;
+      renderEnzymeQuestion();
+    }
+  }
+
+  function prevEnzymeQuestion() {
+    if (currentEnzymeIndex > 0) {
+      currentEnzymeIndex--;
+      renderEnzymeQuestion();
+    }
+  }
+
+  // Render pertama
+  renderEnzymeQuestion();
+</script>
 
 
 </div>
