@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Pembelajaran Interaktif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      min-height: 100vh;
+      padding: 5px;
+    }
+
+    .login-box {
+      background: linear-gradient(135deg, #ce9ffc, #f9c7d9);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 300px;
+      margin: 10px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .login-box input, .login-box button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .login-box button {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: linear-gradient(135deg, #5e0dca, #1d60e7);
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background: #4dd4a3;
+      position: fixed;
+      left: -250px;
+      transition: left 0.3s ease-in-out;
+      padding-top: 20px;
+      z-index: 1300;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      font-size: 24px;
+      background: #f8d444;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      z-index: 1400;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      border-radius: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header img {
+      max-width: 60px;
+      height: auto;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 90%;
+      }
+
+      .sidebar {
+        width: 80%;
+        left: -80%;
+      }
+
+      .toggle-btn {
+        font-size: 20px;
+        padding: 8px 12px;
+      }
+
+      .login-box {
+        width: 90%;
+        max-width: 90%;
+        margin: 20px auto;
+      }
+
+      .header span {
+        font-size: 20px;
+      }
+
+      .header img {
+        max-width: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box" id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="checkLogin()">Masuk</button>
+    <p id="errorMsg" style="color:red;"></p>
+  </div>
+
+  <div id="content22" class="hidden">
+    <!-- Tombol Buka -->
+<div class="toggle-btn" onclick="toggleSidebar()">
+  <i class="fas fa-bars"></i>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+  <h2 class="text-2xl text-white text-center mb-4">Menu</h2>
+  <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+    <li class="mb-3"><a href="#1" class="hover:text-white">Materi 1</a></li>
+    <li class="mb-3"><a href="#2" class="hover:text-white">Materi 2</a></li>
+    <!-- dst -->
+  </ul>
+</div>
+
+<div class="header flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-6">
+  <span class="text-[#4dd4a3] font-bold">Media Pembelajaran Interaktif</span>
+  <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo" class="h-10" />
+</div>
+<!-- Konten Utama -->
+<div class="w-full max-w-7xl mx-auto bg-white px-4 sm:px-8 py-8 rounded-lg shadow-2xl">
+  <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">Biologi Kelas 12 — Anabolisme</h1>
+
+  <!-- Daftar Isi -->
+  <nav class="mb-8 p-6 rounded-lg shadow-lg bg-gradient-to-r from-[#4dd4a3] to-green-500 text-white">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">📚 Daftar Isi</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <a href="#1-Anabolisme" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+        <span class="text-lg font-semibold">1. Anabolisme</span>
+        <p class="text-sm opacity-80">Pengertian dan ciri-ciri anabolisme.</p>
+      </a>
+      <a href="#2-Fotosintesis" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+        <span class="text-lg font-semibold">2. Fotosintesis</span>
+        <p class="text-sm opacity-80">Proses pembentukan glukosa dari cahaya matahari.</p>
+      </a>
+      <a href="#3-Kemosintesis" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+        <span class="text-lg font-semibold">3. Kemosintesis</span>
+        <p class="text-sm opacity-80">Pembentukan senyawa organik dari energi kimia.</p>
+      </a>
+      <a href="#4-Sintesis-Lemak" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+        <span class="text-lg font-semibold">4. Sintesis Lemak</span>
+        <p class="text-sm opacity-80">Pembentukan lemak dari asam lemak dan gliserol.</p>
+      </a>
+      <a href="#5-Sintesis-Protein" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+        <span class="text-lg font-semibold">5. Sintesis Protein</span>
+        <p class="text-sm opacity-80">Pembentukan protein dari asam amino.</p>
+      </a>
+    </div>
+  </nav>
+
+  <!-- 1. Anabolisme -->
+  <div id="1-Anabolisme" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+    <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4">⚙️ 1. Anabolisme</h3>
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      <strong>Anabolisme</strong> adalah proses metabolisme yang menyusun molekul-molekul sederhana menjadi molekul yang lebih kompleks dengan memerlukan energi. Proses ini penting dalam pertumbuhan, perbaikan jaringan, dan penyimpanan energi.
+    </p>
+    <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+      <h4 class="text-lg font-semibold mb-2">📌 Ciri-Ciri Anabolisme:</h4>
+      <ul class="list-disc ml-6 space-y-1">
+        <li>Memerlukan energi (endergonik)</li>
+        <li>Menyusun molekul sederhana menjadi kompleks</li>
+        <li>Berperan dalam pembentukan biomolekul seperti karbohidrat, lemak, dan protein</li>
+      </ul>
+    </div>
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🎥 Video Penjelasan</h4>
+    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+      <iframe src="https://www.youtube.com/embed/PIv56O71RAQ" title="Pengertian Anabolisme" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+    </div>
+  </div>
+
+  <!-- 2. Fotosintesis -->
+<div id="2-Fotosintesis" class="mb-10 p-6 bg-gradient-to-br from-green-50 via-white to-green-100 rounded-xl shadow-2xl border border-green-200">
+  
+  <!-- Judul -->
+  <h3 class="text-3xl font-extrabold text-green-600 mb-4 flex items-center gap-2">
+    🌱 2. Fotosintesis
+  </h3>
+        <img src="https://cdn.rri.co.id/berita/Tual/o/1749605553564-018f1cd5-1926-4190-893a-5e4becd13017/0jmjxoqmbhvpglc.jpeg" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-6 leading-relaxed text-justify">
+    <strong>Fotosintesis</strong> adalah proses pembentukan glukosa oleh tumbuhan hijau dengan memanfaatkan cahaya matahari, air, dan karbon dioksida. Proses ini berlangsung di dalam kloroplas menggunakan pigmen klorofil.
+  </p>
+
+  <!-- Reaksi -->
+  <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-5 rounded-lg shadow-lg mb-8 transform transition hover:scale-[1.02]">
+    <h4 class="text-xl font-semibold mb-2">🧪 Reaksi Fotosintesis:</h4>
+    <p class="ml-2 text-lg">6CO₂ + 6H₂O + cahaya → C₆H₁₂O₆ + 6O₂</p>
+  </div>
+
+  <!-- Organel -->
+  <h4 class="text-xl font-semibold text-green-600 mb-3">🏛 Organel yang Berperan</h4>
+<img src="https://i.imgur.com/LeGviOw.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+  <p class="text-gray-700 mb-6">
+    Organel utama yang berperan dalam fotosintesis adalah <strong>kloroplas</strong>. Di dalam kloroplas terdapat membran tilakoid yang membentuk grana (tempat reaksi terang) dan stroma (tempat reaksi gelap).
+  </p>
+
+  <!-- Proses Fotosintesis -->
+  <h4 class="text-xl font-semibold text-green-600 mb-3">🔄 Proses Fotosintesis</h4>
+  <ul class="list-disc pl-6 text-gray-700 mb-8 space-y-1 marker:text-green-500">
+    <li><strong>Penangkapan cahaya</strong> oleh pigmen pada fotosistem.</li>
+    <li><strong>Reaksi terang</strong> di membran tilakoid menghasilkan ATP, NADPH, dan O₂.</li>
+    <li><strong>Reaksi gelap</strong> di stroma memanfaatkan ATP dan NADPH untuk mengubah CO₂ menjadi glukosa.</li>
+  </ul>
+
+  <!-- Reaksi Terang & Gelap -->
+  <div class="grid sm:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white border border-green-200 p-5 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-lg font-bold text-green-600 mb-2">☀️ Reaksi Terang</h4>
+<img src="https://i.imgur.com/rCOp9Rh.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+      <p class="text-gray-700">Berlangsung di membran tilakoid, memerlukan cahaya, menghasilkan O₂, ATP, dan NADPH.</p>
+    </div>
+    <div class="bg-white border border-green-200 p-5 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-lg font-bold text-green-600 mb-2">🌙 Reaksi Gelap (Siklus Calvin)</h4>
+<img src="https://i.imgur.com/rEdZLIr.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+      <p class="text-gray-700">Berlangsung di stroma, tidak memerlukan cahaya langsung, menggunakan ATP & NADPH untuk membentuk glukosa dari CO₂.</p>
+    </div>
+  </div>
+
+  <!-- Fotosistem -->
+  <h4 class="text-xl font-semibold text-green-600 mb-3">🌞 Fotosistem</h4>
+  <p class="text-gray-700 mb-6">
+    Fotosistem adalah kompleks protein dan pigmen pada membran tilakoid yang menangkap energi cahaya:
+    <br>• <strong>PS I</strong> – Menangkap cahaya ±700 nm.
+    <br>• <strong>PS II</strong> – Menangkap cahaya ±680 nm.
+  </p>
+
+  <!-- Fungsi Pigmen -->
+  <h4 class="text-xl font-semibold text-green-600 mb-3">🎨 Fungsi Pigmen</h4>
+<img src="https://i.imgur.com/HPOvPA7.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+
+  <ul class="list-disc pl-6 text-gray-700 mb-8 space-y-1 marker:text-green-500">
+    <li><strong>Klorofil a</strong> – Pigmen utama, memulai reaksi fotosintesis.</li>
+    <li><strong>Klorofil b</strong> – Pigmen pembantu, memperluas spektrum cahaya.</li>
+    <li><strong>Karotenoid</strong> – Menyerap cahaya biru-hijau & melindungi dari cahaya berlebih.</li>
+  </ul>
+
+  <!-- Fotofosforilasi -->
+  <div class="grid sm:grid-cols-2 gap-6 mb-8">
+    <div class="bg-gradient-to-r from-emerald-400 to-green-500 text-white p-5 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-lg font-bold mb-2">⚡ Fotofosforilasi Siklik</h4>
+<img src="https://i.imgur.com/M1W5qN6.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a><br>
+<img src="https://i.imgur.com/Kwdgl6s.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+      <p>Elektron hanya melalui PS I, menghasilkan ATP saja, tanpa O₂ atau NADPH.</p>
+    </div>
+    <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-5 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-lg font-bold mb-2">⚡ Fotofosforilasi Non-Siklik</h4>
+<img src="https://i.imgur.com/uVw0G4T.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a><br>
+<img src="https://i.imgur.com/LScoGQx.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a><br>
+<img src="https://i.imgur.com/lXeUjyl.png" 
+             alt="Contoh Gambar" 
+             class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+    </a>
+
+      <p>Elektron dari PS II ke PS I, menghasilkan ATP, NADPH, dan O₂.</p>
+    </div>
+  </div>
+<!-- 🌿 Siklus Calvin -->
+<h4 class="text-xl font-semibold text-green-600 mb-3">🌿 Siklus Calvin</h4>
+<img src="https://i.imgur.com/YoePm4V.png" 
+     alt="Siklus Calvin" 
+     class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300"><br>
+<img src="https://i.imgur.com/vf5ULdL.png" 
+     alt="Siklus Calvin" 
+     class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300"><br>
+<img src="https://i.imgur.com/yTDzze1.png" 
+     alt="Siklus Calvin" 
+     class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+
+<ul class="list-disc pl-6 text-gray-700 mb-8 space-y-1 marker:text-green-500">
+  <li>Terjadi di <strong>stroma kloroplas</strong> dan tidak memerlukan cahaya langsung.</li>
+  <li>Menggunakan <strong>ATP</strong> dan <strong>NADPH</strong> dari reaksi terang untuk mengubah CO<sub>2</sub> menjadi glukosa.</li>
+  <li><strong>Tahap 1: Fiksasi Karbon</strong> – CO<sub>2</sub> diikat oleh enzim RuBisCO ke RuBP membentuk senyawa 3-PGA.</li>
+  <li><strong>Tahap 2: Reduksi</strong> – ATP dan NADPH mengubah 3-PGA menjadi G3P (gliseraldehida-3-fosfat).</li>
+  <li><strong>Tahap 3: Regenerasi RuBP</strong> – Sebagian G3P digunakan untuk membentuk kembali RuBP agar siklus berulang.</li>
+  <li>Produk akhir: <strong>G3P</strong> yang digunakan untuk membentuk karbohidrat seperti glukosa.</li>
+</ul>
+
+<!-- ☀️ Perbedaan Reaksi Terang dan Gelap -->
+<h4 class="text-xl font-semibold text-green-600 mb-3">☀️ Perbedaan Reaksi Terang dan Gelap</h4>
+<img src="https://i.imgur.com/26sccre.png" 
+     alt="Perbedaan Reaksi Terang dan Gelap" 
+     class="w-full h-auto rounded-xl shadow-lg hover:opacity-80 transition duration-300">
+
+<ul class="list-disc pl-6 text-gray-700 mb-8 space-y-1 marker:text-green-500">
+  <li><strong>Reaksi Terang</strong> – Terjadi di tilakoid, memerlukan cahaya, menghasilkan ATP, NADPH, dan O<sub>2</sub>.</li>
+  <li><strong>Reaksi Gelap</strong> – Terjadi di stroma, tidak memerlukan cahaya langsung, menggunakan ATP & NADPH untuk sintesis glukosa.</li>
+  <li>Reaksi terang menyediakan energi kimia untuk reaksi gelap.</li>
+  <li>Keduanya saling bergantung dalam proses fotosintesis.</li>
+</ul>
+
+  <!-- Video -->
+  <h4 class="text-xl font-semibold text-green-600 mb-3">🎥 Video Penjelasan</h4>
+  <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+    <iframe src="https://www.youtube.com/embed/PIv56O71RAQ" title="Proses Fotosintesis" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+  </div>
+</div>
+<div class="w-full max-w-3xl mx-auto bg-white px-4 sm:px-6 py-6 sm:py-8 rounded-2xl shadow-lg" id="quizFotosintesis">
+  <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-green-600 mb-6 sm:mb-8 tracking-tight">
+    🌱 Latihan Soal Interaktif: Fotosintesis
+  </h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizFotosintesisContainer" class="space-y-6"></div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mt-8">
+    <button id="prevFotosintesisBtn" onclick="prevFotosintesisQuestion()" class="w-full sm:w-auto px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+      <button id="checkFotosintesisBtn" onclick="checkFotosintesisAnswer()" class="w-full sm:w-auto px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 transition-all">Cek</button>
+      <button id="nextFotosintesisBtn" onclick="nextFotosintesisQuestion()" class="w-full sm:w-auto px-5 py-2 font-semibold rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="fotosintesisExplanation" class="mt-6 hidden bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg shadow-inner"></div>
+</div>
+
+<script>
+  const fotosintesisQuestions = [
+    {
+      question: "Organel yang berperan dalam proses fotosintesis adalah...",
+      choices: [
+        "Mitokondria",
+        "Kloroplas",
+        "Ribosom",
+        "Nukleus"
+      ],
+      correctAnswer: 1,
+      explanation: "Fotosintesis berlangsung di dalam kloroplas yang mengandung pigmen klorofil."
+    },
+    {
+      question: "Di manakah tahap reaksi terang fotosintesis berlangsung?",
+      choices: [
+        "Stroma kloroplas",
+        "Tilakoid",
+        "Sitoplasma",
+        "Inti sel"
+      ],
+      correctAnswer: 1,
+      explanation: "Reaksi terang berlangsung di membran tilakoid dan memerlukan cahaya."
+    },
+    {
+      question: "Reaksi gelap fotosintesis terjadi di...",
+      choices: [
+        "Tilakoid",
+        "Stroma kloroplas",
+        "Membran plasma",
+        "Sitoplasma"
+      ],
+      correctAnswer: 1,
+      explanation: "Reaksi gelap terjadi di stroma kloroplas tanpa memerlukan cahaya langsung."
+    },
+    {
+      question: "Fotosistem I dan Fotosistem II berfungsi untuk...",
+      choices: [
+        "Menangkap energi cahaya dan mengubahnya menjadi energi kimia",
+        "Menghasilkan CO₂",
+        "Menyerap air",
+        "Menghasilkan protein"
+      ],
+      correctAnswer: 0,
+      explanation: "Fotosistem adalah kompleks protein-pigmen yang menyerap cahaya untuk memulai reaksi fotosintesis."
+    },
+    {
+      question: "Pigmen utama yang berperan dalam fotosintesis adalah...",
+      choices: [
+        "Karotenoid",
+        "Klorofil a",
+        "Klorofil b",
+        "Xantofil"
+      ],
+      correctAnswer: 1,
+      explanation: "Klorofil a adalah pigmen utama yang memulai reaksi fotosintesis."
+    },
+    {
+      question: "Fotofosforilasi non-siklik menghasilkan...",
+      choices: [
+        "ATP dan NADPH",
+        "Hanya ATP",
+        "Hanya NADPH",
+        "ATP dan O₂"
+      ],
+      correctAnswer: 0,
+      explanation: "Fotofosforilasi non-siklik menghasilkan ATP, NADPH, dan O₂."
+    },
+    {
+      question: "Fotofosforilasi siklik menghasilkan...",
+      choices: [
+        "ATP saja",
+        "ATP dan NADPH",
+        "NADPH saja",
+        "O₂ saja"
+      ],
+      correctAnswer: 0,
+      explanation: "Fotofosforilasi siklik hanya menghasilkan ATP tanpa NADPH atau O₂."
+    },
+    {
+      question: "Tahap pertama Siklus Calvin adalah...",
+      choices: [
+        "Regenerasi RuBP",
+        "Reduksi",
+        "Fiksasi karbon",
+        "Transport elektron"
+      ],
+      correctAnswer: 2,
+      explanation: "Tahap pertama adalah fiksasi karbon, CO₂ diikat oleh RuBP membentuk senyawa 3-PGA."
+    },
+    {
+      question: "Tahap kedua Siklus Calvin adalah...",
+      choices: [
+        "Reduksi",
+        "Fiksasi karbon",
+        "Regenerasi RuBP",
+        "Fotofosforilasi"
+      ],
+      correctAnswer: 0,
+      explanation: "Tahap kedua adalah reduksi, di mana 3-PGA diubah menjadi G3P dengan bantuan ATP dan NADPH."
+    },
+    {
+      question: "Tahap ketiga Siklus Calvin adalah...",
+      choices: [
+        "Reduksi",
+        "Regenerasi RuBP",
+        "Fiksasi karbon",
+        "Fotolisis"
+      ],
+      correctAnswer: 1,
+      explanation: "Tahap ketiga adalah regenerasi RuBP agar siklus dapat berulang kembali."
+    },
+    {
+      question: "Jika proses reaksi terang terhenti, apa dampak langsung yang terjadi pada reaksi gelap?",
+      choices: [
+        "Tidak ada pengaruh",
+        "Produksi glukosa meningkat",
+        "Kekurangan ATP dan NADPH untuk fiksasi karbon",
+        "Jumlah CO₂ yang diikat bertambah"
+      ],
+      correctAnswer: 2,
+      explanation: "Reaksi gelap memerlukan ATP dan NADPH dari reaksi terang. Jika reaksi terang terhenti, pasokan energi dan reduktor berkurang sehingga fiksasi karbon terganggu."
+    },
+    {
+      question: "Mengapa fotofosforilasi siklik tetap diperlukan meskipun fotofosforilasi non-siklik sudah menghasilkan ATP?",
+      choices: [
+        "Karena non-siklik tidak menghasilkan ATP sama sekali",
+        "Karena reaksi gelap memerlukan lebih banyak ATP daripada NADPH",
+        "Untuk menghasilkan lebih banyak O₂",
+        "Agar klorofil tidak rusak"
+      ],
+      correctAnswer: 1,
+      explanation: "Reaksi gelap membutuhkan rasio ATP:NADPH yang lebih tinggi, sehingga fotofosforilasi siklik membantu memenuhi kebutuhan tambahan ATP."
+    },
+    {
+      question: "Jika konsentrasi CO₂ di udara turun drastis, bagian proses fotosintesis mana yang pertama kali terpengaruh?",
+      choices: [
+        "Fotolisis air",
+        "Fiksasi karbon dalam Siklus Calvin",
+        "Pembentukan NADPH",
+        "Absorpsi cahaya oleh fotosistem"
+      ],
+      correctAnswer: 1,
+      explanation: "Fiksasi karbon di Siklus Calvin memerlukan CO₂ sebagai bahan baku, sehingga penurunan CO₂ langsung menghambat tahap ini."
+    },
+    {
+      question: "Mengapa klorofil b disebut sebagai pigmen aksesoris?",
+      choices: [
+        "Karena tidak berperan dalam fotosintesis",
+        "Karena hanya memantulkan cahaya hijau",
+        "Karena membantu memperluas spektrum cahaya yang dapat diserap",
+        "Karena hanya berfungsi pada malam hari"
+      ],
+      correctAnswer: 2,
+      explanation: "Klorofil b menyerap cahaya pada panjang gelombang yang tidak banyak diserap oleh klorofil a, sehingga memperluas spektrum penyerapan."
+    },
+    {
+      question: "Apa yang akan terjadi jika fotosistem II rusak?",
+      choices: [
+        "Produksi O₂ berhenti dan pasokan elektron ke fotosistem I terganggu",
+        "Produksi ATP meningkat",
+        "Fotofosforilasi siklik terhenti",
+        "Siklus Calvin berjalan lebih cepat"
+      ],
+      correctAnswer: 0,
+      explanation: "Fotosistem II memecah air untuk menghasilkan O₂ dan elektron. Jika rusak, aliran elektron non-siklik terganggu dan produksi O₂ berhenti."
+    },
+    {
+      question: "Pada kondisi cahaya sangat rendah, mengapa laju fotosintesis turun?",
+      choices: [
+        "Tidak cukup energi untuk memicu reaksi terang",
+        "Tidak ada CO₂ yang diikat",
+        "Enzim-enzim Siklus Calvin rusak",
+        "Jumlah stomata menurun"
+      ],
+      correctAnswer: 0,
+      explanation: "Cahaya yang rendah membuat penyerapan energi oleh pigmen tidak cukup untuk memicu reaksi terang."
+    },
+    {
+      question: "Jika rasio ATP:NADPH terlalu rendah, bagian proses fotosintesis mana yang terhambat?",
+      choices: [
+        "Reaksi gelap (Siklus Calvin)",
+        "Fotolisis air",
+        "Absorpsi cahaya",
+        "Pembentukan fotosistem"
+      ],
+      correctAnswer: 0,
+      explanation: "Siklus Calvin membutuhkan ATP lebih banyak dibanding NADPH. Kekurangan ATP akan memperlambat pembentukan G3P."
+    },
+    {
+      question: "Mengapa reaksi gelap dapat terjadi pada siang hari?",
+      choices: [
+        "Karena menggunakan energi panas matahari",
+        "Karena hanya memerlukan produk reaksi terang, bukan cahaya langsung",
+        "Karena terjadi di tilakoid",
+        "Karena berlangsung di malam hari saja"
+      ],
+      correctAnswer: 1,
+      explanation: "Reaksi gelap menggunakan ATP dan NADPH dari reaksi terang, sehingga dapat berlangsung siang hari meskipun tidak menggunakan cahaya langsung."
+    },
+    {
+      question: "Jika semua klorofil pada tumbuhan hilang, apa yang terjadi?",
+      choices: [
+        "Reaksi gelap tetap berlangsung normal",
+        "Fotosintesis berhenti karena tidak ada penyerapan cahaya",
+        "Produksi O₂ meningkat",
+        "Fotofosforilasi siklik meningkat"
+      ],
+      correctAnswer: 1,
+      explanation: "Klorofil adalah pigmen utama untuk menangkap cahaya. Tanpanya, fotosintesis tidak dapat berlangsung."
+    },
+    {
+      question: "Mengapa O₂ dihasilkan dalam reaksi terang?",
+      choices: [
+        "Hasil pemecahan CO₂",
+        "Produk samping reduksi NADP⁺",
+        "Hasil fotolisis air oleh fotosistem II",
+        "Produk akhir Siklus Calvin"
+      ],
+      correctAnswer: 2,
+      explanation: "O₂ dihasilkan sebagai produk samping dari fotolisis air di fotosistem II pada reaksi terang."
+    }
+
+  ];
+
+  let currentFotosintesisIndex = 0;
+  let selectedFotosintesisChoice = null;
+
+  function renderFotosintesisQuestion() {
+    const container = document.getElementById("quizFotosintesisContainer");
+    const q = fotosintesisQuestions[currentFotosintesisIndex];
+    selectedFotosintesisChoice = null;
+
+    container.innerHTML = `
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-800">${currentFotosintesisIndex + 1}. ${q.question}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="fotosintesisCardChoices">
+        ${q.choices.map((choice, i) => `
+          <div onclick="selectFotosintesisCard(${i})" id="fotosintesisCard${i}" class="cursor-pointer border-2 border-gray-300 rounded-xl p-4 text-gray-700 hover:border-green-500 transition-all">
+            ${choice}
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    document.getElementById("fotosintesisExplanation").classList.add("hidden");
+    document.getElementById("fotosintesisExplanation").textContent = "";
+    document.getElementById("checkFotosintesisBtn").disabled = false;
+    document.getElementById("prevFotosintesisBtn").disabled = currentFotosintesisIndex === 0;
+    document.getElementById("nextFotosintesisBtn").disabled = currentFotosintesisIndex === fotosintesisQuestions.length - 1;
+  }
+
+  function selectFotosintesisCard(index) {
+    selectedFotosintesisChoice = index;
+    const cards = document.querySelectorAll("#fotosintesisCardChoices > div");
+    cards.forEach((card, i) => {
+      card.classList.remove("border-green-600", "bg-green-50");
+      if (i === index) {
+        card.classList.add("border-green-600", "bg-green-50");
+      }
+    });
+  }
+
+  function checkFotosintesisAnswer() {
+    if (selectedFotosintesisChoice === null) {
+      alert("Silakan pilih jawaban terlebih dahulu.");
+      return;
+    }
+
+    const correct = fotosintesisQuestions[currentFotosintesisIndex].correctAnswer;
+    const explanation = fotosintesisQuestions[currentFotosintesisIndex].explanation;
+    const resultDiv = document.getElementById("fotosintesisExplanation");
+
+    if (selectedFotosintesisChoice === correct) {
+      resultDiv.innerHTML = `<strong class="text-green-700">✅ Jawaban benar!</strong><br>${explanation}`;
+    } else {
+      resultDiv.innerHTML = `<strong class="text-red-700">❌ Jawaban salah.</strong><br>${explanation}`;
+    }
+
+    resultDiv.classList.remove("hidden");
+    document.getElementById("checkFotosintesisBtn").disabled = true;
+  }
+
+  function nextFotosintesisQuestion() {
+    if (currentFotosintesisIndex < fotosintesisQuestions.length - 1) {
+      currentFotosintesisIndex++;
+      renderFotosintesisQuestion();
+    }
+  }
+
+  function prevFotosintesisQuestion() {
+    if (currentFotosintesisIndex > 0) {
+      currentFotosintesisIndex--;
+      renderFotosintesisQuestion();
+    }
+  }
+
+  renderFotosintesisQuestion();
+</script>
+
+
+  <!-- 3. Kemosintesis -->
+  <div id="3-Kemosintesis" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+    <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4">🔬 3. Kemosintesis</h3>
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      <strong>Kemosintesis</strong> adalah proses pembentukan senyawa organik dari senyawa anorganik tanpa bantuan cahaya, melainkan menggunakan energi hasil reaksi kimia. Proses ini dilakukan oleh bakteri kemosintetik seperti bakteri nitrifikasi dan bakteri belerang.
+    </p>
+    <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+      <h4 class="text-lg font-semibold mb-2">📌 Contoh Bakteri Kemosintetik:</h4>
+      <ul class="list-disc ml-6 space-y-1">
+        <li>Bakteri Nitrosomonas (oksidasi amonia → nitrit)</li>
+        <li>Bakteri Nitrobacter (oksidasi nitrit → nitrat)</li>
+        <li>Bakteri Sulfur (oksidasi senyawa belerang)</li>
+      </ul>
+    </div>
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🎥 Video Penjelasan</h4>
+    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+      <iframe src="https://www.youtube.com/embed/hfXnXRxD0nM" title="Proses Kemosintesis" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+    </div>
+  </div>
+
+  <!-- 4. Sintesis Lemak -->
+  <div id="4-Sintesis-Lemak" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+    <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4">🥑 4. Sintesis Lemak</h3>
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      Sintesis lemak adalah proses pembentukan trigliserida dari gliserol dan asam lemak. Proses ini berfungsi untuk menyimpan energi dalam jangka panjang dan melindungi organ tubuh.
+    </p>
+    <div class="bg-yellow-500 text-white p-4 rounded-lg shadow mb-6">
+      <h4 class="text-lg font-semibold mb-2">📌 Fungsi Lemak:</h4>
+      <ul class="list-disc ml-6 space-y-1">
+        <li>Sumber energi cadangan</li>
+        <li>Penyusun membran sel</li>
+        <li>Pelindung organ tubuh</li>
+      </ul>
+    </div>
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🎥 Video Penjelasan</h4>
+    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+      <iframe src="https://www.youtube.com/embed/fN9tZgTpjIM" title="Sintesis Lemak" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+    </div>
+  </div>
+
+  <!-- 5. Sintesis Protein -->
+  <div id="5-Sintesis-Protein" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+    <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4">🍖 5. Sintesis Protein</h3>
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      Sintesis protein adalah proses pembentukan protein dari asam amino melalui dua tahap utama: transkripsi (di inti sel) dan translasi (di ribosom). Protein berperan penting dalam struktur, fungsi enzim, dan regulasi tubuh.
+    </p>
+    <div class="bg-purple-500 text-white p-4 rounded-lg shadow mb-6">
+      <h4 class="text-lg font-semibold mb-2">📌 Fungsi Protein:</h4>
+      <ul class="list-disc ml-6 space-y-1">
+        <li>Menyusun jaringan tubuh</li>
+        <li>Membentuk enzim dan hormon</li>
+        <li>Berperan dalam sistem kekebalan</li>
+      </ul>
+    </div>
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🎥 Video Penjelasan</h4>
+    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+      <iframe src="https://www.youtube.com/embed/5bTzI7H3z30" title="Sintesis Protein" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+    </div>
+  </div>
+
+  
+
+</div>
+
+
+
+    <script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const screenWidth = window.innerWidth;
+
+    const visibleLeft = "0px";
+    const hiddenLeft = screenWidth < 768 ? "-80%" : "-250px";
+    const visibleWidth = screenWidth < 768 ? "80%" : "250px";
+
+    if (sidebar.style.left === visibleLeft) {
+      sidebar.style.left = hiddenLeft;
+    } else {
+      sidebar.style.left = visibleLeft;
+      sidebar.style.width = visibleWidth;
+    }
+  }
+</script>
+
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "Diza MTSN 1 Brebes 7", password: "semangatbelajar45" },
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
