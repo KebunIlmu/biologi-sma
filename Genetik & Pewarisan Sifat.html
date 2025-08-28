@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Pembelajaran Interaktif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      min-height: 100vh;
+      padding: 5px;
+    }
+
+    .login-box {
+      background: linear-gradient(135deg, #ce9ffc, #f9c7d9);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 300px;
+      margin: 10px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .login-box input, .login-box button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .login-box button {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: linear-gradient(135deg, #5e0dca, #1d60e7);
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background: #4dd4a3;
+      position: fixed;
+      left: -250px;
+      transition: left 0.3s ease-in-out;
+      padding-top: 20px;
+      z-index: 1300;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      font-size: 24px;
+      background: #f8d444;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      z-index: 1400;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      border-radius: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header img {
+      max-width: 60px;
+      height: auto;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 90%;
+      }
+
+      .sidebar {
+        width: 80%;
+        left: -80%;
+      }
+
+      .toggle-btn {
+        font-size: 20px;
+        padding: 8px 12px;
+      }
+
+      .login-box {
+        width: 90%;
+        max-width: 90%;
+        margin: 20px auto;
+      }
+
+      .header span {
+        font-size: 20px;
+      }
+
+      .header img {
+        max-width: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box" id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="checkLogin()">Masuk</button>
+    <p id="errorMsg" style="color:red;"></p>
+  </div>
+
+  <div id="content22" class="hidden">
+    <!-- Tombol Buka -->
+<div class="toggle-btn" onclick="toggleSidebar()">
+  <i class="fas fa-bars"></i>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+  <h2 class="text-2xl text-white text-center mb-4">Menu</h2>
+  <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+    <li class="mb-3"><a href="#1" class="hover:text-white">Materi 1</a></li>
+    <li class="mb-3"><a href="#2" class="hover:text-white">Materi 2</a></li>
+    <!-- dst -->
+  </ul>
+</div>
+
+<div class="header flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-6">
+  <span class="text-[#4dd4a3] font-bold">Media Pembelajaran Interaktif</span>
+  <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo" class="h-10" />
+</div>
+
+<!-- Konten Utama -->
+<div class="w-full max-w-7xl mx-auto bg-white px-4 sm:px-8 py-8 rounded-lg shadow-2xl">
+
+  <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">
+    IPA Kelas 12 — Genetika dan Pewarisan Sifat
+  </h1>
+
+  <!-- Daftar Isi -->
+  <nav class="mb-8 p-6 rounded-lg shadow-lg bg-gradient-to-r from-[#4dd4a3] to-green-500 text-white">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"> 📚 Daftar Isi </h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+
+      <!-- Item 1 -->
+      <div class="space-y-2">
+        <!-- Judul Utama -->
+        <a href="#1-Genetika" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+          <span class="text-lg font-semibold">1. Genetika</span>
+          <p class="text-sm opacity-80">Ilmu tentang pewarisan sifat makhluk hidup.</p>
+        </a>
+        <!-- Sub Item -->
+        <a href="#1a-Kromosom" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">1.a Kromosom</span>
+          <p class="text-sm opacity-80">Struktur pembawa informasi genetik.</p>
+        </a>
+        <a href="#1b-Gen" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">1.b Gen</span>
+          <p class="text-sm opacity-80">Unit pewarisan sifat.</p>
+        </a>
+        <a href="#1c-DNA" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">1.c DNA & Replikasi DNA</span>
+          <p class="text-sm opacity-80">Molekul genetik utama dan proses replikasinya.</p>
+        </a>
+        <a href="#1d-RNA" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">1.d RNA</span>
+          <p class="text-sm opacity-80">Peran RNA dalam sintesis protein.</p>
+        </a>
+        <a href="#1e-Sintesis-Protein" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">1.e Sintesis Protein</span>
+          <p class="text-sm opacity-80">Proses pembentukan protein dari kode genetik.</p>
+        </a>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="space-y-2">
+        <!-- Judul Utama -->
+        <a href="#2-Pewarisan-Sifat" class="block p-4 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition duration-300 shadow-md">
+          <span class="text-lg font-semibold">2. Pewarisan Sifat</span>
+          <p class="text-sm opacity-80">Dasar-dasar hukum pewarisan sifat.</p>
+        </a>
+        <!-- Sub Item -->
+        <a href="#2a-Gregor-Mendel" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.a Gregor Mendel</span>
+          <p class="text-sm opacity-80">Bapak genetika modern.</p>
+        </a>
+        <a href="#2b-Genotip-Fenotip" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.b Genotip & Fenotip</span>
+          <p class="text-sm opacity-80">Perbedaan antara susunan gen dan tampilan fisik.</p>
+        </a>
+        <a href="#2c-Istilah-Pewarisan" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.c Istilah-istilah Pewarisan</span>
+          <p class="text-sm opacity-80">Dominan, resesif, homozigot, heterozigot, dll.</p>
+        </a>
+        <a href="#2d-Hukum-Mendel-1" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.d Hukum Mendel I</span>
+          <p class="text-sm opacity-80">Hukum segregasi.</p>
+        </a>
+        <a href="#2e-Hukum-Mendel-2" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.e Hukum Mendel II</span>
+          <p class="text-sm opacity-80">Hukum asortasi bebas.</p>
+        </a>
+        <a href="#2f-Perkawinan-Mendel" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.f Perkawinan dalam Percobaan Mendel</span>
+          <p class="text-sm opacity-80">Monohibrid dan dihibrid.</p>
+        </a>
+        <a href="#2g-Resiprok" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.g Resiprok</span>
+          <p class="text-sm opacity-80">Percobaan silang resiprokal.</p>
+        </a>
+        <a href="#2h-Back-Cross" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.h Balik (Back Cross)</span>
+          <p class="text-sm opacity-80">Penyilangan kembali untuk analisis genetik.</p>
+        </a>
+        <a href="#2i-Test-Cross" class="block ml-4 p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition duration-300 shadow-md">
+          <span class="text-md font-semibold">2.i Uji Silang (Test Cross)</span>
+          <p class="text-sm opacity-80">Penyilangan untuk menentukan genotip.</p>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+</div><>
+
+
+ <!-- 1. Genetika -->
+<div id="1-Genetika" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧬 1. Genetika
+  </h3>
+<!-- Video Genetika -->
+  <div class="mt-8 aspect-w-16 aspect-h-9">
+    <iframe class="w-full h-64 rounded-lg border border-gray-300 shadow-lg"
+      src="https://www.youtube.com/embed/pRLzqHAWTcs"
+      title="Video Genetika" 
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div><br>
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Genetika</strong> adalah cabang biologi yang mempelajari tentang pewarisan sifat 
+    dari induk ke keturunan melalui materi genetik seperti DNA, gen, dan kromosom.
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Pokok Bahasan Genetika:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li>Kromosom sebagai pembawa gen</li>
+      <li>Gen sebagai unit pewarisan sifat</li>
+      <li>DNA dan RNA sebagai materi genetik</li>
+      <li>Proses sintesis protein</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi</h4>
+    <img src="https://i.imgur.com/V6GboSJ.png" 
+         alt="Ilustrasi DNA dan Genetika" 
+         class="rounded-lg shadow-md mx-auto">
+  </div></div>
+
+
+<!-- 1a. Kromosom -->
+<div id="1a-Kromosom" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    📖 1.a Kromosom
+  </h3>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Kromosom</strong> adalah struktur berbentuk benang yang terdapat di dalam inti sel. 
+    Kromosom membawa <em>DNA</em> yang menyimpan informasi genetik untuk pewarisan sifat.
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Fakta tentang Kromosom:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li>Manusia memiliki 46 kromosom (23 pasang).</li>
+      <li>Satu pasang kromosom menentukan jenis kelamin (XX untuk perempuan, XY untuk laki-laki).</li>
+      <li>Kromosom tersusun dari DNA dan protein histon.</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi Kromosom</h4>
+    <img src="https://i.imgur.com/3wyi7sK.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi Kromosom</h4>
+    <img src="https://i.imgur.com/NEovisX.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Struktur Kromosom</h4>
+    <img src="https://i.imgur.com/TboJMb2.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jenis-Jenis Kromosom</h4>
+    <img src="https://i.imgur.com/bfEj82O.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jenis-Jenis Kromosom</h4>
+    <img src="https://i.imgur.com/ofIfyyq.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jumlah Kromosom</h4>
+    <img src="https://i.imgur.com/ScMoSDU.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jumlah Kromosom</h4>
+    <img src="https://i.imgur.com/yyynchJ.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jumlah Kromosom</h4>
+    <img src="https://i.imgur.com/P4safUp.png" 
+         alt="Kromosom manusia" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+
+</div>
+
+<!-- 1b. Gen -->
+<div id="1b-Gen" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧬 1.b Gen
+  </h3>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Gen</strong> adalah unit dasar pewarisan sifat yang terdapat di dalam DNA. 
+    Gen membawa instruksi untuk membentuk protein yang menentukan berbagai sifat makhluk hidup, 
+    seperti warna mata, golongan darah, atau bentuk rambut.
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Fakta tentang Gen:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li>Setiap gen menempati lokasi tertentu di kromosom yang disebut <em>lokus</em>.</li>
+      <li>Gen tersusun dari urutan nukleotida (A, T, G, C) pada DNA.</li>
+      <li>Gen berfungsi mengkode protein atau molekul RNA tertentu.</li>
+      <li>Perbedaan urutan gen menyebabkan variasi sifat pada individu.</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi Gen</h4>
+    <img src="https://i.imgur.com/vmM5BYh.png" 
+         alt="Struktur Gen" 
+         class="rounded-lg shadow-md mx-auto">
+</div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Struktur Gen</h4>
+    <img src="https://i.imgur.com/NYsXXn5.png" 
+         alt="Struktur Gen" 
+         class="rounded-lg shadow-md mx-auto">
+</div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Sifat-sifat Gen</h4>
+    <img src="https://i.imgur.com/NxGj8OI.png" 
+         alt="Struktur Gen" 
+         class="rounded-lg shadow-md mx-auto">
+</div>
+
+</div>
+<!-- 1c. DNA dan Replikasi DNA -->
+<div id="1c-DNA" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧬 1.c DNA dan Replikasi DNA
+  </h3>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>DNA (Deoxyribonucleic Acid)</strong> adalah molekul yang menyimpan informasi genetik
+    yang mengatur pertumbuhan, perkembangan, dan fungsi makhluk hidup. Struktur DNA berbentuk
+    <em>double helix</em> (pilin ganda) yang terdiri dari pasangan basa nitrogen: Adenin (A) berpasangan dengan Timin (T), 
+    dan Sitosin (C) berpasangan dengan Guanin (G).
+  </p>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Replikasi DNA</strong> adalah proses penggandaan DNA sehingga terbentuk salinan yang identik.
+    Proses ini penting agar saat sel membelah, setiap sel anak mendapatkan informasi genetik yang sama.
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Fakta tentang DNA & Replikasi:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li>DNA tersusun dari nukleotida yang terdiri dari gula deoksiribosa, fosfat, dan basa nitrogen.</li>
+      <li>Struktur DNA ditemukan oleh James Watson dan Francis Crick pada tahun 1953.</li>
+      <li>Replikasi DNA berlangsung secara <em>semi-konservatif</em>, artinya setiap untai lama menjadi cetakan untuk untai baru.</li>
+      <li>Enzim utama yang berperan adalah DNA polimerase.</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi DNA </h4>
+    <img src="https://i.imgur.com/dPvkBSc.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Struktur DNA </h4>
+    <img src="https://i.imgur.com/ZZS3fIb.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+        <img src="https://i.imgur.com/W60ttGE.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Replikasi DNA </h4>
+    <img src="https://i.imgur.com/GT4i6JW.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jenis-jenis Replikasi DNA </h4>
+    <img src="https://i.imgur.com/Khaa7qQ.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Enzim dalam Replikasi DNA </h4>
+    <img src="https://i.imgur.com/5zUSCEm.png" 
+         alt="DNA dan Proses Replikasi" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+
+</div>
+
+<!-- 1d. RNA -->
+<div id="1d-RNA" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧾 1.d RNA
+  </h3>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>RNA (Ribonucleic Acid)</strong> adalah molekul asam nukleat yang berperan penting 
+    dalam proses sintesis protein. RNA tersusun dari nukleotida yang terdiri dari gula ribosa, 
+    fosfat, dan basa nitrogen (Adenin, Urasil, Sitosin, Guanin).
+  </p>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    Berbeda dengan DNA yang berbentuk heliks ganda, RNA biasanya berbentuk heliks tunggal 
+    dan lebih pendek. RNA berfungsi sebagai pembawa pesan genetik dari DNA ke ribosom untuk 
+    menghasilkan protein.
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Jenis-jenis RNA:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li><strong>mRNA (messenger RNA)</strong>: membawa informasi genetik dari DNA ke ribosom.</li>
+      <li><strong>tRNA (transfer RNA)</strong>: membawa asam amino ke ribosom sesuai kode mRNA.</li>
+      <li><strong>rRNA (ribosomal RNA)</strong>: membentuk struktur ribosom dan membantu sintesis protein.</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi RNA</h4>
+    <img src="https://i.imgur.com/tJDZfzw.png" 
+         alt="Struktur RNA" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Jenis-jenis RNA</h4>
+    <img src="https://i.imgur.com/wUX0dOh.png" 
+         alt="Struktur RNA" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+
+</div>
+<!-- 1e. Sintesis Protein -->
+<div id="1e-Sintesis-Protein" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🍖 1.e Sintesis Protein
+  </h3>
+
+  <!-- Deskripsi -->
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Sintesis protein</strong> adalah proses pembentukan protein di dalam sel 
+    berdasarkan informasi genetik yang terdapat pada DNA dan RNA. 
+    Proses ini berlangsung di dalam <em>ribosom</em> dan sangat penting untuk 
+    pertumbuhan, perbaikan sel, serta pengaturan fungsi tubuh.
+  </p>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    Proses sintesis protein melibatkan dua tahap utama, yaitu <strong>transkripsi</strong> 
+    dan <strong>translasi</strong>. 
+  </p>
+
+  <!-- Highlight -->
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <h4 class="text-lg font-semibold mb-2">📌 Tahapan Sintesis Protein:</h4>
+    <ul class="list-disc ml-6 space-y-1">
+      <li><strong>Transkripsi:</strong> DNA ditranskripsi menjadi mRNA di dalam inti sel.</li>
+      <li><strong>Translasi:</strong> mRNA diterjemahkan di ribosom dengan bantuan tRNA, 
+          yang membawa asam amino sesuai kode genetik.</li>
+      <li>Asam amino dirangkai menjadi rantai polipeptida yang kemudian dilipat 
+          menjadi protein fungsional.</li>
+    </ul>
+  </div>
+
+  <!-- Gambar Penjelasan -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Ilustrasi Sintesis Protein</h4>
+    <img src="https://i.imgur.com/pwUQD7a.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Transkipsi dan translasi </h4>
+    <img src="https://i.imgur.com/7ukmpSp.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Kode Genetik</h4>
+    <img src="https://i.imgur.com/UMInRfy.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ 20 macam asam amino</h4>
+    <img src="https://i.imgur.com/ucZeA2e.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Sifat-Sifat Rantai DNA</h4>
+    <img src="https://i.imgur.com/7ndq9HF.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+<div class="mb-6">
+    <h4 class="text-lg font-semibold text-[#4dd4a3] mb-3">🖼️ Kode genetik sintesi protein</h4>
+    <img src="https://i.imgur.com/S0wJzfS.png" 
+         alt="Proses Sintesis Protein" 
+         class="rounded-lg shadow-md mx-auto">
+  </div>
+
+</div>
+<!-- 2. Pewarisan Sifat -->
+<div id="2-Pewarisan-Sifat" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h2 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">
+    🌱 2. Pewarisan Sifat
+  </h2>
+<!-- Video Pewarisan Sifat-->
+  <div class="mt-8 aspect-w-16 aspect-h-9">
+    <iframe class="w-full h-64 rounded-lg border border-gray-300 shadow-lg"
+      src="https://www.youtube.com/embed/ouDcvX4fgHw"
+      title="Video Pewarisan Sifat" 
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div><br>
+
+</div>
+
+<!-- 2a. Gregor Mendel -->
+<div id="2a-Gregor-Mendel" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    👨‍🔬 2.a Gregor Mendel
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Gregor Johann Mendel</strong> dikenal sebagai Bapak Genetika. 
+    Ia melakukan percobaan dengan tanaman kacang ercis (Pisum sativum) 
+    untuk mempelajari pola pewarisan sifat dari induk ke keturunan.
+  </p>
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <ul class="list-disc ml-6 space-y-1">
+      <li>Mendel hidup pada abad ke-19.</li>
+      <li>Melalui eksperimennya, ia menemukan hukum pewarisan sifat.</li>
+      <li>Hasil penelitiannya menjadi dasar ilmu genetika modern.</li>
+    </ul>
+  </div>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Gregor_Mendel_2.jpg" 
+         alt="Gregor Mendel" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2b. Genotip dan Fenotip -->
+<div id="2b-Genotip-Fenotip" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧬 2.b Genotip dan Fenotip
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Genotip</strong> adalah susunan genetik individu (misalnya: AA, Aa, aa).  
+    <strong>Fenotip</strong> adalah sifat yang tampak secara fisik (misalnya: warna bunga merah atau putih).
+  </p>
+  <div class="bg-[#4dd4a3] text-white p-4 rounded-lg shadow mb-6">
+    <ul class="list-disc ml-6 space-y-1">
+      <li>Genotip menentukan fenotip.</li>
+      <li>Fenotip juga dipengaruhi lingkungan.</li>
+      <li>Contoh: genotip Aa menghasilkan fenotip bunga merah (jika A dominan).</li>
+    </ul>
+  </div>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Punnett_square Mendel flowers.svg" 
+         alt="Genotip dan Fenotip" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2c. Istilah-istilah Pewarisan -->
+<div id="2c-Istilah-Pewarisan" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    📖 2.c Istilah-istilah Pewarisan
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">Beberapa istilah penting dalam pewarisan sifat:</p>
+  <ul class="list-disc ml-6 space-y-2 text-gray-700">
+    <li><strong>Gen</strong>: faktor pembawa sifat.</li>
+    <li><strong>Alel</strong>: bentuk alternatif dari gen (contoh: A dan a).</li>
+    <li><strong>Homozigot</strong>: genotip dengan alel yang sama (AA atau aa).</li>
+    <li><strong>Heterozigot</strong>: genotip dengan alel berbeda (Aa).</li>
+    <li><strong>Dominan</strong>: alel yang menutupi sifat alel lain (A).</li>
+    <li><strong>Resesif</strong>: alel yang tertutupi jika ada alel dominan (a).</li>
+  </ul>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Genetics_diagram.svg" 
+         alt="Istilah Genetika" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2d. Hukum Mendel I -->
+<div id="2d-Hukum-Mendel-I" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    ⚖️ 2.d Hukum Mendel I
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    Disebut juga <strong>Hukum Segregasi</strong>, menyatakan bahwa pasangan alel akan 
+    berpisah secara bebas saat pembentukan gamet, sehingga setiap gamet hanya membawa satu alel.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Mendelian_inheritance_-_law_of_segregation.svg" 
+         alt="Hukum Mendel I" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2e. Hukum Mendel II -->
+<div id="2e-Hukum-Mendel-II" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    ⚖️ 2.e Hukum Mendel II
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    Disebut juga <strong>Hukum Asortasi Bebas</strong>, menyatakan bahwa gen-gen dari 
+    pasangan alel yang berbeda akan bersegregasi secara bebas dan tidak saling memengaruhi.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Dihybrid_cross.svg" 
+         alt="Hukum Mendel II" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2f. Perkawinan dalam Percobaan Mendel -->
+<div id="2f-Perkawinan-Mendel" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🌼 2.f Perkawinan dalam Percobaan Mendel
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    Mendel menyilangkan tanaman kacang ercis dengan sifat berbeda, seperti warna bunga ungu 
+    dengan putih atau biji bulat dengan keriput. Dari hasil persilangan, ia menemukan pola 
+    dominan dan resesif.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Mendel_flowers_and_seeds.jpg" 
+         alt="Percobaan Mendel" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2g. Resiprok -->
+<div id="2g-Resiprok" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🔄 2.g Resiprok
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Persilangan resiprok</strong> adalah persilangan bolak-balik dengan cara 
+    membalik posisi jantan dan betina untuk memastikan hasil persilangan tidak dipengaruhi 
+    jenis kelamin induknya.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Reciprocal_crosses.svg" 
+         alt="Persilangan Resiprok" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2h. Balik (Back Cross) -->
+<div id="2h-Back-Cross" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🔁 2.h Balik (Back Cross)
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Back cross</strong> adalah persilangan individu F1 dengan salah satu induknya 
+    (P) untuk mengetahui genotip keturunan.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Backcross.png" 
+         alt="Back Cross" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+<!-- 2i. Uji Silang (Test Cross) -->
+<div id="2i-Test-Cross" class="mb-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h3 class="text-2xl font-bold text-[#4dd4a3] mb-4 flex items-center gap-2">
+    🧪 2.i Uji Silang (Test Cross)
+  </h3>
+  <p class="text-gray-700 mb-4 leading-relaxed">
+    <strong>Test cross</strong> adalah persilangan individu dengan fenotip dominan 
+    (genotip tidak diketahui) dengan individu homozigot resesif, untuk mengetahui genotipnya.
+  </p>
+  <div class="mb-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Test_cross.svg" 
+         alt="Uji Silang" class="rounded-lg shadow-md mx-auto">
+  </div>
+</div>
+
+  
+  
+
+
+</div>
+
+
+
+    <script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const screenWidth = window.innerWidth;
+
+    const visibleLeft = "0px";
+    const hiddenLeft = screenWidth < 768 ? "-80%" : "-250px";
+    const visibleWidth = screenWidth < 768 ? "80%" : "250px";
+
+    if (sidebar.style.left === visibleLeft) {
+      sidebar.style.left = hiddenLeft;
+    } else {
+      sidebar.style.left = visibleLeft;
+      sidebar.style.width = visibleWidth;
+    }
+  }
+</script>
+
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "Diza MTSN 1 Brebes 7", password: "semangatbelajar45" },
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
