@@ -834,6 +834,468 @@
 
   
   
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-lg" id="quizGenetika">
+  <h2 class="text-3xl font-extrabold text-center text-blue-600 mb-8 tracking-tight">🧬 Latihan Soal Interaktif: Genetika Kelas 12</h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizContainer" class="space-y-6"></div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex justify-between items-center mt-8">
+    <button id="prevBtn" onclick="prevQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="space-x-2">
+      <button id="checkBtn" onclick="checkAnswer()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all">Cek</button>
+      <button id="nextBtn" onclick="nextQuestion()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="explanation" class="mt-6 hidden bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg shadow-inner"></div>
+</div>
+
+<script>
+  const questions = [
+    {
+      type: "mcq", // multiple choice
+      question: "Hukum Mendel I (Segregasi) menyatakan bahwa...",
+      choices: [
+        "Gen-gen dalam satu pasangan memisah secara bebas saat pembentukan gamet",
+        "Gen-gen yang berbeda selalu muncul bersama",
+        "Setiap sifat diwariskan secara campuran",
+        "Fenotipe selalu sama dengan genotipe"
+      ],
+      correctAnswer: 0,
+      explanation: "Hukum Mendel I menyatakan bahwa alel pada satu pasangan gen akan memisah secara bebas saat pembentukan gamet."
+    },
+{
+    type: "mcq", // multiple choice
+    question: "Jika pada manusia terdapat 46 kromosom dalam sel somatik, berapa jumlah kromosom yang ada pada gamet setelah meiosis berlangsung normal?",
+    choices: [
+      "23 pasang kromosom",
+      "46 kromosom tunggal",
+      "23 kromosom tunggal",
+      "92 kromosom"
+    ],
+    correctAnswer: 2,
+    explanation: "Gamet manusia bersifat haploid (n), sehingga hanya memiliki 23 kromosom tunggal hasil dari pembelahan meiosis."
+  },
+  {
+    type: "checkbox", // lebih dari 1 jawaban benar
+    question: "Gangguan akibat kelainan jumlah kromosom berikut ini termasuk aneuploidi adalah...",
+    choices: [
+      "Sindrom Down (trisomi 21)",
+      "Sindrom Turner (XO)",
+      "Poliploidi pada tanaman",
+      "Sindrom Klinefelter (XXY)"
+    ],
+    correctAnswers: [0,1,3],
+    explanation: "Aneuploidi adalah penambahan atau kekurangan satu kromosom, misalnya trisomi 21 (Down), XO (Turner), XXY (Klinefelter). Poliploidi berbeda karena melibatkan penambahan set kromosom utuh."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Seorang siswa menemukan sel yang memiliki kromosom homolog tidak berpisah pada anafase I meiosis. Fenomena ini disebut...",
+    choices: [
+      "Translokasi",
+      "Nondisjunction",
+      "Delesi",
+      "Duplikasi"
+    ],
+    correctAnswer: 1,
+    explanation: "Kegagalan kromosom homolog untuk berpisah pada anafase I meiosis disebut nondisjunction, penyebab utama kelainan kromosom."
+  },
+  {
+    type: "truefalse", // benar salah
+    question: "Tentukan benar (✔️) atau salah (❌) pernyataan tentang kromosom berikut:",
+    statements: [
+      {text: "Kariotipe digunakan untuk mempelajari jumlah dan struktur kromosom.", correct: true},
+      {text: "Kromosom manusia normal terdiri atas 22 pasang autosom dan 2 pasang kromosom seks.", correct: false},
+      {text: "Crossing over terjadi pada kromosom homolog saat profase I meiosis.", correct: true}
+    ],
+    explanation: "Kariotipe benar untuk analisis kromosom; kromosom manusia normal terdiri dari 22 pasang autosom + 1 pasang kromosom seks (bukan 2 pasang); crossing over terjadi di profase I meiosis pada kromosom homolog."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Jika hasil kariotipe menunjukkan formula kromosom 47, XX, +21, maka interpretasi yang tepat adalah...",
+    choices: [
+      "Perempuan normal dengan 47 kromosom",
+      "Perempuan dengan sindrom Turner",
+      "Perempuan dengan sindrom Down",
+      "Perempuan dengan sindrom Klinefelter"
+    ],
+    correctAnswer: 2,
+    explanation: "Keterangan 47, XX, +21 menunjukkan adanya kromosom ke-21 berlebih pada perempuan, yaitu sindrom Down."
+  },
+{
+    type: "mcq", // multiple choice
+    question: "Jika sebuah gen mengalami mutasi titik (point mutation) yang mengubah satu basa nitrogen tetapi tidak mengubah urutan asam amino, maka mutasi tersebut disebut...",
+    choices: [
+      "Silent mutation",
+      "Missense mutation",
+      "Nonsense mutation",
+      "Frameshift mutation"
+    ],
+    correctAnswer: 0,
+    explanation: "Mutasi yang tidak mengubah urutan asam amino disebut silent mutation karena tidak berdampak pada protein yang dihasilkan."
+  },
+  {
+    type: "checkbox", // lebih dari 1 jawaban benar
+    question: "Berikut ini yang termasuk fungsi utama gen adalah...",
+    choices: [
+      "Menyimpan informasi genetik",
+      "Mengatur sintesis protein",
+      "Menentukan sifat keturunan",
+      "Menghasilkan energi sel"
+    ],
+    correctAnswers: [0,1,2],
+    explanation: "Gen berfungsi menyimpan informasi genetik, mengatur sintesis protein, dan menentukan sifat keturunan. Energi sel dihasilkan oleh metabolisme, bukan gen secara langsung."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Mengapa mutasi pada gen regulator dapat berdampak lebih besar daripada mutasi pada gen struktural tunggal?",
+    choices: [
+      "Karena gen regulator hanya mengontrol satu enzim",
+      "Karena gen regulator mengatur ekspresi banyak gen lain",
+      "Karena gen regulator tidak mengalami replikasi",
+      "Karena gen regulator selalu menghasilkan protein rusak"
+    ],
+    correctAnswer: 1,
+    explanation: "Gen regulator mengatur ekspresi banyak gen lain, sehingga mutasi pada gen ini dapat memengaruhi banyak jalur metabolisme sekaligus."
+  },
+  {
+    type: "truefalse", // benar salah
+    question: "Tentukan benar (✔️) atau salah (❌) pernyataan tentang gen berikut:",
+    statements: [
+      {text: "Gen terletak pada kromosom dan tersusun dari DNA.", correct: true},
+      {text: "Satu gen hanya dapat menghasilkan satu jenis protein.", correct: false},
+      {text: "Ekspresi gen dipengaruhi oleh faktor lingkungan.", correct: true}
+    ],
+    explanation: "Gen tersusun dari DNA; satu gen dapat menghasilkan lebih dari satu protein melalui splicing alternatif; ekspresi gen juga dipengaruhi faktor lingkungan (epigenetik)."
+  },
+{
+    type: "mcq", // multiple choice
+    question: "Mengapa replikasi DNA disebut semikonservatif?",
+    choices: [
+      "Karena menghasilkan dua molekul DNA yang identik dengan molekul induk",
+      "Karena setiap heliks baru terdiri dari satu untai lama dan satu untai baru",
+      "Karena replikasi hanya terjadi pada salah satu untai DNA",
+      "Karena DNA yang baru selalu lebih pendek dari DNA induk"
+    ],
+    correctAnswer: 1,
+    explanation: "Replikasi DNA bersifat semikonservatif karena setiap molekul DNA hasil replikasi memiliki satu untai lama (induk) dan satu untai baru."
+  },
+  {
+    type: "checkbox", // lebih dari 1 jawaban benar
+    question: "Enzim-enzim berikut berperan dalam replikasi DNA:",
+    choices: [
+      "DNA ligase",
+      "DNA polimerase",
+      "RNA primase",
+      "Amilase"
+    ],
+    correctAnswers: [0,1,2],
+    explanation: "DNA ligase menyambungkan fragmen Okazaki, DNA polimerase menyintesis untai DNA baru, RNA primase membuat primer RNA. Amilase bukan enzim replikasi DNA, melainkan enzim pencernaan pati."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Jika terjadi kesalahan pemasangan basa pada proses replikasi DNA yang tidak segera diperbaiki, akibat langsung yang paling mungkin adalah...",
+    choices: [
+      "Terjadinya mutasi pada gen",
+      "DNA gagal bereplikasi",
+      "Protein tetap sama tanpa perubahan",
+      "Kromosom menjadi ganda"
+    ],
+    correctAnswer: 0,
+    explanation: "Kesalahan pemasangan basa yang tidak diperbaiki akan mengubah urutan nukleotida pada gen, sehingga menimbulkan mutasi."
+  },
+  {
+    type: "truefalse", // benar salah
+    question: "Tentukan benar (✔️) atau salah (❌) pernyataan tentang DNA dan replikasinya:",
+    statements: [
+      {text: "Ikatan hidrogen memegang pasangan basa nitrogen A–T dan G–C.", correct: true},
+      {text: "Fragmen Okazaki terbentuk pada untai leading strand.", correct: false},
+      {text: "Topoisomerase berfungsi mengurangi tegangan puntiran DNA saat heliks dibuka.", correct: true}
+    ],
+    explanation: "Pasangan basa diikat oleh ikatan hidrogen; fragmen Okazaki terbentuk di lagging strand, bukan leading strand; topoisomerase mencegah DNA terlalu terpuntir."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Salah satu ciri penting DNA adalah kemampuannya untuk menyimpan informasi genetik. Informasi ini terletak pada...",
+    choices: [
+      "Jenis gula deoksiribosa",
+      "Urutan basa nitrogen",
+      "Jumlah untai heliks ganda",
+      "Ikatan fosfodiester pada backbone"
+    ],
+    correctAnswer: 1,
+    explanation: "Informasi genetik DNA terdapat pada urutan basa nitrogen (A, T, G, C) yang menentukan kode genetik untuk sintesis protein."
+  },
+
+  {
+    type: "mcq", // multiple choice
+    question: "Seorang peneliti menemukan adanya substitusi basa pada gen yang mengakibatkan terbentuknya kodon stop prematur. Dampak langsung dari mutasi ini adalah...",
+    choices: [
+      "Protein yang dihasilkan lebih panjang",
+      "Protein tidak dihasilkan sama sekali",
+      "Protein menjadi lebih pendek dari normal",
+      "DNA tidak dapat bereplikasi"
+    ],
+    correctAnswer: 2,
+    explanation: "Mutasi nonsense menghasilkan kodon stop prematur, sehingga protein terhenti lebih awal dan lebih pendek dari seharusnya."
+  },
+    {
+      type: "checkbox", // lebih dari 1 jawaban benar
+      question: "Ciri-ciri pewarisan sifat yang mengikuti hukum Mendel II (Asortasi Bebas) adalah...",
+      choices: [
+        "Gen yang berbeda dapat berpindah secara bebas",
+        "Perbandingan fenotipe F2 dapat 9:3:3:1",
+        "Terjadi pada persilangan monohibrid",
+        "Gen-gen terletak pada kromosom yang berbeda"
+      ],
+      correctAnswers: [0,1,3],
+      explanation: "Hukum Mendel II berlaku untuk dihibrid, gen pada kromosom berbeda, menghasilkan rasio 9:3:3:1 di F2."
+    },
+ {
+    type: "mcq", // multiple choice
+    question: "Mengapa mRNA memiliki sifat sementara (tidak stabil) dibandingkan DNA?",
+    choices: [
+      "Karena mRNA disimpan permanen dalam inti sel",
+      "Karena mRNA cepat terdegradasi oleh enzim setelah digunakan dalam sintesis protein",
+      "Karena mRNA hanya terdiri dari basa purin",
+      "Karena mRNA memiliki struktur heliks ganda"
+    ],
+    correctAnswer: 1,
+    explanation: "mRNA bersifat sementara karena hanya berfungsi membawa kode genetik dari DNA ke ribosom, kemudian cepat terdegradasi setelah translasi selesai."
+  },
+  {
+    type: "checkbox", // lebih dari 1 jawaban benar
+    question: "Jenis-jenis RNA berikut yang terlibat langsung dalam proses sintesis protein adalah...",
+    choices: [
+      "mRNA",
+      "tRNA",
+      "rRNA",
+      "siRNA"
+    ],
+    correctAnswers: [0,1,2],
+    explanation: "mRNA membawa kode genetik, tRNA membawa asam amino ke ribosom, rRNA merupakan komponen struktural ribosom. siRNA berfungsi mengatur ekspresi gen, bukan langsung dalam sintesis protein."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Jika terjadi mutasi pada tRNA sehingga anticodon tidak dapat mengenali kodon yang sesuai pada mRNA, dampak yang paling mungkin adalah...",
+    choices: [
+      "Ribosom tetap dapat membaca kodon dengan normal",
+      "Asam amino yang salah atau tidak sesuai akan dimasukkan ke dalam rantai polipeptida",
+      "mRNA akan tetap berfungsi tanpa gangguan",
+      "Protein yang terbentuk akan lebih panjang dari seharusnya"
+    ],
+    correctAnswer: 1,
+    explanation: "Mutasi pada anticodon tRNA dapat menyebabkan salah pembacaan kodon, sehingga asam amino yang tidak sesuai dimasukkan ke rantai polipeptida, menghasilkan protein abnormal."
+  },
+  {
+    type: "truefalse", // benar salah
+    question: "Tentukan benar (✔️) atau salah (❌) pernyataan tentang RNA:",
+    statements: [
+      {text: "RNA menggunakan urasil (U) sebagai pasangan basa adenin (A).", correct: true},
+      {text: "rRNA hanya berfungsi membawa kode genetik dari inti ke ribosom.", correct: false},
+      {text: "Transkripsi adalah proses pembentukan RNA dari cetakan DNA.", correct: true}
+    ],
+    explanation: "RNA memiliki basa urasil (U) menggantikan timin (T); rRNA berperan dalam pembentukan ribosom, bukan membawa kode; transkripsi menghasilkan RNA dari cetakan DNA."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Mengapa RNA dianggap lebih fleksibel dalam fungsi biologis dibandingkan DNA?",
+    choices: [
+      "RNA memiliki berbagai jenis dengan fungsi berbeda seperti mRNA, tRNA, dan rRNA",
+      "RNA selalu tersusun sebagai heliks ganda yang stabil",
+      "RNA tidak mengandung basa nitrogen",
+      "RNA tidak mengalami degradasi oleh enzim sel"
+    ],
+    correctAnswer: 0,
+    explanation: "RNA lebih fleksibel karena memiliki berbagai jenis dan fungsi: mRNA membawa kode genetik, tRNA membawa asam amino, rRNA menjadi komponen ribosom, serta ada RNA non-coding lain yang berperan dalam regulasi gen."
+  },
+{
+    type: "mcq", // multiple choice
+    question: "Mengapa proses translasi memerlukan ribosom?",
+    choices: [
+      "Ribosom menyimpan informasi genetik",
+      "Ribosom menyediakan tempat untuk membaca kodon mRNA dan merangkai asam amino",
+      "Ribosom menghasilkan energi untuk proses transkripsi",
+      "Ribosom mengikat DNA secara permanen"
+    ],
+    correctAnswer: 1,
+    explanation: "Ribosom berfungsi sebagai tempat sintesis protein, membaca kodon pada mRNA, dan menghubungkan asam amino yang dibawa tRNA menjadi rantai polipeptida."
+  },
+  {
+    type: "checkbox", // lebih dari 1 jawaban benar
+    question: "Tahapan utama dalam sintesis protein adalah...",
+    choices: [
+      "Inisiasi",
+      "Elongasi",
+      "Terminasi",
+      "Replikasi"
+    ],
+    correctAnswers: [0,1,2],
+    explanation: "Sintesis protein terdiri dari tiga tahap utama: inisiasi, elongasi, dan terminasi. Replikasi bukan bagian dari sintesis protein, melainkan proses penggandaan DNA."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Jika terjadi mutasi nonsense pada mRNA, maka dampak langsung terhadap sintesis protein adalah...",
+    choices: [
+      "Protein yang dihasilkan lebih pendek karena translasi berhenti prematur",
+      "Protein yang dihasilkan lebih panjang dari normal",
+      "Protein tetap normal tanpa perubahan",
+      "Tidak ada protein yang terbentuk sama sekali"
+    ],
+    correctAnswer: 0,
+    explanation: "Mutasi nonsense menghasilkan kodon stop prematur sehingga translasi berhenti lebih cepat, menghasilkan protein yang lebih pendek dan biasanya tidak fungsional."
+  },
+  {
+    type: "truefalse", // benar salah
+    question: "Tentukan benar (✔️) atau salah (❌) pernyataan tentang sintesis protein:",
+    statements: [
+      {text: "Kodonn AUG berfungsi sebagai kodon start dalam translasi.", correct: true},
+      {text: "tRNA membawa asam amino sesuai dengan kodon yang dibaca di mRNA.", correct: true},
+      {text: "Proses elongasi berakhir ketika ribosom mencapai kodon terminasi.", correct: true},
+      {text: "Sintesis protein terjadi di dalam inti sel.", correct: false}
+    ],
+    explanation: "Kodon AUG adalah start, tRNA mengenali kodon mRNA, elongasi berhenti di kodon stop, dan sintesis protein berlangsung di sitoplasma (ribosom), bukan di inti sel."
+  },
+  {
+    type: "mcq", // multiple choice
+    question: "Mengapa kesalahan dalam proses translasi dapat menghasilkan protein yang tidak fungsional?",
+    choices: [
+      "Karena urutan asam amino menentukan struktur dan fungsi protein",
+      "Karena protein selalu terdiri dari basa nitrogen",
+      "Karena ribosom tidak dapat membaca mRNA lebih dari sekali",
+      "Karena mRNA selalu mengalami replikasi"
+    ],
+    correctAnswer: 0,
+    explanation: "Fungsi protein ditentukan oleh urutan asam aminonya. Kesalahan translasi dapat menghasilkan protein dengan susunan asam amino yang salah, sehingga tidak dapat berfungsi normal."
+  },
+    {
+      type: "truefalse", // tabel benar salah
+      question: "Tentukan benar (✔️) atau salah (❌) pernyataan berikut:",
+      statements: [
+        {text: "Genotipe AaBb disilangkan dengan AaBb dapat menghasilkan rasio fenotipe 9:3:3:1.", correct: true},
+        {text: "Alelia adalah pasangan gen yang terletak pada lokus sama dalam kromosom homolog.", correct: true},
+        {text: "Fenotipe adalah susunan genetik yang tidak tampak secara langsung.", correct: false},
+      ],
+      explanation: "Rasio 9:3:3:1 benar untuk dihibrid, alel terletak pada lokus yang sama dalam kromosom homolog, dan fenotipe adalah sifat yang tampak, bukan genotipe."
+    },
+    {
+      type: "matching", // menjodohkan
+      question: "Jodohkan istilah genetika dengan pengertiannya:",
+      pairs: {
+        left: ["Genotipe", "Fenotipe", "Homozigot", "Heterozigot"],
+        right: ["Sifat yang tampak", "Pasangan alel sama", "Susunan genetik individu", "Pasangan alel berbeda"],
+        correctMatches: {
+          0: "Susunan genetik individu",
+          1: "Sifat yang tampak",
+          2: "Pasangan alel sama",
+          3: "Pasangan alel berbeda"
+        }
+      },
+      explanation: "Genotipe = susunan genetik, Fenotipe = sifat tampak, Homozigot = alel sama, Heterozigot = alel berbeda."
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function renderQuestion() {
+    const container = document.getElementById("quizContainer");
+    const q = questions[currentIndex];
+    let html = `<h3 class="text-xl font-semibold text-gray-800">Soal ${currentIndex+1}:</h3>
+                <p class="text-gray-700 mt-2">${q.question}</p>`;
+    
+    if (q.type === "mcq") {
+      html += `<div class="mt-4 space-y-2">
+        ${q.choices.map((c,i)=>`
+          <label class="flex items-center gap-2">
+            <input type="radio" name="choice" value="${i}">
+            <span>${c}</span>
+          </label>
+        `).join("")}
+      </div>`;
+    }
+    else if (q.type === "checkbox") {
+      html += `<div class="mt-4 space-y-2">
+        ${q.choices.map((c,i)=>`
+          <label class="flex items-center gap-2">
+            <input type="checkbox" name="choice" value="${i}">
+            <span>${c}</span>
+          </label>
+        `).join("")}
+      </div>`;
+    }
+    else if (q.type === "truefalse") {
+      html += `<table class="mt-4 w-full border">
+        <tr><th class="p-2 border">Pernyataan</th><th class="p-2 border">Benar</th><th class="p-2 border">Salah</th></tr>
+        ${q.statements.map((s,i)=>`
+          <tr>
+            <td class="p-2 border">${s.text}</td>
+            <td class="p-2 border text-center"><input type="radio" name="tf${i}" value="true"></td>
+            <td class="p-2 border text-center"><input type="radio" name="tf${i}" value="false"></td>
+          </tr>
+        `).join("")}
+      </table>`;
+    }
+    else if (q.type === "matching") {
+      html += `<div class="grid grid-cols-2 gap-6 mt-4">
+        <div class="space-y-2">
+          ${q.pairs.left.map((l,i)=>`<div>${l}</div>`).join("")}
+        </div>
+        <div class="space-y-2">
+          ${q.pairs.left.map((l,i)=>`
+            <select id="match${i}" class="border p-1 rounded">
+              <option value="">--Pilih--</option>
+              ${q.pairs.right.map(r=>`<option value="${r}">${r}</option>`).join("")}
+            </select>
+          `).join("")}
+        </div>
+      </div>`;
+    }
+
+    container.innerHTML = html;
+    document.getElementById("explanation").classList.add("hidden");
+    document.getElementById("prevBtn").disabled = currentIndex===0;
+    document.getElementById("nextBtn").disabled = currentIndex===questions.length-1;
+  }
+
+  function checkAnswer() {
+    const q = questions[currentIndex];
+    const expBox = document.getElementById("explanation");
+    let correct = false;
+
+    if (q.type === "mcq") {
+      const selected = document.querySelector('input[name="choice"]:checked');
+      if (selected && parseInt(selected.value)===q.correctAnswer) correct = true;
+    }
+    else if (q.type === "checkbox") {
+      const selected = [...document.querySelectorAll('input[name="choice"]:checked')].map(i=>parseInt(i.value));
+      correct = JSON.stringify(selected.sort())===JSON.stringify(q.correctAnswers.sort());
+    }
+    else if (q.type === "truefalse") {
+      correct = q.statements.every((s,i)=>{
+        const selected = document.querySelector(`input[name="tf${i}"]:checked`);
+        return selected && (selected.value==="true")===s.correct;
+      });
+    }
+    else if (q.type === "matching") {
+      correct = Object.entries(q.pairs.correctMatches).every(([i,ans])=>{
+        return document.getElementById("match"+i).value===ans;
+      });
+    }
+
+    expBox.innerText = (correct ? "✅ Benar! " : "❌ Salah. ") + q.explanation;
+    expBox.classList.remove("hidden");
+    expBox.classList.toggle("text-green-900", correct);
+    expBox.classList.toggle("text-red-900", !correct);
+  }
+
+  function prevQuestion(){ if(currentIndex>0){currentIndex--; renderQuestion();}}
+  function nextQuestion(){ if(currentIndex<questions.length-1){currentIndex++; renderQuestion();}}
+
+  renderQuestion();
+</script>
 
 
 </div>
