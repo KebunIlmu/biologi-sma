@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- MathJax untuk tampilan rumus -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <title>Kebun Ilmu – Media Pembelajaran Interaktif</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--brand:#10b981;--brand-2:#22d3ee}
+    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji"}
+    .glass{backdrop-filter:saturate(180%) blur(10px); background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.6))}
+    .chip{border:1px solid rgba(0,0,0,.06);}
+    .btn{transition:transform .05s ease}
+    .btn:active{transform:translateY(1px) scale(.99)}
+    details>summary{list-style:none}
+    details>summary::-webkit-details-marker{display:none}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50 to-white text-gray-800">
+  <!-- Header / Brand -->
+  <header class="sticky top-0 z-40 border-b border-emerald-100/60 glass">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
+      <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo Kebun Ilmu" class="w-10 h-10 rounded-xl shadow" />
+      <div class="flex-1">
+        <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight">
+          Kebun Ilmu <span class="text-emerald-600">— Media Pembelajaran Interaktif</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-500">Materi · Latihan · Simulasi </p>
+      </div>
+      <nav class="hidden sm:flex items-center gap-2">
+        <button data-tab="materi" class="tab-btn btn px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow hover:shadow-md">Materi</button>
+        <button data-tab="latihan" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Latihan Soal</button>
+        <button data-tab="simulasi" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Simulasi TKA</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Tab Switcher -->
+  <div class="sm:hidden sticky top-[60px] z-30 bg-white/80 backdrop-blur border-b border-emerald-100/60">
+    <div class="max-w-6xl mx-auto px-4 py-2 grid grid-cols-3 gap-2">
+      <button data-tab="materi" class="tab-btn btn py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold">Materi</button>
+      <button data-tab="latihan" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Latihan</button>
+      <button data-tab="simulasi" class="tab-btn btn py-2 rounded-lg bg-white border chip text-xs font-semibold">Simulasi</button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+    <!-- Info links to Pusmendik -->
+    
+
+    <!-- Tabs content wrapper -->
+    <section id="tab-materi" class="tab-pane">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 space-y-4">
+          <div class="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-lg">Pilih Materi</h2>
+            <label class="block mt-3 text-sm">Mata Pelajaran</label>
+            <select id="materiMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+              <!-- Diisi via JS -->
+            </select>
+            <label class="block mt-3 text-sm">Bab</label>
+            <select id="materiBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300">
+            </select>
+            <button id="btnLoadMateri" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Tampilkan</button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h3 class="font-semibold">Sumber Resmi</h3>
+            <p class="text-sm text-gray-600 mt-1">Buka ringkasan materi versi Pusmendik:</p>
+            <a target="_blank" rel="noopener" href="https://pusmendik.kemdikbud.go.id/tka/tka/view/mata-pelajaran-wajib/sma" class="inline-block mt-2 px-3 py-2 rounded-xl border chip hover:bg-gray-50 text-sm">📖 Buka Halaman Materi</a>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 space-y-4">
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">📘 Ringkasan Materi</h2>
+            <div id="materiKonten" class="prose prose-sm sm:prose lg:prose-lg max-w-none mt-3"></div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h2 class="font-bold text-xl flex items-center gap-2">🎬 Video Pembelajaran</h2>
+            <div id="materiVideo" class="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 flex items-center justify-center text-gray-400">
+              <span class="text-sm">Pilih materi untuk memuat video…</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-latihan" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Latihan</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="latihMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <label class="block mt-3 text-sm">Bab</label>
+          <select id="latihBab" class="w-full mt-1 px-3 py-2 rounded-xl border chip focus:outline-none focus:ring-2 focus:ring-emerald-300"></select>
+          <button id="btnLoadLatihan" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Muat Soal</button>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Latihan Soal</h2>
+            <button id="btnPeriksaSemua" class="btn px-3 py-2 rounded-xl border chip text-sm">Cek Semua</button>
+          </div>
+          <div id="latihanContainer" class="mt-3 space-y-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-simulasi" class="tab-pane hidden">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-1 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <h2 class="font-bold text-lg">Pengaturan Simulasi</h2>
+          <label class="block mt-3 text-sm">Mata Pelajaran</label>
+          <select id="simMapel" class="w-full mt-1 px-3 py-2 rounded-xl border chip"></select>
+          <label class="block mt-3 text-sm">Jumlah Soal</label>
+          <input id="simJumlah" type="number" min="5" max="50" value="10" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <label class="block mt-3 text-sm">Durasi (menit)</label>
+          <input id="simDurasi" type="number" min="5" max="180" value="15" class="w-full mt-1 px-3 py-2 rounded-xl border chip" />
+          <button id="btnMulaiSim" class="btn mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-semibold">Mulai Simulasi</button>
+          <p class="text-xs text-gray-500 mt-2">Timer akan berjalan. Skor & pembahasan ditampilkan setelah selesai.</p>
+        </div>
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-xl">Simulasi TKA</h2>
+            <div id="simInfo" class="text-sm text-gray-600">Belum mulai</div>
+          </div>
+          <div id="simContainer" class="mt-3 space-y-4"></div>
+          <div id="simHasil" class="mt-4 hidden p-4 rounded-xl border chip bg-emerald-50"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+    <div class="mt-10 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm text-xs text-gray-500">
+      <p><strong>Kebun Ilmu</strong> – Aplikasi belajar mandiri. Konten ringkasan & soal di sini adalah contoh yang disusun menyerupai format TKA. Untuk rujukan resmi gunakan tautan Pusmendik di atas.</p>
+    </div>
+  </footer>
+
+  <!-- App Data & Logic -->
+  <script>
+  // ======= Dataset Contoh (DISERAGAMKAN DENGAN TKA SMA) =======
+  // Struktur: mapel -> bab[] -> materi (html), video (YT embed id), soal[]
+  const DB = {
+    'Biologi': {
+  bab: {
+    'Pewarisan Sifat': {
+  materi: `
+    <h2 class="text-xl font-bold mb-2">Pewarisan Sifat</h2>
+    <p>
+      Pada bab ini, siswa akan mempelajari bagaimana sifat diturunkan dari orang tua ke anak 
+      melalui gen, kromosom, dan hukum Mendel. Topik juga mencakup pewarisan golongan darah, 
+      buta warna, serta contoh-contoh kasus nyata dalam kehidupan sehari-hari.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">1. Pengertian Pewarisan Sifat</h3>
+    <p>
+      Pewarisan sifat adalah proses penurunan ciri-ciri dari induk ke keturunannya 
+      melalui <b>gen</b>. Gen merupakan unit pewarisan yang terdapat di dalam kromosom, 
+      terletak di inti sel. Sifat yang diwariskan dapat berupa bentuk fisik 
+      (misalnya tinggi badan, warna kulit, golongan darah) maupun sifat tertentu 
+      seperti kemampuan indera.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">2. Hukum Mendel</h3>
+    <p>
+      Gregor Mendel dikenal sebagai Bapak Genetika karena eksperimennya dengan kacang ercis. 
+      Ia menemukan dua hukum dasar dalam pewarisan sifat:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>Hukum I (Segregasi):</b> Setiap individu memiliki sepasang alel untuk suatu sifat, 
+          dan alel tersebut akan memisah secara bebas ketika pembentukan gamet.</li>
+      <li><b>Hukum II (Asortasi Bebas):</b> Alel untuk sifat yang berbeda diwariskan secara bebas 
+          satu sama lain, sehingga kombinasi sifat dapat bervariasi.</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">3. Pewarisan Golongan Darah</h3>
+<p>
+  Golongan darah manusia ditentukan oleh keberadaan antigen A atau B pada permukaan sel darah merah. 
+  Alel yang berperan adalah <b>IA</b>, <b>IB</b>, dan <b>i</b>. 
+  Kombinasi ketiga alel ini menghasilkan 4 golongan darah:
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>IAIA atau IAi → Golongan darah A</b></li>
+  <li><b>IBIB atau IBi → Golongan darah B</b></li>
+  <li><b>IAIB → Golongan darah AB</b> (kodominan)</li>
+  <li><b>ii → Golongan darah O</b></li>
+</ul>
+
+<!-- Tabel kecocokan tanpa Rh -->
+<h4 class="text-md font-semibold mt-4">Tabel Kecocokan Donor &amp; Penerima (tanpa Rh)</h4>
+<div class="overflow-auto mb-6">
+  <table class="min-w-full border-collapse text-left">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border px-3 py-2">Golongan Darah</th>
+        <th class="border px-3 py-2">Dapat Donor ke</th>
+        <th class="border px-3 py-2">Dapat Menerima dari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border px-3 py-2 font-medium">O</td>
+        <td class="border px-3 py-2">A, B, AB, O</td>
+        <td class="border px-3 py-2">O</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">A</td>
+        <td class="border px-3 py-2">A, AB</td>
+        <td class="border px-3 py-2">A, O</td>
+      </tr>
+      <tr>
+        <td class="border px-3 py-2 font-medium">B</td>
+        <td class="border px-3 py-2">B, AB</td>
+        <td class="border px-3 py-2">B, O</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">AB</td>
+        <td class="border px-3 py-2">AB</td>
+        <td class="border px-3 py-2">A, B, AB, O</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="text-sm mb-4">
+  Penjelasan singkat: Tanpa mempertimbangkan faktor Rh, donor O universal (dapat mendonorkan darah ke semua golongan) 
+  karena tidak memiliki antigen A maupun B. Penerima AB dapat menerima dari semua golongan karena memiliki antigen A dan B.
+</p>
+
+<!-- Tabel kecocokan dengan Rh -->
+<h4 class="text-md font-semibold mt-4">Tabel Kecocokan Donor &amp; Penerima (dengan Rh)</h4>
+<div class="overflow-auto">
+  <table class="min-w-full border-collapse text-left text-sm">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border px-3 py-2">Golongan Darah</th>
+        <th class="border px-3 py-2">Dapat Donor ke</th>
+        <th class="border px-3 py-2">Dapat Menerima dari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border px-3 py-2 font-medium">O−</td>
+        <td class="border px-3 py-2">Semua golongan</td>
+        <td class="border px-3 py-2">O−</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">O+</td>
+        <td class="border px-3 py-2">O+, A+, B+, AB+</td>
+        <td class="border px-3 py-2">O−, O+</td>
+      </tr>
+      <tr>
+        <td class="border px-3 py-2 font-medium">A−</td>
+        <td class="border px-3 py-2">A−, A+, AB−, AB+</td>
+        <td class="border px-3 py-2">A−, O−</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">A+</td>
+        <td class="border px-3 py-2">A+, AB+</td>
+        <td class="border px-3 py-2">A−, A+, O−, O+</td>
+      </tr>
+      <tr>
+        <td class="border px-3 py-2 font-medium">B−</td>
+        <td class="border px-3 py-2">B−, B+, AB−, AB+</td>
+        <td class="border px-3 py-2">B−, O−</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">B+</td>
+        <td class="border px-3 py-2">B+, AB+</td>
+        <td class="border px-3 py-2">B−, B+, O−, O+</td>
+      </tr>
+      <tr>
+        <td class="border px-3 py-2 font-medium">AB−</td>
+        <td class="border px-3 py-2">AB−, AB+</td>
+        <td class="border px-3 py-2">A−, B−, AB−, O−</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="border px-3 py-2 font-medium">AB+</td>
+        <td class="border px-3 py-2">AB+</td>
+        <td class="border px-3 py-2">Semua golongan</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="text-sm">
+  Penjelasan singkat:
+  <ul class="list-disc ml-6">
+    <li><b>O− (O negatif)</b> adalah donor universal—dapat diberikan ke semua golongan &amp; Rh.</li>
+    <li><b>Rh+</b> (positif) dapat menerima darah Rh+ atau Rh−.</li>
+    <li><b>Rh−</b> (negatif) hanya dapat menerima darah Rh− untuk mencegah reaksi terhadap antigen Rh.</li>
+    <li>Contoh: <b>A+</b> dapat menerima dari <b>A+, A−, O+, O−</b>; namun <b>A−</b> hanya dari <b>A−, O−</b>.</li>
+  </ul>
+</p>
+
+
+    <h3 class="text-lg font-semibold mt-4">4. Pewarisan Sifat Buta Warna</h3>
+    <p>
+      Buta warna merupakan contoh sifat <b>terpaut kromosom seks (X-linked recessive)</b>. 
+      Gen buta warna terdapat pada kromosom X. Karena laki-laki memiliki kromosom XY, 
+      jika kromosom X mereka membawa alel buta warna maka sifat tersebut langsung tampak. 
+      Perempuan (XX) baru akan buta warna jika kedua kromosom X-nya membawa alel buta warna.
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>X<sup>C</sup>X<sup>C</sup> → Perempuan normal</b></li>
+      <li><b>X<sup>C</sup>X<sup>c</sup> → Perempuan normal carrier (pembawa)</b></li>
+      <li><b>X<sup>c</sup>X<sup>c</sup> → Perempuan buta warna</b></li>
+      <li><b>X<sup>C</sup>Y → Laki-laki normal</b></li>
+      <li><b>X<sup>c</sup>Y → Laki-laki buta warna</b></li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">5. Contoh Kasus</h3>
+    <p class="mb-2"><b>Kasus 1 (Golongan Darah):</b></p>
+    <p>
+      Seorang ibu bergolongan darah A (genotipe IAi) menikah dengan ayah bergolongan darah B (genotipe IBi). 
+      Kemungkinan golongan darah anak mereka adalah:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>IA dari ibu + IB dari ayah → Golongan darah AB</li>
+      <li>IA dari ibu + i dari ayah → Golongan darah A</li>
+      <li>i dari ibu + IB dari ayah → Golongan darah B</li>
+      <li>i dari ibu + i dari ayah → Golongan darah O</li>
+    </ul>
+    <p>
+      Jadi, anak dapat memiliki keempat golongan darah (A, B, AB, O).
+    </p>
+
+    <p class="mb-2"><b>Kasus 2 (Buta Warna):</b></p>
+    <p>
+      Seorang ayah normal (X<sup>C</sup>Y) menikah dengan ibu carrier (X<sup>C</sup>X<sup>c</sup>). 
+      Peluang anak mereka adalah:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>25% anak perempuan normal (X<sup>C</sup>X<sup>C</sup>)</li>
+      <li>25% anak perempuan carrier (X<sup>C</sup>X<sup>c</sup>)</li>
+      <li>25% anak laki-laki normal (X<sup>C</sup>Y)</li>
+      <li>25% anak laki-laki buta warna (X<sup>c</sup>Y)</li>
+    </ul>
+    <p>
+      Dari kasus ini, terlihat bahwa laki-laki lebih berisiko mengalami buta warna dibandingkan perempuan.
+    </p>
+  `
+,
+
+      video: 'ouDcvX4fgHw', 
+      soal: [
+        {
+          id: 'ps1',
+          tipe: 'pg',
+          tanya: 'Siapakah ilmuwan yang dikenal sebagai Bapak Genetika dengan eksperimen tanaman kacang ercis?',
+          opsi: [
+            'Charles Darwin',
+            'Gregor Mendel',
+            'Robert Hooke',
+            'Louis Pasteur'
+          ],
+          kunci: 1,
+          bahas: `
+            <p><b>Penjelasan:</b> Gregor Mendel dikenal sebagai Bapak Genetika karena percobaannya 
+            dengan kacang ercis menghasilkan Hukum Mendel I dan II.</p>
+          `
+        },
+        {
+          id: 'ps2',
+          tipe: 'pg',
+          tanya: 'Jika ayah bergolongan darah O dan ibu bergolongan darah AB, maka kemungkinan golongan darah anak adalah...',
+          opsi: [
+            'A dan B',
+            'A dan O',
+            'B dan AB',
+            'A, B, AB, dan O'
+          ],
+          kunci: 0,
+          bahas: `
+            <p><b>Penjelasan:</b> Ayah O (ii), ibu AB (IAIB). 
+            Kombinasi hanya menghasilkan IAi (A) dan IBi (B).</p>
+          `
+        },
+        {
+          id: 'ps3',
+          tipe: 'pg',
+          tanya: 'Mengapa laki-laki lebih sering mengalami buta warna dibandingkan perempuan?',
+          opsi: [
+            'Karena laki-laki lebih sering terpapar cahaya',
+            'Karena laki-laki hanya memiliki satu kromosom X',
+            'Karena perempuan memiliki dua kromosom Y',
+            'Karena gen buta warna terdapat pada kromosom Y'
+          ],
+          kunci: 1,
+          bahas: `
+            <p><b>Penjelasan:</b> Gen buta warna terletak di kromosom X. 
+            Laki-laki hanya punya satu X, sehingga jika membawa alel buta warna langsung tampak.</p>
+          `
+        },
+{
+  id: 'ps5',
+  tipe: 'pg',
+  tanya: 'Seorang pria bergolongan darah A (IAi) menikah dengan wanita bergolongan darah B (IBi). Kemungkinan anaknya bergolongan darah O jika...',
+  opsi: [
+    'Mewarisi IA dan IB',
+    'Mewarisi i dari ayah dan i dari ibu',
+    'Mewarisi IA dari ayah dan i dari ibu',
+    'Mewarisi IB dari ayah dan IA dari ibu'
+  ],
+  kunci: 1,
+  bahas: `
+    <p><b>Penjelasan:</b> Golongan darah O hanya terbentuk jika genotipe anak ii. 
+    Itu terjadi bila anak mendapat i dari ayah (IAi) dan i dari ibu (IBi).</p>
+  `
+},
+{
+  id: 'ps6',
+  tipe: 'cb',
+  tanya: 'Manakah genotipe yang dapat menghasilkan golongan darah A?',
+  opsi: [
+    'IAIA',
+    'IAi',
+    'IBi',
+    'ii'
+  ],
+  kunci: [0,1],
+  bahas: `
+    <p><b>Penjelasan:</b> Golongan darah A dihasilkan oleh genotipe IAIA atau IAi.</p>
+  `
+},
+{
+  id: 'ps7',
+  tipe: 'pg',
+  tanya: 'Alelnya manakah yang bersifat resesif dalam pewarisan golongan darah ABO?',
+  opsi: [
+    'IA',
+    'IB',
+    'i',
+    'Semua dominan'
+  ],
+  kunci: 2,
+  bahas: `
+    <p><b>Penjelasan:</b> Alel i bersifat resesif terhadap IA dan IB.</p>
+  `
+},
+{
+  id: 'ps8',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (✔️) atau salah (❌) dari pernyataan berikut mengenai golongan darah:',
+  opsi: [
+    'Golongan darah AB menunjukkan sifat kodominan.',
+    'Golongan darah O terbentuk jika genotipe seseorang adalah ii.',
+    'Golongan darah A hanya bisa muncul dari genotipe IAIA.',
+    'Golongan darah B dapat muncul dari genotipe IBi maupun IBIB.'
+  ],
+  kunci: [true, true, false, true],
+  bahas: `
+    <p><b>Penjelasan:</b></p>
+    <ul class="list-disc ml-6">
+      <li>✅ AB kodominan karena IA dan IB sama-sama terekspresi.</li>
+      <li>✅ O hanya muncul jika genotipe ii.</li>
+      <li>❌ A bisa IAIA atau IAi, jadi tidak hanya IAIA.</li>
+      <li>✅ B bisa dari IBi maupun IBIB.</li>
+    </ul>
+  `
+},
+
+{
+  id: 'ps9',
+  tipe: 'pg',
+  tanya: 'Seorang ibu bergolongan darah A (IAi) dan ayah bergolongan darah A (IAi). Peluang anak bergolongan darah O adalah...',
+  opsi: [
+    '0%',
+    '25%',
+    '50%',
+    '75%'
+  ],
+  kunci: 1,
+  bahas: `
+    <p><b>Penjelasan:</b> Persilangan IAi x IAi menghasilkan IAIA, IAi, IAi, ii.
+    Jadi peluang ii (O) adalah 25%.</p>
+  `
+},
+{
+  id: 'ps10',
+  tipe: 'pg',
+  tanya: 'Jika ayah bergolongan darah AB dan ibu bergolongan darah AB, maka anaknya mungkin bergolongan darah...',
+  opsi: [
+    'A, B, AB',
+    'A, B, AB, O',
+    'Hanya AB',
+    'Hanya O'
+  ],
+  kunci: 0,
+  bahas: `
+    <p><b>Penjelasan:</b> IAIB x IAIB → kemungkinan genotipe IAIA (A), IBIB (B), IAIB (AB). 
+    Tidak ada ii sehingga O tidak mungkin.</p>
+  `
+},
+{
+  id: 'ps11',
+  tipe: 'cb',
+  tanya: 'Pilih semua kemungkinan golongan darah anak dari ayah B (IBi) dan ibu O (ii).',
+  opsi: [
+    'A',
+    'B',
+    'AB',
+    'O'
+  ],
+  kunci: [1,3],
+  bahas: `
+    <p><b>Penjelasan:</b> IBi x ii → kombinasi IBi (B) dan ii (O).</p>
+  `
+},
+{
+  id: 'ps12',
+  tipe: 'pg',
+  tanya: 'Ayah bergolongan darah AB, ibu bergolongan darah A (IAi). Golongan darah anak yang tidak mungkin adalah...',
+  opsi: [
+    'A',
+    'B',
+    'AB',
+    'O'
+  ],
+  kunci: 3,
+  bahas: `
+    <p><b>Penjelasan:</b> Tidak mungkin menghasilkan ii, sehingga anak tidak bisa bergolongan darah O.</p>
+  `
+},
+{
+  id: 'ps13',
+  tipe: 'bs',
+  tanya: 'Tentukan pernyataan berikut tentang pewarisan sifat yang benar (✔️) atau salah (❌):',
+  opsi: [
+    'Golongan darah AB dapat menerima darah dari semua golongan dalam sistem ABO.',
+    'Golongan darah O disebut universal recipient.',
+    'Buta warna diturunkan melalui kromosom Y.',
+    'Jika ayah buta warna dan ibu carrier, maka kemungkinan anak laki-laki buta warna adalah 50%.',
+    'AleI IA dan IB bersifat kodominan.'
+  ],
+  kunci: [true, false, false, true, true],
+  bahas: `✅ AB = universal recipient, ❌ Universal recipient adalah AB, bukan O.❌ Buta warna terpaut kromosom X, bukan Y.✅ Ayah XcY, ibu (XCXc), maka peluang anak laki-laki buta warna 50%.✅ IA dan IB sama-sama diekspresikan → kodominan.
+  `
+},
+{
+  id: 'ps14',
+  tipe: 'pg',
+  tanya: 'Seorang anak bergolongan darah O, ayahnya bergolongan darah A, dan ibunya bergolongan darah B. Bagaimana kemungkinan genotipe orang tuanya?',
+  opsi: [
+    'Ayah IAIA, Ibu IBIB',
+    'Ayah IAi, Ibu IBi',
+    'Ayah IAIA, Ibu IBi',
+    'Ayah IAi, Ibu IBIB'
+  ],
+  kunci: 1,
+  bahas: `
+    <p><b>Penjelasan:</b> Anak O (ii) hanya mungkin jika kedua orang tua menyumbang i. 
+    Jadi ayah IAi dan ibu IBi.</p>
+  `
+},
+{
+  id: 'ps15',
+  tipe: 'cb',
+  tanya: 'Ayah bergolongan darah AB dan ibu bergolongan darah O. Manakah kemungkinan golongan darah anaknya?',
+  opsi: [
+    'A',
+    'B',
+    'AB',
+    'O'
+  ],
+  kunci: [0,1],
+  bahas: `
+    <p><b>Penjelasan:</b> IAIB x ii → menghasilkan IAi (A) atau IBi (B). 
+    Tidak mungkin AB atau O.</p>
+  `
+},
+{
+  id: 'ps16',
+  tipe: 'pg',
+  tanya: 'Di sebuah keluarga, ayah golongan darah B, ibu golongan darah A, dan anak pertama AB. Anak kedua bergolongan darah O. Genotipe orang tua adalah...',
+  opsi: [
+    'Ayah IBIB, Ibu IAIA',
+    'Ayah IBi, Ibu IAi',
+    'Ayah IBIB, Ibu IAi',
+    'Ayah IBi, Ibu IAIA'
+  ],
+  kunci: 1,
+  bahas: `
+    <p><b>Penjelasan:</b> Anak O berarti kedua ortu membawa alel i. 
+    Anak AB berarti ortu juga membawa IA dan IB. 
+    Jadi genotipe ayah IBi, ibu IAi.</p>
+  `
+},
+{
+  id: 'ps17',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (✔️) atau salah (❌) dari pernyataan berikut mengenai persilangan golongan darah:',
+  opsi: [
+    'Jika pria AB menikah dengan wanita O, anak bisa bergolongan darah AB.',
+    'Jika pria AB menikah dengan wanita O, anak hanya mungkin bergolongan darah A atau B.',
+    'Pria bergolongan darah AB memiliki genotipe IAIB.',
+    'Wanita bergolongan darah O memiliki genotipe ii.'
+  ],
+  kunci: [false, true, true, true],
+  bahas: `
+    <p><b>Penjelasan:</b></p>
+    <ul class="list-disc ml-6">
+      <li>❌ AB (IAIB) x O (ii) → anak IAi (A) atau IBi (B), tidak mungkin AB.</li>
+      <li>✅ Kombinasi hanya menghasilkan golongan darah A atau B.</li>
+      <li>✅ AB selalu IAIB.</li>
+      <li>✅ O selalu ii.</li>
+    </ul>
+  `
+},
+{
+  id: 'ps18',
+  tipe: 'pg',
+  tanya: 'Seorang pria bergolongan darah AB menikah dengan wanita bergolongan darah O. Analisislah kemungkinan golongan darah anak mereka!',
+  opsi: [
+    'Hanya golongan darah AB',
+    'Golongan darah A atau B',
+    'Golongan darah A, B, dan AB',
+    'Semua golongan darah (A, B, AB, O)'
+  ],
+  kunci: 1,
+  bahas: `
+    <p><b>Penjelasan:</b> AB (IAIB) × O (ii) → kombinasi menghasilkan IAi (A) atau IBi (B). Tidak mungkin AB atau O.</p>
+  `
+},
+{
+  id: 'ps19',
+  tipe: 'cb',
+  tanya: 'Seorang ayah buta warna (X<sup>c</sup>Y) menikah dengan ibu normal carrier (X<sup>C</sup>X<sup>c</sup>). Tentukan kemungkinan fenotipe anak mereka!',
+  opsi: [
+    'Anak laki-laki normal',
+    'Anak laki-laki buta warna',
+    'Anak perempuan normal',
+    'Anak perempuan carrier',
+    'Anak perempuan buta warna'
+  ],
+  kunci: [false, true, true, true, true],
+  bahas: `
+    <p><b>Penjelasan:</b> Persilangan:</p>
+    <ul class="list-disc ml-6">
+      <li>X<sup>c</sup>Y × X<sup>C</sup>X<sup>c</sup></li>
+      <li>Anak laki-laki: X<sup>c</sup>Y (buta warna), X<sup>C</sup>Y (normal).</li>
+      <li>Anak perempuan: X<sup>C</sup>X<sup>c</sup> (carrier), X<sup>c</sup>X<sup>c</sup> (buta warna).</li>
+      <li>Jadi: laki-laki buta warna, perempuan normal (carrier), dan perempuan buta warna dapat muncul.</li>
+    </ul>
+  `
+},
+{
+  id: 'ps20',
+  tipe: 'pg',
+  tanya: 'Pada bunga merah (MM) disilangkan dengan bunga putih (mm), seluruh F₁ berwarna merah muda (Mm). Jika sesama F₁ disilangkan, berapakah rasio fenotipe F₂?',
+  opsi: [
+    '1 merah : 2 merah muda : 1 putih',
+    '3 merah : 1 putih',
+    '2 merah muda : 2 putih',
+    'semua merah muda'
+  ],
+  kunci: 0,
+  bahas: `
+    <p><b>Penjelasan:</b> Ini adalah kasus <i>incomplete dominance</i>. Persilangan Mm × Mm menghasilkan MM (merah), Mm (merah muda), mm (putih) dengan rasio fenotipe 1:2:1.</p>
+  `
+},
+{
+  id: 'ps21',
+  tipe: 'bs',
+  tanya: 'Analisis benar (✔️) atau salah (❌) dari pernyataan berikut:',
+  opsi: [
+    'Golongan darah AB hanya dapat menerima donor dari AB.',
+    'Seorang perempuan carrier buta warna bisa menurunkan sifat buta warna ke anak laki-laki.',
+    'Pada kasus bunga merah dan putih, warna merah muda pada F₁ adalah contoh dominansi sempurna.',
+    'Jika kedua orang tua bergolongan darah heterozigot A (IAi), maka ada kemungkinan anak bergolongan darah O.'
+  ],
+  kunci: [false, true, false, true],
+  bahas: `
+    <p><b>Penjelasan:</b></p>
+    <ul class="list-disc ml-6">
+      <li>❌ AB justru universal recipient, bisa menerima dari semua golongan.</li>
+      <li>✅ Carrier (X<sup>C</sup>X<sup>c</sup>) dapat menurunkan X<sup>c</sup> ke anak laki-laki → buta warna.</li>
+      <li>❌ Merah muda F₁ adalah contoh <i>incomplete dominance</i>, bukan dominansi sempurna.</li>
+      <li>✅ IAi × IAi bisa menghasilkan ii (O).</li>
+    </ul>
+  `
+}
+
+      ]
+    }
+  }
+}
+
+,
+
+  };
+
+  // ======= Helpers =======
+  const $ = (sel, par=document) => par.querySelector(sel);
+  const $$ = (sel, par=document) => Array.from(par.querySelectorAll(sel));
+  function setTab(name){
+    $$('.tab-pane').forEach(p => p.classList.add('hidden'));
+    $('#tab-'+name).classList.remove('hidden');
+    $$('.tab-btn').forEach(b=>{
+      const active = b.dataset.tab===name;
+      b.classList.toggle('bg-emerald-600', active);
+      b.classList.toggle('text-white', active);
+      b.classList.toggle('border', !active);
+      b.classList.toggle('chip', !active);
+      b.classList.toggle('bg-white', !active);
+      b.classList.toggle('text-gray-700', !active);
+    })
+  }
+
+  function populateSelect(sel, list){
+    sel.innerHTML = '';
+    list.forEach(v=>{
+      const opt=document.createElement('option');
+      opt.value=v; opt.textContent=v; sel.appendChild(opt);
+    })
+  }
+
+  function renderMateri(mapel, bab){
+    const item = DB[mapel]?.bab?.[bab];
+    if(!item){
+      $('#materiKonten').innerHTML = '<p class="text-gray-500">Materi belum tersedia.</p>';
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+      return;
+    }
+    $('#materiKonten').innerHTML = item.materi;
+    if(item.video){
+      $('#materiVideo').innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${item.video}" title="Video pembelajaran" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    } else {
+      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+    }
+if(window.MathJax){
+    MathJax.typesetPromise([$('#materiKonten')]);
+  }
+  }
+
+  function buildSoalCard(q, idx, prefix){
+  const wrap = document.createElement('div');
+  wrap.className = 'p-4 rounded-xl border chip';
+  wrap.dataset.id = q.id;
+
+  const head = document.createElement('div');
+  head.className = 'flex items-start justify-between gap-3';
+  head.innerHTML = `<div class="font-semibold">${idx+1}. ${q.tanya.replace(/\n/g,'<br>')}</div>`;
+  wrap.appendChild(head);
+
+  const body = document.createElement('div');
+  body.className = 'mt-3 space-y-2';
+if(q.gambar){
+  const img = document.createElement('img');
+  img.src = q.gambar;
+  img.alt = 'Gambar soal';
+  img.className = 'my-3 w-full max-w-md rounded-lg border';
+  body.appendChild(img);
+}
+if(q.audio){
+  const aud = document.createElement('audio');
+  aud.controls = true;
+  aud.src = q.audio;
+  aud.className = 'my-3 w-full';
+  body.appendChild(aud);
+}
+if(q.bacaan){
+  const teks = document.createElement('div');
+  teks.className = 'mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm whitespace-pre-line text-justify';
+  teks.innerText = q.bacaan;
+  body.appendChild(teks);
+}
+  // ====== PILIHAN GANDA ======
+  if(q.tipe === 'pg'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="radio" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
+    });
+  }
+
+  // ====== CHECKBOX ======
+  if(q.tipe === 'cb'){
+    q.opsi.forEach((o,i)=>{
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 border border-transparent';
+      row.innerHTML = `<input type="checkbox" name="${prefix}-${q.id}" value="${i}" class="accent-emerald-600"> <span>${String.fromCharCode(65+i)}. ${o}</span>`;
+      body.appendChild(row);
+    });
+  }
+  // ====== CONSERVATION & RELAXATION ======
+  if(q.tipe === 'cr'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    // Header tabel
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">places</th>
+        <th class="p-2 border w-28">Conservation</th>
+        <th class="p-2 border w-28">Relaxation</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    // Body tabel
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idCon = `${prefix}-${q.id}-cr-${i}-con`;
+      const idRel = `${prefix}-${q.id}-cr-${i}-rel`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idCon}" name="${prefix}-${q.id}-cr-${i}" value="conservation" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idRel}" name="${prefix}-${q.id}-cr-${i}" value="relaxation" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+
+  // ====== BENAR / SALAH ======
+  if(q.tipe === 'bs'){
+    const table = document.createElement('table');
+    table.className = 'w-full border border-gray-200 rounded-lg';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr class="bg-gray-100 text-center">
+        <th class="p-2 border">Pernyataan</th>
+        <th class="p-2 border w-20">Benar</th>
+        <th class="p-2 border w-20">Salah</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    q.opsi.forEach((o,i)=>{
+      const idBenar = `${prefix}-${q.id}-bs-${i}-benar`;
+      const idSalah = `${prefix}-${q.id}-bs-${i}-salah`;
+
+      const row = document.createElement('tr');
+      row.className = 'border-t';
+      row.innerHTML = `
+        <td class="p-2 border">${o}</td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idBenar}" name="${prefix}-${q.id}-bs-${i}" value="true" class="accent-emerald-600">
+        </td>
+        <td class="p-2 text-center border">
+          <input type="radio" id="${idSalah}" name="${prefix}-${q.id}-bs-${i}" value="false" class="accent-rose-600">
+        </td>`;
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    body.appendChild(table);
+  }
+
+  // ====== ISIAN ======
+  if(q.tipe === 'isian'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = 'Ketik jawaban singkat…';
+    inp.className = 'w-full px-3 py-2 rounded-lg border chip focus:outline-none focus:ring-2 focus:ring-emerald-300';
+    inp.name = `${prefix}-${q.id}-isian`;
+    body.appendChild(inp);
+  }
+
+  // ====== AKSI ======
+  const actions = document.createElement('div');
+  actions.className = 'mt-3 flex flex-wrap items-center gap-2';
+
+  const btnCek = document.createElement('button');
+  btnCek.className = 'btn px-3 py-2 rounded-lg bg-emerald-600 text-white text-sm';
+  btnCek.textContent = 'Cek Jawaban';
+
+  const btnBahas = document.createElement('button');
+  btnBahas.className = 'btn px-3 py-2 rounded-lg border chip text-sm';
+  btnBahas.textContent = 'Pembahasan';
+
+  const status = document.createElement('span');
+  status.className = 'ml-auto text-sm';
+
+  const bahas = document.createElement('div');
+  bahas.className = 'mt-3 hidden p-3 rounded-lg bg-emerald-50 border border-emerald-100 text-sm';
+  bahas.textContent = q.bahas || 'Belum ada pembahasan.';
+
+  // ====== EVENT CEK JAWABAN ======
+  btnCek.addEventListener('click',()=>{
+    let benar = false;
+
+    if(q.tipe === 'pg'){
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}']:checked`)||{}).value;
+      benar = Number(v) === Number(q.kunci);
+    }
+    else if(q.tipe === 'cb'){
+      const checked = [...document.querySelectorAll(`input[name='${prefix}-${q.id}']:checked`)].map(el=>Number(el.value));
+      const kunci = Array.isArray(q.kunci) ? q.kunci.slice().sort() : [q.kunci];
+      benar = checked.slice().sort().toString() === kunci.toString();
+    }
+    else if(q.tipe === 'bs'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-bs-${i}']:checked`);
+        return el ? el.value === 'true' : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else if(q.tipe === 'cr'){
+      const jawabanUser = q.opsi.map((o,i)=>{
+        const el = document.querySelector(`input[name='${prefix}-${q.id}-cr-${i}']:checked`);
+        return el ? el.value : null;
+      });
+
+      if(jawabanUser.includes(null)){
+        alert('Pilih jawaban Conservation / Relaxation untuk semua pernyataan!');
+        return;
+      }
+      benar = jawabanUser.every((val,i)=> val === q.kunci[i]);
+    }
+    else {
+      const v = (document.querySelector(`input[name='${prefix}-${q.id}-isian']`)||{}).value||'';
+      benar = v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
+    }
+
+    status.textContent = benar ? '✅ Benar' : '❌ Salah';
+    status.classList.toggle('text-emerald-600', benar);
+    status.classList.toggle('text-rose-600', !benar);
+  });
+
+  btnBahas.addEventListener('click',()=> bahas.classList.toggle('hidden'));
+
+  actions.append(btnCek, btnBahas, status);
+  wrap.append(body, actions, bahas);
+  return wrap;
+}
+
+  function loadLatihan(mapel,bab){
+    const item = DB[mapel]?.bab?.[bab];
+    const box = $('#latihanContainer');
+    box.innerHTML='';
+    if(!item){ 
+        box.innerHTML = '<p class="text-gray-500">Soal belum tersedia.</p>'; 
+        return; 
+    }
+    item.soal.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'lat')) );
+
+    // Tambahkan ini agar MathJax render ulang rumus pada soal latihan
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  // ======= SIMULASI =======
+  let simState = {timer:null, endAt: null, daftar: [], mapel:'', durasi: 0};
+
+  function startSimulasi(mapel, jumlah, durasiMenit){
+    const pools = Object.values(DB[mapel]?.bab || {}).flatMap(x=>x.soal||[]);
+    if(pools.length===0){
+      $('#simContainer').innerHTML = '<p class="text-gray-500">Bank soal untuk mapel ini belum tersedia.</p>';
+      return;
+    }
+    const shuffled=[...pools].sort(()=>Math.random()-0.5).slice(0, Math.min(jumlah,pools.length));
+    simState = {timer:null, endAt: Date.now()+durasiMenit*60*1000, daftar: shuffled, mapel, durasi:durasiMenit};
+    renderSimulasi();
+    runTimer();
+  }
+
+  function renderSimulasi(){
+    const box = $('#simContainer');
+    box.innerHTML='';
+    simState.daftar.forEach((q,i)=> box.appendChild(buildSoalCard(q,i,'sim')) );
+    $('#simHasil').classList.add('hidden');
+
+    // Tambahkan ini agar MathJax render ulang rumus pada soal simulasi
+    if(window.MathJax){
+        MathJax.typesetPromise([box]);
+    }
+}
+
+
+  function runTimer(){
+    clearInterval(simState.timer);
+    const info = $('#simInfo');
+    const tick = ()=>{
+      const remain = Math.max(0, simState.endAt - Date.now());
+      const mm = String(Math.floor(remain/60000)).padStart(2,'0');
+      const ss = String(Math.floor((remain%60000)/1000)).padStart(2,'0');
+      info.textContent = `Mapel: ${simState.mapel} • Sisa waktu ${mm}:${ss}`;
+      if(remain===0){
+        clearInterval(simState.timer);
+        selesaiSimulasi();
+      }
+    };
+    tick();
+    simState.timer = setInterval(tick, 250);
+  }
+
+  function nilaiPG(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}']:checked`)||{}).value;
+    return Number(v)===Number(q.kunci);
+  }
+  function nilaiIsian(q){
+    const v = (document.querySelector(`input[name='sim-${q.id}-isian']`)||{}).value||'';
+    return v.trim().toLowerCase() === String(q.kunciText||'').trim().toLowerCase();
+  }
+
+  function selesaiSimulasi(){
+    const total = simState.daftar.length;
+    let benar = 0;
+    simState.daftar.forEach(q=>{
+      benar += (q.tipe==='pg') ? (nilaiPG(q)?1:0) : (nilaiIsian(q)?1:0);
+    });
+    const skor = Math.round((benar/total)*100);
+    const hasil = $('#simHasil');
+    hasil.classList.remove('hidden');
+    hasil.innerHTML = `<div class="font-semibold">Hasil Simulasi</div>
+      <div class="mt-1 text-sm">Benar: <strong>${benar}</strong> dari ${total} soal • Skor: <strong>${skor}</strong></div>
+      <button id="btnReview" class="btn mt-3 px-3 py-2 rounded-lg border chip text-sm">Tampilkan Pembahasan</button>`;
+    $('#simInfo').textContent = `Selesai • Mapel: ${simState.mapel}`;
+
+    $('#btnReview').addEventListener('click',()=>{
+      // Tampilkan semua pembahasan
+      $$('#simContainer .p-4').forEach(card=>{
+        const pemb = card.querySelector('div.mt-3.hidden');
+        if(pemb) pemb.classList.remove('hidden');
+      })
+    })
+  }
+
+  // ======= INIT =======
+  function initSelectors(){
+    const mapels = Object.keys(DB);
+    populateSelect($('#materiMapel'), mapels);
+    populateSelect($('#latihMapel'), mapels);
+    populateSelect($('#simMapel'), mapels);
+
+    const firstBab = (mapel)=> Object.keys(DB[mapel].bab);
+
+    // Materi default
+    const m0 = mapels[0];
+    populateSelect($('#materiBab'), firstBab(m0));
+    // Latihan default
+    populateSelect($('#latihBab'), firstBab(mapels[0]));
+
+    $('#materiMapel').addEventListener('change', e=>{
+      populateSelect($('#materiBab'), firstBab(e.target.value));
+    });
+    $('#latihMapel').addEventListener('change', e=>{
+      populateSelect($('#latihBab'), firstBab(e.target.value));
+    });
+
+    $('#btnLoadMateri').addEventListener('click',()=>{
+      renderMateri($('#materiMapel').value, $('#materiBab').value);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    $('#btnLoadLatihan').addEventListener('click',()=>{
+      loadLatihan($('#latihMapel').value, $('#latihBab').value);
+    });
+
+    $('#btnPeriksaSemua').addEventListener('click',()=>{
+      $$('#latihanContainer .p-4').forEach(card=>{
+        const cek = card.querySelector('button');
+        cek?.click();
+      });
+    });
+
+    $('#btnMulaiSim').addEventListener('click',()=>{
+      const map = $('#simMapel').value;
+      const j = Math.max(5, Math.min(50, Number($('#simJumlah').value||10)));
+      const d = Math.max(5, Math.min(180, Number($('#simDurasi').value||15)));
+      startSimulasi(map, j, d);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Muat awal
+    renderMateri($('#materiMapel').value, $('#materiBab').value);
+    loadLatihan($('#latihMapel').value, $('#latihBab').value);
+  }
+
+  // Tab switching
+  $$('.tab-btn').forEach(b=> b.addEventListener('click',()=> setTab(b.dataset.tab)) );
+
+  // Start
+  setTab('materi');
+  initSelectors();
+  </script>
+</body>
+</html>
