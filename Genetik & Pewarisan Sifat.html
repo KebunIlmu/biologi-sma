@@ -1295,6 +1295,387 @@
   function nextQuestion(){ if(currentIndex<questions.length-1){currentIndex++; renderQuestion();}}
 
   renderQuestion();
+</script><br>
+<div class="w-full max-w-3xl mx-auto bg-white px-6 py-8 rounded-2xl shadow-lg" id="quizGenetikaHOTS">
+  <h2 class="text-3xl font-extrabold text-center text-blue-600 mb-8 tracking-tight">🧬 Latihan Soal HOTS: Pewarisan Sifat Kelas 12</h2>
+
+  <!-- Soal dan Pilihan -->
+  <div id="quizContainerHOTS" class="space-y-6"></div>
+
+  <!-- Tombol Navigasi -->
+  <div class="flex justify-between items-center mt-8">
+    <button id="prevBtnHOTS" onclick="prevQuestionHOTS()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all" disabled>Sebelumnya</button>
+    <div class="space-x-2">
+      <button id="checkBtnHOTS" onclick="checkAnswerHOTS()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all">Cek</button>
+      <button id="nextBtnHOTS" onclick="nextQuestionHOTS()" class="px-5 py-2 font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Pembahasan -->
+  <div id="explanationHOTS" class="mt-6 hidden bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg shadow-inner"></div>
+</div>
+
+<script>
+  const questionsHOTS = [
+    {
+      type: "mcq",
+      question: "Seorang petani mengawinkan tanaman bunga merah (RR) dengan bunga putih (rr) dan menghasilkan semua bunga berwarna merah muda (Rr). Jika tanaman F1 tersebut disilangkan sesamanya, rasio fenotipe F2 yang muncul adalah...",
+      choices: [
+        "1 merah : 2 merah muda : 1 putih",
+        "3 merah : 1 putih",
+        "2 merah : 1 merah muda : 1 putih",
+        "Semua merah muda"
+      ],
+      correctAnswer: 0,
+      explanation: "Kasus ini adalah contoh *intermediate inheritance* (dominansi tidak sempurna). F2 hasil persilangan Rr × Rr menghasilkan rasio fenotipe 1 merah : 2 merah muda : 1 putih."
+    },
+    {
+      type: "checkbox",
+      question: "Pernyataan berikut yang menunjukkan penerapan hukum Mendel II (Asortasi Bebas) adalah...",
+      choices: [
+        "Pada persilangan dihibrid AaBb × AaBb, muncul kombinasi genotipe baru seperti Aabb dan aaBb.",
+        "Alel dalam satu pasangan gen berpisah secara bebas pada saat pembentukan gamet.",
+        "Hasil persilangan monohibrid selalu menghasilkan rasio fenotipe 3:1.",
+        "Gen pada kromosom berbeda dapat diwariskan secara independen."
+      ],
+      correctAnswers: [0,3],
+      explanation: "Hukum Mendel II menjelaskan bahwa gen pada kromosom berbeda diwariskan secara bebas. Hal ini memungkinkan munculnya kombinasi baru seperti Aabb dan aaBb."
+    },
+    {
+      type: "truefalse",
+      question: "Tentukan benar (✔️) atau salah (❌) tentang pewarisan sifat berikut:",
+      statements: [
+        {text: "Genotipe AaBb dapat menghasilkan 4 macam gamet berbeda.", correct: true},
+        {text: "Crossing over meningkatkan variasi genetik pada keturunan.", correct: true},
+        {text: "Semua sifat pada manusia ditentukan hanya oleh satu gen tunggal.", correct: false}
+      ],
+      explanation: "AaBb menghasilkan gamet AB, Ab, aB, ab. Crossing over penting untuk variasi genetik. Sebagian besar sifat manusia bersifat poligenik, tidak hanya dikendalikan oleh satu gen."
+    },
+    {
+      type: "mcq",
+      question: "Seorang perempuan normal menikah dengan laki-laki penderita hemofilia (resesif terkait kromosom X). Jika mereka memiliki anak, kemungkinan fenotipe anak perempuannya adalah...",
+      choices: [
+        "Semua anak perempuan normal",
+        "50% anak perempuan normal pembawa sifat, 50% anak perempuan hemofilia",
+        "Semua anak perempuan hemofilia",
+        "50% anak perempuan normal pembawa sifat, 50% anak perempuan normal"
+      ],
+      correctAnswer: 1,
+      explanation: "Hemofilia adalah penyakit resesif terpaut X. Ayah XʰY dan ibu XX → anak perempuan mewarisi satu X dari ayah (Xʰ) dan satu X dari ibu (X). Hasilnya 50% normal pembawa sifat (XʰX) dan 50% hemofilia (XʰXʰ)."
+    },
+    {
+      type: "mcq",
+      question: "Dalam penelitian genetik, ditemukan bahwa tinggi badan manusia dipengaruhi oleh banyak gen dan faktor lingkungan. Fenomena ini disebut...",
+      choices: [
+        "Poligenik",
+        "Epistasis",
+        "Pleiotropi",
+        "Kodominansi"
+      ],
+      correctAnswer: 0,
+      explanation: "Tinggi badan merupakan contoh pewarisan sifat poligenik, yaitu dikendalikan oleh banyak gen sekaligus dipengaruhi oleh faktor lingkungan."
+    },
+{
+    type: "mcq",
+    question: "Apakah simbol yang digunakan untuk menyatakan individu laki-laki dalam diagram silsilah?",
+    choices: ["Lingkaran", "Persegi", "Segitiga", "Garis miring"],
+    correctAnswer: 1,
+    explanation: "Dalam diagram silsilah, persegi melambangkan laki-laki, sedangkan lingkaran melambangkan perempuan."
+  },
+  {
+    type: "mcq",
+    question: "Pada manusia, golongan darah ditentukan oleh gen dengan alel A, B, dan O. Hal ini merupakan contoh...",
+    choices: ["Dominansi sempurna", "Kodominansi dan alel ganda", "Pleiotropi", "Poligenik"],
+    correctAnswer: 1,
+    explanation: "Golongan darah ABO ditentukan oleh alel ganda (A, B, O) dengan pola pewarisan kodominansi."
+  },
+  {
+    type: "mcq",
+    question: "Jumlah kromosom normal pada manusia dalam sel somatik adalah...",
+    choices: ["22", "44", "46", "48"],
+    correctAnswer: 2,
+    explanation: "Sel somatik manusia memiliki 46 kromosom (23 pasang)."
+  },
+  {
+    type: "truefalse",
+    question: "Tentukan benar (✔️) atau salah (❌) tentang DNA:",
+    statements: [
+      {text: "DNA berfungsi menyimpan informasi genetik.", correct: true},
+      {text: "DNA terdiri dari gula, fosfat, dan basa nitrogen.", correct: true},
+      {text: "DNA hanya ditemukan di sitoplasma manusia.", correct: false}
+    ],
+    explanation: "DNA menyimpan informasi genetik dan strukturnya tersusun dari nukleotida. Pada manusia, DNA terdapat di inti sel dan mitokondria, bukan hanya sitoplasma."
+  },
+  {
+    type: "mcq",
+    question: "Hukum Mendel I disebut juga hukum...",
+    choices: ["Asortasi bebas", "Dominansi", "Segregasi", "Kodominansi"],
+    correctAnswer: 2,
+    explanation: "Hukum Mendel I adalah hukum segregasi (pemisahan alel)."
+  },
+  {
+    type: "mcq",
+    question: "Urutan tahapan meiosis yang benar adalah...",
+    choices: [
+      "Profase – Anafase – Metafase – Telofase",
+      "Profase – Metafase – Anafase – Telofase",
+      "Anafase – Profase – Telofase – Metafase",
+      "Metafase – Profase – Anafase – Telofase"
+    ],
+    correctAnswer: 1,
+    explanation: "Tahapan pembelahan sel yang benar adalah Profase → Metafase → Anafase → Telofase."
+  },
+
+  // --- MOT (7 soal) ---
+  {
+    type: "mcq",
+    question: "Persilangan monohibrid antara tanaman tinggi (TT) dengan tanaman pendek (tt) menghasilkan F1 semua tinggi. Jika F1 disilangkan sesamanya, rasio genotipe F2 adalah...",
+    choices: [
+      "1 TT : 2 Tt : 1 tt",
+      "3 TT : 1 tt",
+      "2 TT : 2 tt",
+      "Semua Tt"
+    ],
+    correctAnswer: 0,
+    explanation: "Rasio genotipe F2 hasil persilangan monohibrid adalah 1:2:1."
+  },
+  {
+    type: "checkbox",
+    question: "Manakah contoh pewarisan sifat yang dipengaruhi oleh kromosom seks?",
+    choices: [
+      "Hemofilia",
+      "Buta warna",
+      "Golongan darah ABO",
+      "Albinisme"
+    ],
+    correctAnswers: [0,1],
+    explanation: "Hemofilia dan buta warna adalah penyakit resesif terpaut kromosom X, sedangkan ABO dan albinisme tidak."
+  },
+  {
+    type: "mcq",
+    question: "Jika seorang pria bergolongan darah AB menikah dengan wanita bergolongan darah O, kemungkinan fenotipe golongan darah anak-anaknya adalah...",
+    choices: ["A dan B", "AB dan O", "Semua AB", "Semua O"],
+    correctAnswer: 0,
+    explanation: "Ayah AB menghasilkan gamet A dan B, ibu O menghasilkan gamet O. Anak-anaknya bisa AO (golongan A) atau BO (golongan B)."
+  },
+  {
+    type: "mcq",
+    question: "Pernyataan yang benar mengenai pleiotropi adalah...",
+    choices: [
+      "Satu gen memengaruhi lebih dari satu sifat",
+      "Satu sifat dikendalikan oleh banyak gen",
+      "Gen berbeda saling menutupi pengaruhnya",
+      "Gen diwariskan secara bebas"
+    ],
+    correctAnswer: 0,
+    explanation: "Pleiotropi adalah kondisi ketika satu gen memengaruhi beberapa sifat sekaligus."
+  },
+  {
+    type: "truefalse",
+    question: "Periksa pernyataan berikut:",
+    statements: [
+      {text: "Crossing over meningkatkan keragaman genetik.", correct: true},
+      {text: "Mutasi gen selalu menguntungkan bagi organisme.", correct: false},
+      {text: "Mutasi kromosom dapat berupa translokasi dan duplikasi.", correct: true}
+    ],
+    explanation: "Crossing over menghasilkan variasi genetik. Mutasi bisa menguntungkan, merugikan, atau netral. Mutasi kromosom dapat berupa translokasi, inversi, duplikasi, atau delesi."
+  },
+  {
+    type: "mcq",
+    question: "Jika pada pembelahan meiosis tidak terjadi pemisahan kromosom homolog pada anafase I, maka kemungkinan hasilnya adalah...",
+    choices: [
+      "Terjadi poliploidi",
+      "Terjadi nondisjunction",
+      "Terjadi kodominansi",
+      "Terjadi pleiotropi"
+    ],
+    correctAnswer: 1,
+    explanation: "Fenomena kegagalan kromosom homolog berpisah disebut nondisjunction."
+  },
+  {
+    type: "mcq",
+    question: "Seorang wanita normal menikah dengan pria buta warna. Berapakah kemungkinan anak laki-laki mereka menderita buta warna?",
+    choices: [
+      "0%",
+      "25%",
+      "50%",
+      "100%"
+    ],
+    correctAnswer: 2,
+    explanation: "Anak laki-laki mewarisi kromosom X dari ibu dan Y dari ayah. Jika ibu pembawa sifat (XᴺXᶜ), maka 50% anak laki-laki akan buta warna."
+  },
+
+  // --- HOTS (7 soal) ---
+  {
+    type: "mcq",
+    question: "Jika gen A (bunga merah) dominan terhadap a (bunga putih), dan gen B (batang tinggi) dominan terhadap b (batang pendek), hasil persilangan AaBb × AaBb menunjukkan rasio fenotipe 9:3:3:1. Apa makna hasil tersebut?",
+    choices: [
+      "Gen A dan B terpaut",
+      "Gen A dan B diwariskan secara bebas",
+      "Gen A bersifat epistasis terhadap B",
+      "Gen B bersifat kodominan"
+    ],
+    correctAnswer: 1,
+    explanation: "Rasio fenotipe 9:3:3:1 menunjukkan bahwa gen A dan B berada pada kromosom berbeda dan mengikuti hukum asortasi bebas."
+  },
+  {
+    type: "mcq",
+    question: "Dalam keluarga, ayah bergolongan darah A heterozigot (AO) dan ibu bergolongan darah B heterozigot (BO). Anak mereka memiliki kemungkinan bergolongan darah O sebesar...",
+    choices: ["0%", "25%", "50%", "75%"],
+    correctAnswer: 1,
+    explanation: "Persilangan AO × BO → menghasilkan kemungkinan OO sebesar 25%, sehingga anak dapat bergolongan darah O."
+  },
+  {
+    type: "checkbox",
+    question: "Manakah faktor yang menyebabkan variasi genetik pada keturunan?",
+    choices: [
+      "Crossing over saat meiosis",
+      "Mutasi gen",
+      "Pembelahan mitosis",
+      "Fertilisasi antar gamet berbeda"
+    ],
+    correctAnswers: [0,1,3],
+    explanation: "Variasi genetik disebabkan oleh crossing over, mutasi, dan kombinasi gamet saat fertilisasi. Mitosis hanya menghasilkan sel identik."
+  },
+  {
+    type: "mcq",
+    question: "Seorang anak laki-laki mengalami sindrom Down. Hal ini kemungkinan besar disebabkan oleh...",
+    choices: [
+      "Mutasi gen tunggal",
+      "Translokasi genetik",
+      "Trisomi kromosom 21 akibat nondisjunction",
+      "Poliploidi kromosom seks"
+    ],
+    correctAnswer: 2,
+    explanation: "Sindrom Down biasanya disebabkan oleh trisomi 21 akibat nondisjunction pada meiosis."
+  },
+  {
+    type: "truefalse",
+    question: "Evaluasi pernyataan berikut:",
+    statements: [
+      {text: "Epistasis adalah interaksi gen yang menyebabkan suatu gen menutupi gen lain.", correct: true},
+      {text: "Poligenik adalah pewarisan sifat yang dikendalikan oleh satu gen.", correct: false},
+      {text: "Pleiotropi menyebabkan satu gen memengaruhi banyak sifat.", correct: true}
+    ],
+    explanation: "Epistasis adalah interaksi gen, poligenik melibatkan banyak gen, dan pleiotropi satu gen memengaruhi banyak sifat."
+  },
+  {
+    type: "mcq",
+    question: "Dalam sebuah penelitian, ditemukan bahwa tinggi badan manusia dipengaruhi oleh banyak gen dan lingkungan. Apa implikasi penemuan ini?",
+    choices: [
+      "Sifat tersebut ditentukan tunggal oleh gen dominan",
+      "Lingkungan tidak memengaruhi sifat tersebut",
+      "Tinggi badan bersifat poligenik dan multifaktorial",
+      "Semua orang dengan gen sama akan memiliki tinggi badan sama"
+    ],
+    correctAnswer: 2,
+    explanation: "Tinggi badan bersifat poligenik (dikendalikan banyak gen) dan multifaktorial (juga dipengaruhi lingkungan)."
+  },
+  {
+    type: "mcq",
+    question: "Jika dalam uji silang dihasilkan rasio fenotipe F1 berbeda dari 1:1, maka kemungkinan penyebabnya adalah...",
+    choices: [
+      "Gen mengalami pleiotropi",
+      "Terjadi gen letal",
+      "Terjadi crossing over",
+      "Gen terletak di kromosom berbeda"
+    ],
+    correctAnswer: 1,
+    explanation: "Jika rasio menyimpang dari harapan Mendel, salah satu penyebabnya adalah gen letal yang mematikan individu tertentu."
+  },
+  ];
+
+  let currentQuestionHOTS = 0;
+
+  function renderQuestionHOTS() {
+    const container = document.getElementById("quizContainerHOTS");
+    container.innerHTML = "";
+    const q = questionsHOTS[currentQuestionHOTS];
+
+    if (q.type === "mcq") {
+      container.innerHTML = `
+        <div class="p-4 border rounded-lg">
+          <p class="font-semibold mb-3">${q.question}</p>
+          ${q.choices.map((c, i) => `
+            <label class="block">
+              <input type="radio" name="q${currentQuestionHOTS}" value="${i}" class="mr-2"> ${c}
+            </label>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    if (q.type === "checkbox") {
+      container.innerHTML = `
+        <div class="p-4 border rounded-lg">
+          <p class="font-semibold mb-3">${q.question}</p>
+          ${q.choices.map((c, i) => `
+            <label class="block">
+              <input type="checkbox" name="q${currentQuestionHOTS}" value="${i}" class="mr-2"> ${c}
+            </label>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    if (q.type === "truefalse") {
+      container.innerHTML = `
+        <div class="p-4 border rounded-lg">
+          <p class="font-semibold mb-3">${q.question}</p>
+          ${q.statements.map((s, i) => `
+            <label class="block">
+              <input type="checkbox" name="q${currentQuestionHOTS}" value="${i}" class="mr-2"> ${s.text}
+            </label>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    document.getElementById("prevBtnHOTS").disabled = currentQuestionHOTS === 0;
+    document.getElementById("nextBtnHOTS").disabled = currentQuestionHOTS === questionsHOTS.length - 1;
+    document.getElementById("explanationHOTS").classList.add("hidden");
+  }
+
+  function checkAnswerHOTS() {
+    const q = questionsHOTS[currentQuestionHOTS];
+    const explanationBox = document.getElementById("explanationHOTS");
+    let correct = false;
+
+    if (q.type === "mcq") {
+      const selected = document.querySelector(`input[name="q${currentQuestionHOTS}"]:checked`);
+      if (selected && parseInt(selected.value) === q.correctAnswer) correct = true;
+    }
+
+    if (q.type === "checkbox") {
+      const selected = Array.from(document.querySelectorAll(`input[name="q${currentQuestionHOTS}"]:checked`)).map(e => parseInt(e.value));
+      correct = JSON.stringify(selected.sort()) === JSON.stringify(q.correctAnswers.sort());
+    }
+
+    if (q.type === "truefalse") {
+      const selected = Array.from(document.querySelectorAll(`input[name="q${currentQuestionHOTS}"]:checked`)).map(e => parseInt(e.value));
+      const correctIndexes = q.statements.map((s, i) => s.correct ? i : null).filter(i => i !== null);
+      correct = JSON.stringify(selected.sort()) === JSON.stringify(correctIndexes.sort());
+    }
+
+    explanationBox.innerHTML = (correct ? "✅ Jawaban benar!<br>" : "❌ Jawaban kurang tepat.<br>") + q.explanation;
+    explanationBox.classList.remove("hidden");
+  }
+
+  function nextQuestionHOTS() {
+    if (currentQuestionHOTS < questionsHOTS.length - 1) {
+      currentQuestionHOTS++;
+      renderQuestionHOTS();
+    }
+  }
+
+  function prevQuestionHOTS() {
+    if (currentQuestionHOTS > 0) {
+      currentQuestionHOTS--;
+      renderQuestionHOTS();
+    }
+  }
+
+  renderQuestionHOTS();
 </script>
 
 
