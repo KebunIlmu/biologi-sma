@@ -350,54 +350,45 @@
 
       video: 'ouDcvX4fgHw', 
       soal: [
-        {
-          id: 'ps1',
-          tipe: 'pg',
-          tanya: 'Siapakah ilmuwan yang dikenal sebagai Bapak Genetika dengan eksperimen tanaman kacang ercis?',
-          opsi: [
-            'Charles Darwin',
-            'Gregor Mendel',
-            'Robert Hooke',
-            'Louis Pasteur'
-          ],
-          kunci: 1,
-          bahas: `
-            <p><b>Penjelasan:</b> Gregor Mendel dikenal sebagai Bapak Genetika karena percobaannya 
-            dengan kacang ercis menghasilkan Hukum Mendel I dan II.</p>
-          `
-        },
-        {
-          id: 'ps2',
-          tipe: 'pg',
-          tanya: 'Jika ayah bergolongan darah O dan ibu bergolongan darah AB, maka kemungkinan golongan darah anak adalah...',
-          opsi: [
-            'A dan B',
-            'A dan O',
-            'B dan AB',
-            'A, B, AB, dan O'
-          ],
-          kunci: 0,
-          bahas: `
-            <p><b>Penjelasan:</b> Ayah O (ii), ibu AB (IAIB). 
-            Kombinasi hanya menghasilkan IAi (A) dan IBi (B).</p>
-          `
-        },
-        {
-          id: 'ps3',
-          tipe: 'pg',
-          tanya: 'Mengapa laki-laki lebih sering mengalami buta warna dibandingkan perempuan?',
-          opsi: [
-            'Karena laki-laki lebih sering terpapar cahaya',
-            'Karena laki-laki hanya memiliki satu kromosom X',
-            'Karena perempuan memiliki dua kromosom Y',
-            'Karena gen buta warna terdapat pada kromosom Y'
-          ],
-          kunci: 1,
-          bahas: `
-            <p><b>Penjelasan:</b> Gen buta warna terletak di kromosom X. 
-            Laki-laki hanya punya satu X, sehingga jika membawa alel buta warna langsung tampak.</p>
-          `
-        },
+{
+  id: 'ps1',
+  tipe: 'pg',
+  tanya: 'Siapakah ilmuwan yang dikenal sebagai Bapak Genetika dengan eksperimen tanaman kacang ercis?',
+  opsi: [
+    'Charles Darwin',
+    'Gregor Mendel',
+    'Robert Hooke',
+    'Louis Pasteur'
+  ],
+  kunci: 1,
+  bahas: `Gregor Mendel dikenal sebagai Bapak Genetika karena percobaannya dengan kacang ercis menghasilkan Hukum Mendel I dan II.`
+},
+{
+  id: 'ps2',
+  tipe: 'pg',
+  tanya: 'Jika ayah bergolongan darah O dan ibu bergolongan darah AB, maka kemungkinan golongan darah anak adalah...',
+  opsi: [
+    'A dan B',
+    'A dan O',
+    'B dan AB',
+    'A, B, AB, dan O'
+  ],
+  kunci: 0,
+  bahas: `Ayah O (ii), ibu AB (IAIB). Kombinasi hanya menghasilkan IAi (A) dan IBi (B).`
+},
+{
+  id: 'ps3',
+  tipe: 'pg',
+  tanya: 'Mengapa laki-laki lebih sering mengalami buta warna dibandingkan perempuan?',
+  opsi: [
+    'Karena laki-laki lebih sering terpapar cahaya',
+    'Karena laki-laki hanya memiliki satu kromosom X',
+    'Karena perempuan memiliki dua kromosom Y',
+    'Karena gen buta warna terdapat pada kromosom Y'
+  ],
+  kunci: 1,
+  bahas: `Gen buta warna terletak di kromosom X. Laki-laki hanya punya satu X, sehingga jika membawa alel buta warna langsung tampak.`
+},
 {
   id: 'ps5',
   tipe: 'pg',
@@ -409,10 +400,7 @@
     'Mewarisi IB dari ayah dan IA dari ibu'
   ],
   kunci: 1,
-  bahas: `
-    <p><b>Penjelasan:</b> Golongan darah O hanya terbentuk jika genotipe anak ii. 
-    Itu terjadi bila anak mendapat i dari ayah (IAi) dan i dari ibu (IBi).</p>
-  `
+  bahas: `Golongan darah O hanya terbentuk jika genotipe anak ii. Itu terjadi bila anak mendapat i dari ayah (IAi) dan i dari ibu (IBi).`
 },
 {
   id: 'ps6',
@@ -425,9 +413,7 @@
     'ii'
   ],
   kunci: [0,1],
-  bahas: `
-    <p><b>Penjelasan:</b> Golongan darah A dihasilkan oleh genotipe IAIA atau IAi.</p>
-  `
+  bahas: `Golongan darah A dihasilkan oleh genotipe IAIA atau IAi.`
 },
 {
   id: 'ps7',
@@ -440,9 +426,7 @@
     'Semua dominan'
   ],
   kunci: 2,
-  bahas: `
-    <p><b>Penjelasan:</b> Alel i bersifat resesif terhadap IA dan IB.</p>
-  `
+  bahas: `Alel i bersifat resesif terhadap IA dan IB.`
 },
 {
   id: 'ps8',
@@ -455,17 +439,8 @@
     'Golongan darah B dapat muncul dari genotipe IBi maupun IBIB.'
   ],
   kunci: [true, true, false, true],
-  bahas: `
-    <p><b>Penjelasan:</b></p>
-    <ul class="list-disc ml-6">
-      <li>✅ AB kodominan karena IA dan IB sama-sama terekspresi.</li>
-      <li>✅ O hanya muncul jika genotipe ii.</li>
-      <li>❌ A bisa IAIA atau IAi, jadi tidak hanya IAIA.</li>
-      <li>✅ B bisa dari IBi maupun IBIB.</li>
-    </ul>
-  `
+  bahas: `✅ AB kodominan karena IA dan IB sama-sama terekspresi. ✅ O hanya muncul jika genotipe ii. ❌ A bisa IAIA atau IAi, jadi tidak hanya IAIA. ✅ B bisa dari IBi maupun IBIB.`
 },
-
 {
   id: 'ps9',
   tipe: 'pg',
@@ -477,10 +452,7 @@
     '75%'
   ],
   kunci: 1,
-  bahas: `
-    <p><b>Penjelasan:</b> Persilangan IAi x IAi menghasilkan IAIA, IAi, IAi, ii.
-    Jadi peluang ii (O) adalah 25%.</p>
-  `
+  bahas: `Persilangan IAi x IAi menghasilkan IAIA, IAi, IAi, ii. Jadi peluang ii (O) adalah 25%.`
 },
 {
   id: 'ps10',
@@ -493,10 +465,7 @@
     'Hanya O'
   ],
   kunci: 0,
-  bahas: `
-    <p><b>Penjelasan:</b> IAIB x IAIB → kemungkinan genotipe IAIA (A), IBIB (B), IAIB (AB). 
-    Tidak ada ii sehingga O tidak mungkin.</p>
-  `
+  bahas: `IAIB x IAIB → kemungkinan genotipe IAIA (A), IBIB (B), IAIB (AB). Tidak ada ii sehingga O tidak mungkin.`
 },
 {
   id: 'ps11',
@@ -509,9 +478,7 @@
     'O'
   ],
   kunci: [1,3],
-  bahas: `
-    <p><b>Penjelasan:</b> IBi x ii → kombinasi IBi (B) dan ii (O).</p>
-  `
+  bahas: `IBi x ii → kombinasi IBi (B) dan ii (O).`
 },
 {
   id: 'ps12',
@@ -524,9 +491,7 @@
     'O'
   ],
   kunci: 3,
-  bahas: `
-    <p><b>Penjelasan:</b> Tidak mungkin menghasilkan ii, sehingga anak tidak bisa bergolongan darah O.</p>
-  `
+  bahas: `Tidak mungkin menghasilkan ii, sehingga anak tidak bisa bergolongan darah O.`
 },
 {
   id: 'ps13',
@@ -540,8 +505,7 @@
     'AleI IA dan IB bersifat kodominan.'
   ],
   kunci: [true, false, false, true, true],
-  bahas: `✅ AB = universal recipient, ❌ Universal recipient adalah AB, bukan O.❌ Buta warna terpaut kromosom X, bukan Y.✅ Ayah XcY, ibu (XCXc), maka peluang anak laki-laki buta warna 50%.✅ IA dan IB sama-sama diekspresikan → kodominan.
-  `
+  bahas: `✅ AB = universal recipient, ❌ Universal recipient adalah AB, bukan O. ❌ Buta warna terpaut kromosom X, bukan Y. ✅ Ayah XcY, ibu (XCXc), maka peluang anak laki-laki buta warna 50%. ✅ IA dan IB sama-sama diekspresikan → kodominan.`
 },
 {
   id: 'ps14',
@@ -554,10 +518,7 @@
     'Ayah IAi, Ibu IBIB'
   ],
   kunci: 1,
-  bahas: `
-    <p><b>Penjelasan:</b> Anak O (ii) hanya mungkin jika kedua orang tua menyumbang i. 
-    Jadi ayah IAi dan ibu IBi.</p>
-  `
+  bahas: `Anak O (ii) hanya mungkin jika kedua orang tua menyumbang i. Jadi ayah IAi dan ibu IBi.`
 },
 {
   id: 'ps15',
@@ -570,10 +531,7 @@
     'O'
   ],
   kunci: [0,1],
-  bahas: `
-    <p><b>Penjelasan:</b> IAIB x ii → menghasilkan IAi (A) atau IBi (B). 
-    Tidak mungkin AB atau O.</p>
-  `
+  bahas: `IAIB x ii → menghasilkan IAi (A) atau IBi (B). Tidak mungkin AB atau O.`
 },
 {
   id: 'ps16',
@@ -586,11 +544,7 @@
     'Ayah IBi, Ibu IAIA'
   ],
   kunci: 1,
-  bahas: `
-    <p><b>Penjelasan:</b> Anak O berarti kedua ortu membawa alel i. 
-    Anak AB berarti ortu juga membawa IA dan IB. 
-    Jadi genotipe ayah IBi, ibu IAi.</p>
-  `
+  bahas: `Anak O berarti kedua ortu membawa alel i. Anak AB berarti ortu juga membawa IA dan IB. Jadi genotipe ayah IBi, ibu IAi.`
 },
 {
   id: 'ps17',
@@ -603,15 +557,7 @@
     'Wanita bergolongan darah O memiliki genotipe ii.'
   ],
   kunci: [false, true, true, true],
-  bahas: `
-    <p><b>Penjelasan:</b></p>
-    <ul class="list-disc ml-6">
-      <li>❌ AB (IAIB) x O (ii) → anak IAi (A) atau IBi (B), tidak mungkin AB.</li>
-      <li>✅ Kombinasi hanya menghasilkan golongan darah A atau B.</li>
-      <li>✅ AB selalu IAIB.</li>
-      <li>✅ O selalu ii.</li>
-    </ul>
-  `
+  bahas: '❌ AB (IAIB) × O (ii) → anak IAi (A) atau IBi (B), tidak mungkin AB. ✅ Kombinasi hanya menghasilkan golongan darah A atau B. ✅ AB selalu IAIB. ✅ O selalu ii.'
 },
 {
   id: 'ps18',
@@ -624,14 +570,12 @@
     'Semua golongan darah (A, B, AB, O)'
   ],
   kunci: 1,
-  bahas: `
-    <p><b>Penjelasan:</b> AB (IAIB) × O (ii) → kombinasi menghasilkan IAi (A) atau IBi (B). Tidak mungkin AB atau O.</p>
-  `
+  bahas: 'AB (IAIB) × O (ii) menghasilkan IAi (A) atau IBi (B). Tidak mungkin AB atau O.'
 },
 {
   id: 'ps19',
   tipe: 'cb',
-  tanya: 'Seorang ayah buta warna (X<sup>c</sup>Y) menikah dengan ibu normal carrier (X<sup>C</sup>X<sup>c</sup>). Tentukan kemungkinan fenotipe anak mereka!',
+  tanya: 'Seorang ayah buta warna (XcY) menikah dengan ibu normal carrier (XCXc). Tentukan kemungkinan fenotipe anak mereka!',
   opsi: [
     'Anak laki-laki normal',
     'Anak laki-laki buta warna',
@@ -640,15 +584,7 @@
     'Anak perempuan buta warna'
   ],
   kunci: [false, true, true, true, true],
-  bahas: `
-    <p><b>Penjelasan:</b> Persilangan:</p>
-    <ul class="list-disc ml-6">
-      <li>X<sup>c</sup>Y × X<sup>C</sup>X<sup>c</sup></li>
-      <li>Anak laki-laki: X<sup>c</sup>Y (buta warna), X<sup>C</sup>Y (normal).</li>
-      <li>Anak perempuan: X<sup>C</sup>X<sup>c</sup> (carrier), X<sup>c</sup>X<sup>c</sup> (buta warna).</li>
-      <li>Jadi: laki-laki buta warna, perempuan normal (carrier), dan perempuan buta warna dapat muncul.</li>
-    </ul>
-  `
+  bahas: 'Persilangan XcY × XCXc → anak laki-laki: XcY (buta warna), XCY (normal). Anak perempuan: XCXc (carrier), XcXc (buta warna). Jadi mungkin laki-laki buta warna, perempuan normal, carrier, dan buta warna.'
 },
 {
   id: 'ps20',
@@ -661,9 +597,7 @@
     'semua merah muda'
   ],
   kunci: 0,
-  bahas: `
-    <p><b>Penjelasan:</b> Ini adalah kasus <i>incomplete dominance</i>. Persilangan Mm × Mm menghasilkan MM (merah), Mm (merah muda), mm (putih) dengan rasio fenotipe 1:2:1.</p>
-  `
+  bahas: 'Kasus incomplete dominance. Persilangan Mm × Mm menghasilkan MM (merah), Mm (merah muda), mm (putih) dengan rasio fenotipe 1:2:1.'
 },
 {
   id: 'ps21',
@@ -676,15 +610,113 @@
     'Jika kedua orang tua bergolongan darah heterozigot A (IAi), maka ada kemungkinan anak bergolongan darah O.'
   ],
   kunci: [false, true, false, true],
-  bahas: `
-    <p><b>Penjelasan:</b></p>
-    <ul class="list-disc ml-6">
-      <li>❌ AB justru universal recipient, bisa menerima dari semua golongan.</li>
-      <li>✅ Carrier (X<sup>C</sup>X<sup>c</sup>) dapat menurunkan X<sup>c</sup> ke anak laki-laki → buta warna.</li>
-      <li>❌ Merah muda F₁ adalah contoh <i>incomplete dominance</i>, bukan dominansi sempurna.</li>
-      <li>✅ IAi × IAi bisa menghasilkan ii (O).</li>
-    </ul>
-  `
+  bahas: '❌ AB adalah universal recipient, bisa menerima dari semua golongan. ✅ Carrier (XCXc) dapat menurunkan Xc ke anak laki-laki sehingga buta warna. ❌ Merah muda F₁ adalah incomplete dominance, bukan dominansi sempurna. ✅ IAi × IAi bisa menghasilkan ii (O).'
+},
+{
+  id: 'ps22',
+  tipe: 'pg',
+  tanya: 'Seorang ibu bergolongan darah A heterozigot (IAi) menikah dengan ayah bergolongan darah B heterozigot (IBi). Golongan darah apa saja yang mungkin muncul pada anak-anak mereka?',
+  opsi: [
+    'Hanya A dan B',
+    'A, B, AB, dan O',
+    'A, B, dan AB',
+    'Hanya O'
+  ],
+  kunci: 1,
+  bahas: 'IAi × IBi → kombinasi IAIB (AB), IAi (A), IBi (B), ii (O). Jadi semua kemungkinan golongan darah bisa muncul.'
+},
+{
+  id: 'ps23',
+  tipe: 'pg',
+  tanya: 'Seorang wanita Rh− menikah dengan pria Rh+. Jika gen Rh+ bersifat dominan (R), tentukan kemungkinan anak-anak mereka bila sang pria heterozigot (Rr).',
+  opsi: [
+    '100% Rh+',
+    '50% Rh+, 50% Rh−',
+    '75% Rh+, 25% Rh−',
+    '100% Rh−'
+  ],
+  kunci: 1,
+  bahas: 'Persilangan Rr × rr menghasilkan 50% Rr (Rh+) dan 50% rr (Rh−).'
+},
+{
+  id: 'ps24',
+  tipe: 'cb',
+  tanya: 'Pilih pernyataan yang benar mengenai pewarisan buta warna:',
+  opsi: [
+    'Buta warna diwariskan melalui kromosom X.',
+    'Pria lebih sering mengalami buta warna dibanding wanita.',
+    'Wanita buta warna pasti mewarisi gen buta warna dari ayah dan ibunya.',
+    'Ayah buta warna selalu menurunkan sifat buta warna kepada anak laki-laki.',
+    'Ibu carrier bisa menurunkan sifat buta warna kepada anak laki-laki.'
+  ],
+  kunci: [true, true, true, false, true],
+  bahas: 'Buta warna X-linked; pria lebih sering terkena; wanita buta warna harus mendapat gen dari ayah dan ibu; ayah tidak menurunkan ke anak laki-laki; ibu carrier bisa menurunkan ke anak laki-laki.'
+},
+{
+  id: 'ps25',
+  tipe: 'pg',
+  tanya: 'Pada bunga merah (RR) × putih (rr) dihasilkan F₁ berwarna merah muda (Rr). Jika F₁ disilangkan dengan bunga merah (RR), tentukan rasio fenotipe F₂!',
+  opsi: [
+    '1 merah : 1 merah muda',
+    '2 merah : 1 putih',
+    '3 merah : 1 putih',
+    'semua merah muda'
+  ],
+  kunci: 0,
+  bahas: 'Rr × RR menghasilkan 50% RR (merah) dan 50% Rr (merah muda). Rasio = 1 merah : 1 merah muda.'
+},
+{
+  id: 'ps26',
+  tipe: 'bs',
+  tanya: 'Tentukan benar (✔️) atau salah (❌):',
+  opsi: [
+    'Golongan darah O bisa mendonorkan ke semua golongan.',
+    'Seorang ibu Rh− yang mengandung anak Rh+ berpotensi mengalami masalah kehamilan.',
+    'Buta warna adalah contoh pewarisan sifat autosomal dominan.',
+    'Fenomena bunga merah × putih menghasilkan merah muda merupakan contoh kodominansi.'
+  ],
+  kunci: [true, true, false, false],
+  bahas: 'O = universal donor; inkompatibilitas Rh bisa berbahaya; buta warna adalah X-linked resesif, bukan autosomal dominan; merah muda F₁ adalah incomplete dominance, bukan kodominansi.'
+},
+{
+  id: 'ps27',
+  tipe: 'pg',
+  tanya: 'Seorang pria bergolongan darah A (IAIA) menikah dengan wanita bergolongan darah B (IBIB). Bagaimana golongan darah anak-anak mereka?',
+  opsi: [
+    'Semua AB',
+    'A dan B',
+    'Semua O',
+    'A, B, AB'
+  ],
+  kunci: 0,
+  bahas: 'IAIA × IBIB menghasilkan semua anak IAIB (AB).'
+},
+{
+  id: 'ps28',
+  tipe: 'cb',
+  tanya: 'Seorang ayah normal (XY) menikah dengan ibu carrier buta warna (X^C X^c). Pilih kemungkinan anak mereka:',
+  opsi: [
+    'Anak laki-laki normal',
+    'Anak laki-laki buta warna',
+    'Anak perempuan normal',
+    'Anak perempuan carrier',
+    'Anak perempuan buta warna'
+  ],
+  kunci: [true, true, true, true, false],
+  bahas: 'XY × X^C X^c → anak laki-laki: normal atau buta warna; anak perempuan: normal atau carrier; tidak ada anak perempuan buta warna karena ayah normal.'
+},
+{
+  id: 'ps29',
+  tipe: 'pg',
+  tanya: 'Jika bunga merah muda (Rr) disilangkan dengan bunga putih (rr), berapakah rasio fenotipe yang dihasilkan?',
+  opsi: [
+    '1 merah muda : 1 putih',
+    '2 merah : 2 putih',
+    '3 merah : 1 putih',
+    'semua merah muda'
+  ],
+  kunci: 0,
+  bahas: 'Rr × rr menghasilkan 50% Rr (merah muda) dan 50% rr (putih). Rasio = 1 merah muda : 1 putih.'
 }
 
       ]
