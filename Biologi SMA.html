@@ -718,13 +718,142 @@
   kunci: 0,
   bahas: 'Rr × rr menghasilkan 50% Rr (merah muda) dan 50% rr (putih). Rasio = 1 merah muda : 1 putih.'
 }
-
       ]
-    }
-  }
-}
+    },
+'Genetika': {
+    materi: `
+    <h2 class="text-xl font-bold mb-2">Genetika</h2>
+    <p>
+      Genetika adalah cabang biologi yang mempelajari pewarisan sifat dari satu generasi ke generasi berikutnya. 
+      Topik utama dalam genetika meliputi peran kromosom, gen, DNA dan RNA, serta proses sintesis protein.
+    </p>
 
-,
+    <h3 class="text-lg font-semibold mt-4">1. Kromosom sebagai Pembawa Gen</h3>
+    <p>
+      Kromosom adalah struktur berbentuk batang yang terdapat di dalam inti sel, 
+      tersusun dari DNA dan protein histon. Kromosom berfungsi sebagai pembawa informasi genetik 
+      yang diwariskan dari orang tua ke keturunannya. 
+      Pada manusia terdapat <b>46 kromosom (23 pasang)</b>, yang terdiri dari:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>22 pasang autosom (mengatur sifat-sifat tubuh)</li>
+      <li>1 pasang kromosom seks (XX pada perempuan, XY pada laki-laki)</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">2. Gen sebagai Unit Pewarisan Sifat</h3>
+    <p>
+      Gen adalah segmen DNA pada kromosom yang mengandung instruksi untuk membentuk protein tertentu. 
+      Gen merupakan unit pewarisan sifat terkecil. 
+      Sifat-sifat yang diwariskan (seperti warna rambut, bentuk wajah, dan golongan darah) 
+      ditentukan oleh susunan gen yang dimiliki seseorang.
+    </p>
+
+    <h3 class="text-lg font-semibold mt-4">3. DNA dan RNA sebagai Materi Genetik</h3>
+    <p>
+      DNA (Deoxyribonucleic Acid) adalah materi genetik utama yang menyimpan informasi 
+      untuk mengatur fungsi dan sifat makhluk hidup. Struktur DNA berupa <b>double helix</b> 
+      yang terdiri atas pasangan basa nitrogen:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li>Adenin (A) berpasangan dengan Timin (T)</li>
+      <li>Sitosin (C) berpasangan dengan Guanin (G)</li>
+    </ul>
+    <p>
+      RNA (Ribonucleic Acid) berperan dalam menerjemahkan informasi dari DNA menjadi protein. 
+      Jenis-jenis RNA:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>mRNA (messenger RNA)</b> → membawa kode genetik dari DNA ke ribosom</li>
+      <li><b>tRNA (transfer RNA)</b> → membawa asam amino ke ribosom</li>
+      <li><b>rRNA (ribosomal RNA)</b> → menyusun bagian dari ribosom tempat sintesis protein berlangsung</li>
+    </ul>
+
+    <h3 class="text-lg font-semibold mt-4">4. Proses Sintesis Protein</h3>
+    <p>
+      Sintesis protein adalah proses pembentukan protein berdasarkan informasi dari DNA. 
+      Proses ini berlangsung dalam dua tahap utama:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+      <li><b>Transkripsi:</b> DNA ditranskripsi menjadi mRNA di dalam inti sel.</li>
+      <li><b>Translasi:</b> mRNA diterjemahkan oleh ribosom dengan bantuan tRNA untuk merangkai asam amino menjadi protein.</li>
+    </ul>
+    <p>
+      Hasil akhir sintesis protein adalah terbentuknya protein yang memiliki fungsi tertentu 
+      dalam tubuh, misalnya enzim, hormon, atau antibodi.
+    </p>
+    `,
+    video: 'pRLzqHAWTcs', 
+    soal: [
+      {
+        id: 'gn1',
+        tipe: 'pg',
+        tanya: 'Berapa jumlah kromosom pada manusia?',
+        opsi: [
+          '22 pasang',
+          '23 pasang',
+          '44 kromosom',
+          '48 kromosom'
+        ],
+        kunci: 1,
+        bahas: `
+          <p><b>Penjelasan:</b> Manusia memiliki 46 kromosom atau 23 pasang kromosom. 
+          Terdiri atas 22 pasang autosom dan 1 pasang kromosom seks.</p>
+        `
+      },
+      {
+        id: 'gn2',
+        tipe: 'pg',
+        tanya: 'Gen merupakan ...',
+        opsi: [
+          'Materi genetik utama dalam inti sel',
+          'Segmen DNA yang membawa informasi untuk sifat tertentu',
+          'Struktur berbentuk batang yang tersusun atas DNA dan protein',
+          'Molekul pembawa asam amino ke ribosom'
+        ],
+        kunci: 1,
+        bahas: `
+          <p><b>Penjelasan:</b> Gen adalah segmen DNA yang berfungsi sebagai unit pewarisan sifat 
+          dan mengandung instruksi pembentukan protein.</p>
+        `
+      },
+      {
+        id: 'gn3',
+        tipe: 'pg',
+        tanya: 'Pada struktur DNA, Adenin selalu berpasangan dengan ...',
+        opsi: [
+          'Guanin',
+          'Sitosin',
+          'Timin',
+          'Urasil'
+        ],
+        kunci: 2,
+        bahas: `
+          <p><b>Penjelasan:</b> Pada DNA, pasangan basa adalah Adenin (A) dengan Timin (T), 
+          serta Sitosin (C) dengan Guanin (G).</p>
+        `
+      },
+      {
+        id: 'gn4',
+        tipe: 'pg',
+        tanya: 'Tahap translasi dalam sintesis protein terjadi di ...',
+        opsi: [
+          'Inti sel',
+          'Ribosom',
+          'Mitokondria',
+          'Sitoplasma luar'
+        ],
+        kunci: 1,
+        bahas: `
+          <p><b>Penjelasan:</b> Translasi berlangsung di ribosom, di mana mRNA diterjemahkan 
+          dan asam amino dirangkai menjadi protein.</p>
+        `
+      }
+    ]
+  },
+
+  }
+
+},
 
   };
 
