@@ -785,69 +785,645 @@
     video: 'pRLzqHAWTcs', 
     soal: [
       {
-        id: 'gn1',
-        tipe: 'pg',
-        tanya: 'Berapa jumlah kromosom pada manusia?',
-        opsi: [
-          '22 pasang',
-          '23 pasang',
-          '44 kromosom',
-          '48 kromosom'
-        ],
-        kunci: 1,
-        bahas: `
-          <p><b>Penjelasan:</b> Manusia memiliki 46 kromosom atau 23 pasang kromosom. 
-          Terdiri atas 22 pasang autosom dan 1 pasang kromosom seks.</p>
-        `
-      },
-      {
-        id: 'gn2',
-        tipe: 'pg',
-        tanya: 'Gen merupakan ...',
-        opsi: [
-          'Materi genetik utama dalam inti sel',
-          'Segmen DNA yang membawa informasi untuk sifat tertentu',
-          'Struktur berbentuk batang yang tersusun atas DNA dan protein',
-          'Molekul pembawa asam amino ke ribosom'
-        ],
-        kunci: 1,
-        bahas: `
-          <p><b>Penjelasan:</b> Gen adalah segmen DNA yang berfungsi sebagai unit pewarisan sifat 
-          dan mengandung instruksi pembentukan protein.</p>
-        `
-      },
-      {
-        id: 'gn3',
-        tipe: 'pg',
-        tanya: 'Pada struktur DNA, Adenin selalu berpasangan dengan ...',
-        opsi: [
-          'Guanin',
-          'Sitosin',
-          'Timin',
-          'Urasil'
-        ],
-        kunci: 2,
-        bahas: `
-          <p><b>Penjelasan:</b> Pada DNA, pasangan basa adalah Adenin (A) dengan Timin (T), 
-          serta Sitosin (C) dengan Guanin (G).</p>
-        `
-      },
-      {
-        id: 'gn4',
-        tipe: 'pg',
-        tanya: 'Tahap translasi dalam sintesis protein terjadi di ...',
-        opsi: [
-          'Inti sel',
-          'Ribosom',
-          'Mitokondria',
-          'Sitoplasma luar'
-        ],
-        kunci: 1,
-        bahas: `
-          <p><b>Penjelasan:</b> Translasi berlangsung di ribosom, di mana mRNA diterjemahkan 
-          dan asam amino dirangkai menjadi protein.</p>
-        `
-      }
+    id: 'sp1',
+    tipe: 'pg',
+    tanya: 'Jika DNA sense adalah 5’ – ATG GAA TTT TGC TAA – 3’, maka mRNA hasil transkripsi adalah ...',
+    opsi: [
+      '5’ – UAC CUU AAA ACG AUU – 3’',
+      '5’ – AUG GAA UUU UGC UAA – 3’',
+      '3’ – UAC CUU AAA ACG AUU – 5’',
+      '3’ – AUG GAA UUU UGC UAA – 5’'
+    ],
+    kunci: 1,
+    bahas: `
+      <p><b>Penjelasan:</b> mRNA disintesis dari rantai DNA antisense dengan mengganti T menjadi U.
+      Hasilnya adalah 5’ – AUG GAA UUU UGC UAA – 3’.</p>
+    `
+  },
+  {
+    id: 'sp2',
+    tipe: 'pg',
+    tanya: 'Kodon start pada mRNA 5’ – AUG GAA UUU UGC UAA – 3’ adalah ...',
+    opsi: [
+      'GAA',
+      'UUU',
+      'UGC',
+      'AUG'
+    ],
+    kunci: 3,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon start selalu AUG, yang mengkode asam amino metionin dan 
+      menjadi awal translasi.</p>
+    `
+  },
+  {
+    id: 'sp3',
+    tipe: 'pg',
+    tanya: 'Antikodon yang berpasangan dengan kodon GAA pada mRNA adalah ...',
+    opsi: [
+      'CUU',
+      'UUC',
+      'GAA',
+      'AAG'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon GAA pada mRNA akan berpasangan dengan antikodon CUU pada tRNA.</p>
+    `
+  },
+  {
+    id: 'sp4',
+    tipe: 'pg',
+    tanya: 'Urutan asam amino yang terbentuk dari mRNA 5’ – AUG GAA UUU UGC UAA – 3’ adalah ...',
+    opsi: [
+      'Metionin – Glutamat – Fenilalanin – Sistein',
+      'Metionin – Glisin – Tirosin – Valin',
+      'Leusin – Glutamat – Alanin – Stop',
+      'Metionin – Alanin – Valin – Stop'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> Penerjemahan kodon:
+      AUG = Metionin, GAA = Glutamat, UUU = Fenilalanin, UGC = Sistein, UAA = Stop.
+      Jadi urutannya adalah Metionin – Glutamat – Fenilalanin – Sistein.</p>
+    `
+  },
+{
+    id: 'sp5',
+    tipe: 'pg',
+    tanya: 'Proses pembentukan mRNA dari DNA disebut ...',
+    opsi: [
+      'Translasi',
+      'Replikasi',
+      'Transkripsi',
+      'Transformasi'
+    ],
+    kunci: 2,
+    bahas: `
+      <p><b>Penjelasan:</b> Proses pembentukan mRNA dari DNA disebut <b>transkripsi</b>, terjadi di dalam inti sel.</p>
+    `
+  },
+  {
+    id: 'sp6',
+    tipe: 'pg',
+    tanya: 'Kodon start pada mRNA 5’ – AUG GAA UUU UGC UAA – 3’ adalah ...',
+    opsi: [
+      'GAA',
+      'UUU',
+      'UGC',
+      'AUG'
+    ],
+    kunci: 3,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon start selalu AUG, yang mengkode asam amino metionin dan 
+      menjadi awal translasi.</p>
+    `
+  },
+  {
+    id: 'sp7',
+    tipe: 'pg',
+    tanya: 'Antikodon yang berpasangan dengan kodon GAA pada mRNA adalah ...',
+    opsi: [
+      'CUU',
+      'UUC',
+      'GAA',
+      'AAG'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon GAA pada mRNA akan berpasangan dengan antikodon CUU pada tRNA.</p>
+    `
+  },
+  {
+    id: 'sp8',
+    tipe: 'pg',
+    tanya: 'Urutan asam amino dari mRNA 5’ – AUG GAA UUU UGC UAA – 3’ adalah ...',
+    opsi: [
+      'Metionin – Glutamat – Fenilalanin – Sistein',
+      'Metionin – Glisin – Tirosin – Valin',
+      'Leusin – Glutamat – Alanin – Stop',
+      'Metionin – Alanin – Valin – Stop'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> AUG = Metionin, GAA = Glutamat, UUU = Fenilalanin, UGC = Sistein, UAA = Stop.
+      Jadi urutannya adalah Metionin – Glutamat – Fenilalanin – Sistein.</p>
+    `
+  },
+
+  // ====== Soal CB ======
+  {
+    id: 'sp9',
+    tipe: 'cb',
+    tanya: 'Pilihlah pernyataan yang benar tentang sintesis protein:',
+    opsi: [
+      'Transkripsi terjadi di ribosom',
+      'tRNA membawa asam amino sesuai dengan kodon mRNA',
+      'Translasi terjadi di sitoplasma',
+      'Kodon stop menandai akhir translasi'
+    ],
+    kunci: [1,2,3],
+    bahas: `
+      ❌ Transkripsi terjadi di inti sel, bukan ribosom.  
+      ✅ tRNA membawa asam amino sesuai kodon.  
+      ✅ Translasi berlangsung di ribosom (sitoplasma).  
+      ✅ Kodon stop menghentikan translasi.`
+  },
+  {
+    id: 'sp10',
+    tipe: 'cb',
+    tanya: 'Manakah pernyataan berikut yang benar tentang kodon?',
+    opsi: [
+      'AUG berfungsi sebagai kodon start',
+      'UAA, UAG, dan UGA berfungsi sebagai kodon stop',
+      'Setiap kodon dapat menyandi lebih dari satu asam amino',
+      'Kode genetik bersifat universal'
+    ],
+    kunci: [0,1,3],
+    bahas: `
+      ✅ AUG = start codon (Metionin).  
+      ✅ UAA, UAG, UGA = stop codon.  
+      ❌ Satu kodon hanya menyandi 1 asam amino.  
+      ✅ Kode genetik bersifat universal.`
+  },
+
+  // ====== Soal BS ======
+  {
+    id: 'sp11',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (✔️) atau salah (❌) dari pernyataan berikut:',
+    opsi: [
+      'Transkripsi terjadi di ribosom.',
+      'tRNA membawa asam amino sesuai antikodonnya.',
+      'Kodon stop menandai akhir translasi.',
+      'Metionin selalu menjadi asam amino pertama dalam sintesis protein.'
+    ],
+    kunci: [false, true, true, true],
+    bahas: `
+      ❌ Transkripsi terjadi di inti sel.  
+      ✅ tRNA membawa asam amino.  
+      ✅ Kodon stop mengakhiri translasi.  
+      ✅ AUG = Metionin sebagai asam amino pertama.`
+  },
+  {
+    id: 'sp12',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) mengenai sintesis protein:',
+    opsi: [
+      'DNA langsung diterjemahkan menjadi protein.',
+      'mRNA adalah salinan gen yang akan diterjemahkan.',
+      'Setiap asam amino dibawa oleh tRNA.',
+      'Polipeptida terbentuk dari ikatan peptida antar asam amino.'
+    ],
+    kunci: [false, true, true, true],
+    bahas: `
+      ❌ DNA tidak langsung diterjemahkan, harus jadi mRNA dulu.  
+      ✅ mRNA adalah salinan gen.  
+      ✅ tRNA membawa asam amino.  
+      ✅ Asam amino dihubungkan dengan ikatan peptida membentuk polipeptida.`
+  },
+ {
+    id: 'sp13',
+    tipe: 'pg',
+    tanya: 'Jika DNA sense adalah 5’ – ATG GAA TTT – 3’, maka urutan mRNA hasil transkripsi adalah ...',
+    opsi: [
+      '5’ – UAC CUU AAA – 3’',
+      '5’ – AUG GAA UUU – 3’',
+      '5’ – TAC CTT AAA – 3’',
+      '5’ – ATG GAA TTT – 3’'
+    ],
+    kunci: 1,
+    bahas: `
+      <p><b>Penjelasan:</b> mRNA sama dengan DNA sense, tetapi T diganti dengan U.  
+      Jadi: ATG GAA TTT → AUG GAA UUU.</p>
+    `
+  },
+  {
+    id: 'sp14',
+    tipe: 'pg',
+    tanya: 'Kodon pertama (start) dari mRNA 5’ – AUG GAA UUU – 3’ adalah ...',
+    opsi: [
+      'AUG',
+      'GAA',
+      'UUU',
+      'CUU'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon pertama adalah AUG, berfungsi sebagai start codon dan menyandi Metionin.</p>
+    `
+  },
+  {
+    id: 'sp15',
+    tipe: 'pg',
+    tanya: 'Antikodon tRNA yang berpasangan dengan kodon GAA adalah ...',
+    opsi: [
+      'CUU',
+      'UUC',
+      'AAG',
+      'UUU'
+    ],
+    kunci: 0,
+    bahas: `
+      <p><b>Penjelasan:</b> Kodon GAA pada mRNA → antikodon CUU pada tRNA.</p>
+    `
+  },
+
+  // ===== Soal CB =====
+  {
+    id: 'sp16',
+    tipe: 'cb',
+    tanya: 'Dari mRNA 5’ – AUG GAA UUU – 3’, manakah asam amino yang benar?',
+    opsi: [
+      'AUG → Metionin',
+      'GAA → Glutamat',
+      'UUU → Fenilalanin',
+      'UUU → Alanin'
+    ],
+    kunci: [0,1,2],
+    bahas: `
+      ✅ AUG = Metionin (Start).  
+      ✅ GAA = Glutamat.  
+      ✅ UUU = Fenilalanin.  
+      ❌ UUU bukan Alanin.`
+  },
+  {
+    id: 'sp17',
+    tipe: 'cb',
+    tanya: 'Manakah urutan antikodon yang benar dari mRNA 5’ – AUG GAA UUU – 3’?',
+    opsi: [
+      'UAC – CUU – AAA',
+      'UAC – GAA – UUU',
+      'AUG – CUU – UUU',
+      'UAC – CUU – UUC'
+    ],
+    kunci: [0],
+    bahas: `
+      <p><b>Penjelasan:</b> Antikodon adalah komplemen kodon:  
+      AUG → UAC, GAA → CUU, UUU → AAA.</p>
+    `
+  },
+
+  // ===== Soal BS =====
+  {
+    id: 'sp18',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (✔️) atau salah (❌) dari pernyataan berikut:',
+    opsi: [
+      'DNA sense 5’ – ATG GAA TTT – 3’ menghasilkan mRNA 5’ – AUG GAA UUU – 3’.',
+      'Kodon AUG selalu menyandi asam amino Glisin.',
+      'Antikodon CUU berpasangan dengan kodon GAA.',
+      'Asam amino yang dihasilkan: Metionin – Glutamat – Fenilalanin.'
+    ],
+    kunci: [true, false, true, true],
+    bahas: `
+      ✅ ATG → AUG.  
+      ❌ AUG menyandi Metionin, bukan Glisin.  
+      ✅ GAA berpasangan dengan CUU.  
+      ✅ Asam amino: Met – Glu – Phe.`
+  },
+  {
+    id: 'sp19',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) mengenai kode genetik:',
+    opsi: [
+      'Satu kodon dapat menyandi lebih dari satu asam amino.',
+      'Kode genetik bersifat universal.',
+      'Kodon stop tidak menyandi asam amino apapun.',
+      'Kodon start adalah AUG.'
+    ],
+    kunci: [false, true, true, true],
+    bahas: `
+      ❌ Satu kodon hanya untuk satu asam amino.  
+      ✅ Kode genetik bersifat universal.  
+      ✅ Stop codon (UAA, UAG, UGA) tidak menyandi asam amino.  
+      ✅ Start codon adalah AUG (Metionin).`
+  },
+
+  // ===== Tambahan Soal PG & CB =====
+  {
+    id: 'sp20',
+    tipe: 'pg',
+    tanya: 'Jika mRNA adalah 5’ – AUG UUU GGC UAA – 3’, maka asam amino yang terbentuk adalah ...',
+    opsi: [
+      'Metionin – Fenilalanin – Glisin',
+      'Metionin – Glutamat – Alanin',
+      'Fenilalanin – Glisin – Stop',
+      'Metionin – Alanin – Stop'
+    ],
+    kunci: 0,
+    bahas: `
+      AUG = Metionin,  
+      UUU = Fenilalanin,  
+      GGC = Glisin,  
+      UAA = Stop.`
+  },
+  {
+    id: 'sp21',
+    tipe: 'cb',
+    tanya: 'Dari rantai DNA sense 5’ – ATG TTT GGC TAA – 3’, pilihlah hasil yang benar:',
+    opsi: [
+      'mRNA = 5’ – AUG UUU GGC UAA – 3’',
+      'Kodon = AUG – UUU – GGC – UAA',
+      'Antikodon = UAC – AAA – CCG – AUU',
+      'Asam amino = Met – Phe – Gly – Stop'
+    ],
+    kunci: [0,1,2,3],
+    bahas: `
+      ✅ DNA sense ditranskripsi jadi AUG UUU GGC UAA.  
+      ✅ Kodon dibaca per 3 basa.  
+      ✅Antikodon : UAC – AAA – CCG – AUU.  
+      ✅ Asam amino: Met – Phe – Gly – Stop.`
+  },
+  {
+    id: 'sp22',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) mengenai sintesis protein berikut:',
+    opsi: [
+      'Transkripsi DNA → mRNA terjadi di inti sel.',
+      'Translasi mRNA → protein terjadi di ribosom.',
+      'Antikodon terdapat pada mRNA.',
+      'Ikatan peptida terbentuk antar asam amino.'
+    ],
+    kunci: [true, true, false, true],
+    bahas: `
+      ✅ Transkripsi di inti.  
+      ✅ Translasi di ribosom.  
+      ❌ Antikodon ada pada tRNA, bukan mRNA.  
+      ✅ Ikatan peptida menyatukan asam amino.`
+  },
+{
+    id: 'sp23',
+    tipe: 'pg',
+    tanya: 'Jika DNA sense adalah 5’ – TAC GCT TTT – 3’, maka urutan mRNA hasil transkripsi adalah ...',
+    opsi: [
+      '5’ – AUG CGA AAA – 3’',
+      '5’ – UAC GCU UUU – 3’',
+      '5’ – ATG GCT TTT – 3’',
+      '5’ – AUG GCU AAA – 3’'
+    ],
+    kunci: 0,
+    bahas: `DNA sense TAC GCT TTT → mRNA AUG CGA AAA (T diganti U).`
+  },
+  {
+    id: 'sp24',
+    tipe: 'pg',
+    tanya: 'Kodon UUU pada mRNA akan menyandi asam amino ...',
+    opsi: [
+      'Glutamat',
+      'Fenilalanin',
+      'Metionin',
+      'Alanina'
+    ],
+    kunci: 1,
+    bahas: `UUU = Fenilalanin.`
+  },
+  {
+    id: 'sp25',
+    tipe: 'pg',
+    tanya: 'Jika kodon mRNA adalah GCU, maka antikodon tRNA yang tepat adalah ...',
+    opsi: [
+      'CGA',
+      'UGC',
+      'GCU',
+      'CGA atau UGC'
+    ],
+    kunci: 0,
+    bahas: `GCU (mRNA) → CGA (antikodon tRNA).`
+  },
+
+  // ===== Soal CB =====
+  {
+    id: 'sp26',
+    tipe: 'cb',
+    tanya: 'Dari mRNA 5’ – AUG UGC UAA – 3’, pilih pernyataan benar:',
+    opsi: [
+      'AUG = Start codon',
+      'UGC = Sistein',
+      'UAA = Stop codon',
+      'UGC = Glisin'
+    ],
+    kunci: [0,1,2],
+    bahas: `✅ AUG start codon, ✅ UGC = Sistein, ✅ UAA stop codon, ❌ bukan Glisin.`
+  },
+  {
+    id: 'sp27',
+    tipe: 'cb',
+    tanya: 'Manakah yang benar tentang DNA sense 5’ – ATG CCT TAA – 3’?',
+    opsi: [
+      'mRNA = 5’ – AUG CCU UAA – 3’',
+      'Asam amino = Met – Pro – Stop',
+      'Antikodon = UAC – GGA – AUU',
+      'Kodon stop = UAA'
+    ],
+    kunci: [0,1,3],
+    bahas: `✅ mRNA benar, ✅ Met-Pro-Stop, ✅ antikodon benar UAC – GGA – AUU, ✅ UAA stop.`
+  },
+
+  // ===== Soal BS =====
+  {
+    id: 'sp28',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (✔️) atau salah (❌):',
+    opsi: [
+      'Antikodon terdapat pada tRNA.',
+      'Start codon selalu UAA.',
+      'Kodon UGG menyandi Triptofan.',
+      'Transkripsi terjadi di sitoplasma.'
+    ],
+    kunci: [true, false, true, false],
+    bahas: `✅ Antikodon ada di tRNA. ❌ Start codon = AUG. ✅ UGG = Triptofan. ❌ Transkripsi di inti.`
+  },
+  {
+    id: 'sp29',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) mengenai kode genetik:',
+    opsi: [
+      'Kodon bersifat triplet (3 basa).',
+      'Kode genetik bersifat degeneratif (satu asam amino bisa lebih dari satu kodon).',
+      'Kodon UAA, UAG, dan UGA adalah kodon stop.',
+      'Metionin dapat disandi oleh lebih dari satu kodon.'
+    ],
+    kunci: [true, true, true, false],
+    bahas: `✅ Triplet, ✅ Degeneratif, ✅ Stop codon: UAA, UAG, UGA. ❌ Metionin hanya AUG.`
+  },
+
+  // ===== Tambahan HOTS sederhana =====
+  {
+    id: 'sp30',
+    tipe: 'pg',
+    tanya: 'Jika terjadi mutasi pada mRNA dari 5’ – AUG UUU GGA – 3’ menjadi 5’ – AUG UUC GGA – 3’, maka akibatnya adalah ...',
+    opsi: [
+      'Asam amino berubah dari Fenilalanin → Leusin',
+      'Tidak ada perubahan asam amino',
+      'Asam amino Fenilalanin tetap terbentuk',
+      'Stop codon terbentuk'
+    ],
+    kunci: 1,
+    bahas: `UUU dan UUC sama-sama menyandi Fenilalanin, jadi tidak ada perubahan (mutasi sinonim).`
+  },
+  {
+    id: 'sp31',
+    tipe: 'cb',
+    tanya: 'Dari mRNA 5’ – AUG GCU UGG UAA – 3’, manakah pernyataan benar?',
+    opsi: [
+      'Asam amino: Met – Ala – Trp – Stop',
+      'Antikodon: UAC – CGA – ACC – AUU',
+      'UGG = Triptofan',
+      'UAA = Stop codon'
+    ],
+    kunci: [0,1,2,3],
+    bahas: `✅ Urutan asam amino Met-Ala-Trp-Stop, ✅ UGG Triptofan, ✅ UAA stop. ✅ Antikodon salah (yang benar: UAC – CGA – ACC – AUU).`
+  },
+  {
+    id: 'sp32',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (✔️) atau salah (❌):',
+    opsi: [
+      'Mutasi nonsense menghasilkan kodon stop prematur.',
+      'Mutasi missense mengubah satu asam amino.',
+      'Mutasi sinonim mengubah urutan basa tapi tidak mengubah asam amino.',
+      'Mutasi frameshift terjadi jika ada substitusi satu basa.'
+    ],
+    kunci: [true, true, true, false],
+    bahas: `✅ Nonsense = kodon stop, ✅ Missense = ubah asam amino, ✅ Sinonim = tidak ubah asam amino, ❌ Frameshift karena insersi/delesi, bukan substitusi.`
+  },
+{
+    id: 'sp33',
+    tipe: 'pg',
+    tanya: 'Mutasi yang menghasilkan kodon stop prematur disebut ...',
+    opsi: [
+      'Silent mutation',
+      'Missense mutation',
+      'Nonsense mutation',
+      'Frameshift mutation'
+    ],
+    kunci: 2,
+    bahas: `Nonsense mutation = terbentuk kodon stop prematur → protein terpotong.`
+  },
+  {
+    id: 'sp34',
+    tipe: 'pg',
+    tanya: 'Jika mRNA normal adalah 5’ – AUG UUU GAA UGA – 3’, lalu berubah menjadi 5’ – AUG UUA GAA UGA – 3’, maka mutasi yang terjadi adalah ...',
+    opsi: [
+      'Silent',
+      'Missense',
+      'Nonsense',
+      'Frameshift'
+    ],
+    kunci: 1,
+    bahas: `UUU (Fenilalanin) → UUA (Leusin), artinya terjadi perubahan satu asam amino = missense mutation.`
+  },
+  {
+    id: 'sp35',
+    tipe: 'pg',
+    tanya: 'Mutasi akibat hilangnya satu basa nitrogen pada DNA disebut ...',
+    opsi: [
+      'Silent mutation',
+      'Frameshift mutation',
+      'Missense mutation',
+      'Nonsense mutation'
+    ],
+    kunci: 1,
+    bahas: `Hilang/tambah basa menyebabkan pergeseran rangka baca (frameshift mutation).`
+  },
+
+  // ===== Soal CB =====
+  {
+    id: 'sp36',
+    tipe: 'cb',
+    tanya: 'Pilih yang benar tentang silent mutation:',
+    opsi: [
+      'Tidak mengubah asam amino yang terbentuk',
+      'Terjadi karena kode genetik bersifat degeneratif',
+      'Selalu menghasilkan protein tidak normal',
+      'Contoh: UUU → UUC tetap menghasilkan Fenilalanin'
+    ],
+    kunci: [0,1,3],
+    bahas: `✅ Tidak mengubah asam amino, ✅ degeneratif, ✅ contoh UUU → UUC = Fenilalanin, ❌ tidak selalu menghasilkan protein abnormal.`
+  },
+  {
+    id: 'sp37',
+    tipe: 'cb',
+    tanya: 'Manakah yang termasuk mutasi frameshift?',
+    opsi: [
+      'Insersi satu basa',
+      'Delesi satu basa',
+      'Substitusi satu basa',
+      'Duplikasi basa'
+    ],
+    kunci: [0,1],
+    bahas: `✅ Insersi/delesi satu basa = frameshift. ❌ Substitusi = missense/nonsense/silent, ❌ Duplikasi bukan frameshift.`
+  },
+
+  // ===== Soal BS =====
+  {
+    id: 'sp38',
+    tipe: 'bs',
+    tanya: 'Tentukan benar (✔️) atau salah (❌):',
+    opsi: [
+      'Missense mutation mengubah satu asam amino.',
+      'Nonsense mutation menghasilkan protein lebih panjang.',
+      'Frameshift mutation menggeser urutan kodon setelah titik mutasi.',
+      'Silent mutation dapat terjadi tanpa memengaruhi fenotipe.'
+    ],
+    kunci: [true, false, true, true],
+    bahas: `✅ Missense = ubah 1 asam amino, ❌ Nonsense = protein lebih pendek, ✅ Frameshift geser kodon, ✅ Silent tidak selalu pengaruh fenotipe.`
+  },
+  {
+    id: 'sp39',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) tentang mutasi genetik:',
+    opsi: [
+      'Frameshift mutation lebih berbahaya dibanding silent mutation.',
+      'Substitusi basa selalu menghasilkan nonsense mutation.',
+      'Mutasi sinonim tidak mengubah urutan asam amino.',
+      'Mutasi dapat terjadi secara spontan maupun akibat mutagen.'
+    ],
+    kunci: [true, false, true, true],
+    bahas: `✅ Frameshift lebih berbahaya, ❌ Substitusi bisa silent/missense juga, ✅ Sinonim = tidak ubah asam amino, ✅ Mutasi bisa spontan/induksi.`
+  },
+
+  // ===== Tambahan HOTS =====
+  {
+    id: 'sp40',
+    tipe: 'pg',
+    tanya: 'Pada mRNA 5’ – AUG GAA UUU UGC UAA – 3’, terjadi delesi pada basa ke-5. Apa akibatnya?',
+    opsi: [
+      'Terjadi silent mutation',
+      'Protein tetap normal',
+      'Terjadi frameshift mutation',
+      'Terjadi nonsense mutation langsung'
+    ],
+    kunci: 2,
+    bahas: `Hilangnya satu basa → reading frame bergeser → frameshift mutation → seluruh urutan asam amino berubah.`
+  },
+  {
+    id: 'sp41',
+    tipe: 'cb',
+    tanya: 'Contoh berikut merupakan missense mutation, kecuali ...',
+    opsi: [
+      'GAG (Glu) → GUG (Val) → Sickle cell anemia',
+      'AUG (Met) → UAG (Stop)',
+      'UCU (Ser) → CCU (Pro)',
+      'UUU (Phe) → UUA (Leu)'
+    ],
+    kunci: [1],
+    bahas: `✅ AUG → UAG menghasilkan stop prematur = nonsense mutation, bukan missense.`
+  },
+  {
+    id: 'sp42',
+    tipe: 'bs',
+    tanya: 'Benar (✔️) atau salah (❌) mengenai hubungan mutasi dengan penyakit:',
+    opsi: [
+      'Sickle cell anemia terjadi karena missense mutation.',
+      'Kanker dapat dipicu oleh mutasi gen pengatur siklus sel.',
+      'Nonsense mutation tidak pernah berbahaya.',
+      'Cystic fibrosis dapat disebabkan oleh delesi tiga basa (frameshift).'
+    ],
+    kunci: [true, true, false, false],
+    bahas: `✅ Sickle cell = missense (Glu → Val). ✅ Kanker = mutasi gen regulator. ❌ Nonsense bisa berbahaya. ❌ Cystic fibrosis klasik karena delesi 3 basa (ΔF508), tapi tidak frameshift.`
+  },
     ]
   },
 
