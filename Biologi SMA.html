@@ -85,9 +85,10 @@
           </div>
           <div class="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
             <h2 class="font-bold text-xl flex items-center gap-2">🎬 Video Pembelajaran</h2>
-            <div id="materiVideo" class="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 flex items-center justify-center text-gray-400">
-              <span class="text-sm">Pilih materi untuk memuat video…</span>
-            </div>
+            <div id="materiVideo" class="w-full space-y-4">
+  <span class="text-sm text-gray-400">Pilih materi untuk memuat video…</span>
+</div>
+
           </div>
         </div>
       </div>
@@ -816,7 +817,8 @@
   </table>
 </div>
     `,
-    video: 'pRLzqHAWTcs', 
+    video: ['pRLzqHAWTcs','pRLzqHAWTcs'],
+ 
     soal: [
       {
     id: 'sp1',
@@ -1695,22 +1697,33 @@
   }
 
   function renderMateri(mapel, bab){
-    const item = DB[mapel]?.bab?.[bab];
-    if(!item){
-      $('#materiKonten').innerHTML = '<p class="text-gray-500">Materi belum tersedia.</p>';
-      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
-      return;
-    }
-    $('#materiKonten').innerHTML = item.materi;
-    if(item.video){
-      $('#materiVideo').innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${item.video}" title="Video pembelajaran" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-    } else {
-      $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
-    }
-if(window.MathJax){
+  const item = DB[mapel]?.bab?.[bab];
+  if(!item){
+    $('#materiKonten').innerHTML = '<p class="text-gray-500">Materi belum tersedia.</p>';
+    $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+    return;
+  }
+  $('#materiKonten').innerHTML = item.materi;
+
+  if(item.video && item.video.length > 0){
+  $('#materiVideo').innerHTML = item.video.map(v =>
+    `<div class="w-full aspect-video mb-4">
+       <iframe class="w-full h-full rounded-lg shadow"
+         src="https://www.youtube.com/embed/${v}"
+         title="Video pembelajaran"
+         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+         allowfullscreen></iframe>
+     </div>`
+  ).join('');
+} else {
+  $('#materiVideo').innerHTML = '<span class="text-sm">Video belum tersedia.</span>';
+}
+
+
+  if(window.MathJax){
     MathJax.typesetPromise([$('#materiKonten')]);
   }
-  }
+}
 
   function buildSoalCard(q, idx, prefix){
   const wrap = document.createElement('div');
