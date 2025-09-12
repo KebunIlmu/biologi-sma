@@ -37,7 +37,7 @@
       <nav class="hidden sm:flex items-center gap-2">
         <button data-tab="materi" class="tab-btn btn px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow hover:shadow-md">Materi</button>
         <button data-tab="latihan" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Latihan Soal</button>
-        <button data-tab="simulasi" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Simulasi TKA</button>
+        <button data-tab="simulasi" class="tab-btn btn px-3 py-2 rounded-xl bg-white text-gray-700 text-sm font-medium border chip hover:bg-gray-50">Simulasi</button>
       </nav>
     </div>
   </header>
@@ -129,7 +129,7 @@
         </div>
         <div class="md:col-span-2 p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm">
           <div class="flex items-center justify-between">
-            <h2 class="font-bold text-xl">Simulasi TKA</h2>
+            <h2 class="font-bold text-xl">Simulasi</h2>
             <div id="simInfo" class="text-sm text-gray-600">Belum mulai</div>
           </div>
           <div id="simContainer" class="mt-3 space-y-4"></div>
@@ -349,7 +349,7 @@
   `
 ,
 
-      video: 'ouDcvX4fgHw', 
+      video: ['ouDcvX4fgHw'], 
       soal: [
 {
   id: 'ps1',
@@ -770,18 +770,80 @@
     </ul>
 
     <h3 class="text-lg font-semibold mt-4">4. Proses Sintesis Protein</h3>
-    <p>
-      Sintesis protein adalah proses pembentukan protein berdasarkan informasi dari DNA. 
-      Proses ini berlangsung dalam dua tahap utama:
-    </p>
-    <ul class="list-disc ml-6 mb-4">
-      <li><b>Transkripsi:</b> DNA ditranskripsi menjadi mRNA di dalam inti sel.</li>
-      <li><b>Translasi:</b> mRNA diterjemahkan oleh ribosom dengan bantuan tRNA untuk merangkai asam amino menjadi protein.</li>
+<p class="mb-2">
+  Sintesis protein adalah proses pembentukan protein berdasarkan informasi genetik yang terdapat dalam DNA. 
+  Protein yang dihasilkan sangat penting karena berperan sebagai enzim, hormon, antibodi, serta penyusun struktur sel. 
+  Proses ini berlangsung dalam dua tahap utama, yaitu <b>transkripsi</b> dan <b>translasi</b>.
+</p>
+
+<ul class="list-disc ml-6 mb-4">
+  <li>
+    <b>Transkripsi:</b> 
+    <ul class="list-[circle] ml-6 mt-1">
+      <li>Terjadi di dalam inti sel (nukleus).</li>
+      <li>DNA membuka diri (unwinding) pada bagian gen tertentu yang berisi kode protein.</li>
+      <li>Enzim RNA polimerase membaca salah satu untai DNA dan menyusun molekul <b>mRNA</b> komplementer.</li>
+      <li>mRNA yang terbentuk membawa salinan informasi genetik keluar dari inti menuju sitoplasma.</li>
     </ul>
-    <p>
-      Hasil akhir sintesis protein adalah terbentuknya protein yang memiliki fungsi tertentu 
-      dalam tubuh, misalnya enzim, hormon, atau antibodi.
-    </p>
+  </li>
+  <li class="mt-2">
+    <b>Translasi:</b> 
+    <ul class="list-[circle] ml-6 mt-1">
+      <li>Terjadi di ribosom (yang bisa berada bebas di sitoplasma atau menempel pada retikulum endoplasma kasar).</li>
+      <li>mRNA dibaca secara berurutan dalam triplet basa yang disebut <b>kodon</b>.</li>
+      <li>Setiap kodon akan dikenali oleh <b>tRNA</b> yang membawa asam amino tertentu.</li>
+      <li>Asam amino dirangkai satu per satu sesuai urutan kodon hingga terbentuk rantai polipeptida.</li>
+      <li>Polipeptida kemudian mengalami pelipatan dan modifikasi menjadi protein fungsional.</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="mb-2">
+  Selain dua tahap utama tersebut, terdapat proses tambahan yang penting:
+</p>
+<ul class="list-disc ml-6 mb-4">
+  <li><b>Splicing:</b> Pada organisme eukariotik, mRNA awal (pre-mRNA) akan dipotong untuk membuang intron (bagian non-coding) dan menyambungkan ekson (bagian coding).</li>
+  <li>
+  <b>Inisiasi, Elongasi, Terminasi:</b> Dalam translasi terdapat tiga fase penting yang terjadi secara berurutan:
+  <ul class="list-[circle] ml-6 mt-1">
+    <li>
+      <b>Inisiasi:</b>
+      <ul class="list-[square] ml-6 mt-1">
+        <li>Proses dimulai ketika subunit kecil ribosom menempel pada ujung 5’ mRNA.</li>
+        <li>Ribosom mencari kodon awal (<b>AUG</b>) yang merupakan sinyal mulai translasi.</li>
+        <li>tRNA khusus yang membawa asam amino <b>metionin</b> masuk dan berikatan dengan kodon AUG.</li>
+        <li>Subunit besar ribosom kemudian bergabung, membentuk ribosom lengkap yang siap memulai translasi.</li>
+      </ul>
+    </li>
+    <li class="mt-2">
+      <b>Elongasi:</b>
+      <ul class="list-[square] ml-6 mt-1">
+        <li>Ribosom memiliki tiga tempat penting: <b>A-site</b> (tempat masuk tRNA baru), <b>P-site</b> (tempat tRNA membawa rantai asam amino), dan <b>E-site</b> (tempat keluarnya tRNA kosong).</li>
+        <li>tRNA berikutnya membawa asam amino sesuai kodon mRNA yang sedang dibaca.</li>
+        <li>Enzim ribosom membentuk ikatan peptida antara asam amino lama dan baru.</li>
+        <li>Ribosom bergeser satu kodon ke depan (translokasi), sehingga rantai polipeptida makin panjang.</li>
+        <li>Proses ini berulang hingga seluruh mRNA terbaca.</li>
+      </ul>
+    </li>
+    <li class="mt-2">
+      <b>Terminasi:</b>
+      <ul class="list-[square] ml-6 mt-1">
+        <li>Ketika ribosom mencapai <b>kodon stop</b> (UAA, UAG, atau UGA), tidak ada tRNA yang sesuai dengan kodon ini.</li>
+        <li>Protein khusus yang disebut <b>faktor terminasi</b> menempel pada ribosom.</li>
+        <li>Rantai polipeptida dilepaskan dari ribosom.</li>
+        <li>Subunit ribosom terpisah kembali, siap digunakan untuk translasi berikutnya.</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p>
+  Hasil akhir sintesis protein adalah terbentuknya protein dengan fungsi spesifik, 
+  seperti enzim untuk mempercepat reaksi biokimia, hormon sebagai pengatur metabolisme, 
+  atau antibodi untuk sistem pertahanan tubuh.
+</p>
+
 <h3 class="text-lg font-semibold mt-4">5. Tabel Kodon mRNA dan Asam Amino</h3>
 <div class="overflow-x-auto my-4">
   <table class="table-auto border border-gray-400 w-full text-sm">
@@ -817,7 +879,7 @@
   </table>
 </div>
     `,
-    video: ['pRLzqHAWTcs','pRLzqHAWTcs'],
+    video: ['pRLzqHAWTcs','2ks9fiBBTuA','tzRjsstgnJc'],
  
     soal: [
       {
